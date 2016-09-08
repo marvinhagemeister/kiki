@@ -1,0 +1,13 @@
+.DS_Store
+
+node_modules/*
+*.log
+sites/_default/public/assets/js/bundle.js
+*.map
+sites/_default/public/assets/css/main.min.css
+sites/_default/public/assets/js/precompiled-templates.js
+
+tmp/
+
+# VS Code
+jsconfig.json

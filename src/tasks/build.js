@@ -1,28 +1,6 @@
-const glob = require('glob');
+const getConfig = require('../config/getConfig');
+const build = require('../scripts/build');
 
-const config = require('../config/getConfig');
-const sass = require('../scripts/sass');
+process.env.NODE_ENV = 'production';
 
-function render(config) {
-  if (config.sass) {
-    renderSass(config.sass)
-  }
-
-  if (config.js) {
-    renderJs(config.js);
-  }
-}
-
-function renderSass(config) {
-  if (!config) {
-    return;
-  }
-
-  sass(config);
-}
-
-function renderJs(config) {
-
-}
-
-render();
+build(getConfig());

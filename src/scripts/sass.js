@@ -5,6 +5,7 @@ const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const emitter = require('../emitter');
 const mkdirp = require('../utils').mkdirp;
+const glob = require('../utils').glob;
 
 const browsers = [
   '>1%',
@@ -18,17 +19,18 @@ const prefixer = autoprefixer({
 });
 
 function prefix(file) {
-  const to = path.basename(file.stats.entry.replace('.scss', '.css'));
   const map = JSON.stringify(file.map.toString());
 
+  const options = {
+    to: path.basename(file.stats.entry.replace('.scss', '.css')),
+    map: {
+      prev: map,
+      inline: false
+    }
+  };
+
   return postcss([prefixer])
-    .process(file.css, {
-      map: {
-        prev: map,
-        inline: false
-      },
-      to
-    })
+    .process(file.css, options)
     .then(result => {
       result.warnings().forEach(warn => emitter.warning(warn));
       return result;
@@ -70,4 +72,19 @@ function compile(config) {
     }).catch(err => emitter.error(err));
 }
 
-module.exports = compile;
+function build(config) {
+  const start = new Date().getTime();
+  const globOptions = { ignore: '**/_*', follow: true };
+  const { src, dest } = config.sass;
+
+  return glob(src + '*.scss', globOptions)
+    .then(files => files.map(file => compile({
+      src,
+      dest,
+      file,
+      start
+    })))
+    .catch(err => emitter.error(err));
+}
+
+module.exports = build;

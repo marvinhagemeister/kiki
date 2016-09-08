@@ -1,24 +1,10 @@
 const chokidar = require('chokidar');
 const sass = require('./sass');
 const emitter = require('../emitter');
-const glob = require('../utils').glob;
+const getWork = require('../config/utils').getWork;
 
 module.exports = function watch(config) {
-  let watchPaths = [];
-
-  if (config.sass) {
-    emitter.start('sass', config.sass.src);
-    watchPaths.push(config.sass.src);
-  }
-
-  if (config.js) {
-    emitter.start('js', config.js.src);
-    watchPaths.push(config.js.src);
-  }
-
-  if (watchPaths.length === 0) {
-    emitter.nothingToWatch();
-  }
+  const watchPaths = getWork(config);
 
   const watchOpts = {
     ignored: /[\/\\]\./,
@@ -26,23 +12,10 @@ module.exports = function watch(config) {
   };
 
   chokidar.watch(watchPaths, watchOpts).on('all', (event, path) => {
-    console.log();
-    console.log(event + ": " + path);
-
-    const start = new Date().getTime();
+    emitter.change(event, path);
 
     if (/.+\.scss$/.test(path)) {
-      const globOptions = { ignore: '**/_*', follow: true };
-      const { src, dest } = config.sass;
-
-      return glob(src + '*.scss', globOptions)
-        .then(files => files.map(file => sass({
-          src,
-          dest,
-          file,
-          start
-        })))
-        .catch(err => emitter.error(err));
+      sass(config);
     }
   });
 }

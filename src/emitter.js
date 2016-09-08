@@ -3,7 +3,7 @@ const chalk = require('chalk');
 /* eslint-disable no-console */
 
 function start(name, path) {
-  console.log(chalk.white('=> watching sass files at: ') + chalk.yellow(path));
+  console.log(chalk.white('=> compiling ' + name + ' from: ') + chalk.yellow(path));
 }
 
 function nothingToWatch() {
@@ -33,14 +33,18 @@ function error(err) {
 }
 
 function warning(warn) {
-  console.log(chalk.red(warn.text + ' ' + warn.line + ':' + warn.column));
+  console.log(chalk.red(warn.text));
   console.log(chalk.white(warn.node));
-  console.log(chalk.dim('Line: ' + warn.line + ', column: ' + warn.column));
   console.log();
 }
 
 function success(msg) {
   console.log('  ' + chalk.green(msg));
+}
+
+function change(event, path) {
+  console.log();
+  console.log(event + ": " + path);
 }
 
 module.exports = {
@@ -51,5 +55,6 @@ module.exports = {
   warning,
   success,
   invalidJson,
-  missingConfig
+  missingConfig,
+  change
 };

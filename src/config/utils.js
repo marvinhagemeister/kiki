@@ -1,5 +1,6 @@
 const path = require('path');
 const chalk = require('chalk');
+const emitter = require('../emitter');
 
 function resolveApp(relativePath) {
   return path.resolve(relativePath);
@@ -41,7 +42,28 @@ function validateConfig(config) {
   return null;
 }
 
+function getWork(config) {
+  let paths = [];
+
+  if (config.sass) {
+    emitter.start('sass', config.sass.src);
+    paths.push(config.sass.src);
+  }
+
+  if (config.js) {
+    emitter.start('js', config.js.src);
+    paths.push(config.js.src);
+  }
+
+  if (paths.length === 0) {
+    emitter.nothingToWatch();
+  }
+
+  return paths;
+}
+
 module.exports = {
   resolveApp,
-  validateConfig
+  validateConfig,
+  getWork
 };

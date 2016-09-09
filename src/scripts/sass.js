@@ -3,9 +3,9 @@ const path = require('path');
 const sass = require('node-sass');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
+const sassGraph = require('sass-graph');
 const emitter = require('../emitter');
-const mkdirp = require('../utils').mkdirp;
-const glob = require('../utils').glob;
+const { mkdirp, glob } = require('../utils');
 
 const browsers = [
   '>1%',
@@ -75,7 +75,7 @@ function compile(config) {
 function build(config) {
   const start = new Date().getTime();
   const globOptions = { ignore: '**/_*', follow: true };
-  const { src, dest } = config.sass;
+  const { src, dest } = config;
 
   return glob(src + '*.scss', globOptions)
     .then(files => files.map(file => compile({
@@ -87,4 +87,25 @@ function build(config) {
     .catch(err => emitter.error(err));
 }
 
-module.exports = build;
+function watch(config) {
+  const start = new Date().getTime();
+  const { src, dest } = config;
+  const graph = sassGraph.parseDir(src, {
+    loadPaths: src
+  });
+
+  const node = graph.index[path.resolve(config.path)];
+  const files = node.importedBy.length > 0 ? node.importedBy : [config.path];
+
+  return files.map(file => compile({
+    src,
+    dest,
+    file,
+    start
+  }))
+}
+
+module.exports = {
+  build,
+  watch
+};

@@ -1,5 +1,5 @@
 const chokidar = require('chokidar');
-const sass = require('./sass');
+const sass = require('./sass').watch;
 const emitter = require('../emitter');
 const getWork = require('../config/utils').getWork;
 
@@ -15,7 +15,8 @@ module.exports = function watch(config) {
     emitter.change(event, path);
 
     if (/.+\.scss$/.test(path)) {
-      sass(config);
+      config.sass.path = path;
+      sass(config.sass);
     }
   });
 }

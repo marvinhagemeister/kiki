@@ -43,6 +43,7 @@ function success(msg) {
 }
 
 function change(event, path) {
+  event = event === 'change' ? 'modified' : event;
   console.log();
   console.log(event + ": " + path);
 }

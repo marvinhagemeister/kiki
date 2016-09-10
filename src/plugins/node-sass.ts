@@ -41,7 +41,7 @@ export function filterSass(opts?: ISassFilterOptions) {
     const lookup: string[] = [];
     let newSassFiles: IFile[] = [];
 
-    sassFiles.forEach(file => { 
+    sassFiles.forEach(file => {
       getRootFiles(opts.searchPath, file).forEach(item => {
         const loc = item.location;
 
@@ -56,36 +56,46 @@ export function filterSass(opts?: ISassFilterOptions) {
   };
 }
 
-export function compile(opts?: Options) {
+interface ISassOptions extends Options {
+  dest?: string;
+}
+
+export function compile(opts: ISassOptions) {
   opts = opts || {};
 
-  return (file: IFile) => {
-    const filename = path.basename(file.location);
-    const out = path.join(file.dest, filename);
-    opts.outFile = replaceExtension(out, "css");
+  return (files: IFile[]) => {
+    return Promise.all(
+      files.map(file => {
+        const filename = path.basename(file.location);
+        const out = path.join(opts.dest, filename);
 
-    if (file.map !== null) {
-      opts.sourceMap = replaceExtension(filename, "css.map");
-    }
+        opts.outFile = replaceExtension(out, "css");
 
-    if (file.content) {
-      opts.data = file.content;
-      opts.file = null;
-    } else {
-      opts.file = file.location;
-      opts.data = null;
-    }
+        if (file.map !== null) {
+          opts.sourceMap = replaceExtension(filename, "css.map");
+        }
 
-    return sass(opts).then((res: Result) => {
-      file.content = res.css.toString();
+        if (file.content) {
+          opts.data = file.content;
+          opts.file = null;
+        } else {
+          opts.file = file.location;
+          opts.data = null;
+        }
 
-      if (file.map !== null) {
-        file.map = JSON.stringify(res.map.toString());
-      }
+        return sass(opts).then((res: Result) => {
+          file.location = replaceExtension(file.location, "css");
+          file.content = res.css.toString();
 
-      return file;
-    }).catch((err: SassError) => {
-      Emitter.error(err);
-    });
+          if (file.map !== null) {
+            file.map = JSON.stringify(res.map.toString());
+          }
+
+          return file;
+        }).catch((err: SassError) => {
+          Emitter.error(err);
+        });
+      })
+    );
   };
 }

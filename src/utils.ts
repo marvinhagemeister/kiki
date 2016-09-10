@@ -24,12 +24,9 @@ export function createLookup(array: ILookup[], key: string): Object {
 
 export function fileFromMatch(matches: string[], options: Object): IFile[] {
   return matches.map(match => {
-    let nFile: IFile = {
-      dest: null,
+    return {
       location: match,
       map: null,
     };
-
-    return Object.assign(nFile, options);
   });
 }

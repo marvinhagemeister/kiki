@@ -1,32 +1,29 @@
 import * as Emitter from "./Emitter";
-import { IFile } from "./interfaces";
-import { fileFromMatch } from "./utils";
 import { compile, filterSass } from "./plugins/node-sass";
+import { fileFromMatch } from "./utils";
+import { writeFiles } from "./writer";
 import * as glob from "glob";
 
 const config = {
   dest: "tmp/",
-  src: "scss/",
+  src: "test/fixtures/",
 };
 
 const globOptions = { follow: true, ignore: "**/_*" };
-glob("test/fixtures/*.scss", globOptions, (err, matches) => {
-  const config = {
-    dest: "tmp/",
-    src: "scss/",
-  };
-
+glob(config.src + "*.scss", globOptions, (err, matches) => {
   Emitter.start("sass", config.src);
 
   const files = fileFromMatch(matches, config);
-  console.log(files);
 
-  // return Promise.resolve(files)
-  //   .then(filterSass({
-  //     searchPath: config.src,
-  //   }))
-  //   .then(compile())
-  //   .catch((ex: Error) => {
-  //     Emitter.error(ex);
-  //   });
+  return Promise.resolve(files)
+    .then(filterSass({
+      searchPath: config.src,
+    }))
+    .then(compile({
+      dest: "/tmp",
+    }))
+    .then(writeFiles("/tmp"))
+    .catch((ex: Error) => {
+      Emitter.error(ex);
+    });
 });

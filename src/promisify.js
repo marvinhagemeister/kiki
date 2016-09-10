@@ -1,4 +1,5 @@
 const glob = require('glob');
+const sass = require('node-sass');
 const mkdirp = require('mkdirp');
 
 function pGlob(path, options) {
@@ -20,7 +21,18 @@ function pMkdirp(path) {
   });
 }
 
+function nodeSass(options) {
+  return new Promise((resolve, reject) => {
+    sass.render(options, (err, result) => {
+      if (err) return reject(err);
+
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   glob: pGlob,
-  mkdirp: pMkdirp
+  mkdirp: pMkdirp,
+  sass: nodeSass
 }

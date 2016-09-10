@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const sass = require('node-sass');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const sassGraph = require('sass-graph');
 const emitter = require('../emitter');
-const { mkdirp, glob } = require('../utils');
+const { mkdirp, glob, sass } = require('../promisify');
 
 const browsers = [
   '>1%',
@@ -41,17 +40,13 @@ function nodeSass(config) {
   const { file, dest, filename } = config;
   const outFile = path.join(dest, filename.replace('.scss', '.css'));
 
-  return new Promise((resolve, reject) => {
-    sass.render({
-      file,
-      outFile,
-      sourceMap: filename + '.map'
-    }, (err, result) => {
-      if (err) return reject(err);
+  const options = {
+    file,
+    outFile,
+    sourceMap: filename + '.map'
+  };
 
-      resolve(result);
-    });
-  });
+  return sass(options);
 }
 
 function compile(config) {

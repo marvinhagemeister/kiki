@@ -22,4 +22,19 @@ describe('getRootFiles', () => {
     }]);
 
   });
+
+  it('should get multiple root files', () => {
+    const file = {
+      location: getFixture('_b.scss'),
+      map: null
+    };
+
+    t.deepEqual(root(fixturePath, file), [{
+      location: getFixture('main.scss'),
+      map: null
+    }, {
+      location: getFixture('main2.scss'),
+      map: null
+    }]);
+  });
 });

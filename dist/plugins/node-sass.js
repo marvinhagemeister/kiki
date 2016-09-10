@@ -1,4 +1,5 @@
 "use strict";
+const Emitter = require("../emitter");
 const utils_1 = require("../utils");
 const Promise = require("bluebird");
 const node_sass_1 = require("node-sass");
@@ -25,14 +26,23 @@ function filterSass(opts) {
         throw new Error("Sass Plugin didn't receive a search path");
     }
     return (files) => {
-        return files.forEach((file, i) => {
-            if (/\.scss$/.test(file.location)) {
-                files.splice(i, 1);
-                getRootFiles(opts.searchPath, file).forEach(item => {
-                    return files.push(item);
-                });
+        const lookup = [];
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!/\.scss$/.test(file.location)) {
+                continue;
             }
-        });
+            if (!/_\w+\.scss$/.test(file.location)) {
+                lookup.push(file.location);
+            }
+            getRootFiles(opts.searchPath, file).forEach(item => {
+                if (lookup.indexOf(item.location) === -1) {
+                    files.push(item);
+                    lookup.push(item.location);
+                }
+            });
+        }
+        return files.filter(file => !/_\w+\.scss$/.test(file.location));
     };
 }
 exports.filterSass = filterSass;
@@ -60,7 +70,7 @@ function compile(opts) {
             }
             return file;
         }).catch((err) => {
-            console.log(err);
+            Emitter.error(err);
         });
     };
 }

@@ -1,19 +1,32 @@
 "use strict";
-const node_sass_1 = require("./plugins/node-sass");
+const Emitter = require("./Emitter");
 const glob = require("glob");
-// const globOptions = { ignore: '**/_*', follow: true };
-glob("test/fixtures/*.scss", (err, matches) => {
-    const files = matches.map(match => {
-        const nFile = {
-            dest: "tmp/",
+function fileFromMatch(matches, options) {
+    return matches.map(match => {
+        let nFile = {
+            dest: null,
             location: match,
             map: null,
         };
-        return nFile;
+        return Object.assign(nFile, options);
     });
+}
+const globOptions = { follow: true, ignore: "**/_*" };
+glob("test/fixtures/*.scss", globOptions, (err, matches) => {
+    const config = {
+        dest: "tmp/",
+        src: "scss/",
+    };
+    Emitter.start("sass", config.src);
+    const files = fileFromMatch(matches, config);
     console.log(files);
-    // return compile()(nFile);
-    const res = node_sass_1.sassInFiles(files);
-    console.log(res);
+    // return Promise.resolve(files)
+    //   .then(filterSass({
+    //     searchPath: config.src,
+    //   }))
+    //   .then(compile())
+    //   .catch((ex: Error) => {
+    //     Emitter.error(ex);
+    //   });
 });
 //# sourceMappingURL=index.js.map

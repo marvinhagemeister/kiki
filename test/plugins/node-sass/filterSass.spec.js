@@ -10,22 +10,52 @@ describe('filterSass', () => {
   });
 
   it('should return only root files', () => {
-    let file = {
+    let files = [{
       location: null,
       map: null
-    }
+    }];
 
-    file.location = getFixture('main.scss');
-    t.deepEqual(filter(fixturePath, file), [{
-      location: file.location,
+    const options = {
+      searchPath: fixturePath
+    };
+
+    files[0].location = getFixture('main.scss');
+
+    t.deepEqual(filter(options)(files), [{
+      location: files[0].location,
       map: null
     }]);
 
-    file.location = getFixture('components/_a.scss');
-    t.deepEqual(filter(fixturePath, file), [{
+    files[0].location = getFixture('components/_a.scss');
+    t.deepEqual(filter(options)(files), [{
       location: getFixture('main.scss'),
       map: null
     }]);
 
+  });
+
+  it('should filter duplicate files', () => {
+    const files = [{
+      location: getFixture('components/_a.scss'),
+      map: null
+    }, {
+      location: getFixture('components/_a.scss'),
+      map: null
+    }, {
+      location: getFixture('_b.scss'),
+      map: null
+    }];
+
+    const options = {
+      searchPath: fixturePath
+    };
+
+    t.deepEqual(filter(options)(files), [{
+      location: getFixture('main.scss'),
+      map: null
+    }, {
+      location: getFixture('main2.scss'),
+      map: null
+    }]);
   });
 });

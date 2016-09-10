@@ -1,3 +1,4 @@
+import * as Emitter from "../emitter";
 import { IFile } from "../interfaces";
 import { replaceExtension } from "../utils";
 import * as Promise from "bluebird";
@@ -34,15 +35,28 @@ export function filterSass(opts?: ISassFilterOptions) {
   }
 
   return (files: IFile[]) => {
-    return files.forEach((file, i) => {
-      if (/\.scss$/.test(file.location)) {
-        files.splice(i, 1);
+    const lookup: string[] = [];
 
-        getRootFiles(opts.searchPath, file).forEach(item => {
-          return files.push(item);
-        });
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (!/\.scss$/.test(file.location)) {
+        continue;
       }
-    });
+
+      if (!/_\w+\.scss$/.test(file.location)) {
+        lookup.push(file.location);
+      }
+
+      getRootFiles(opts.searchPath, file).forEach(item => {
+        if (lookup.indexOf(item.location) === -1) {
+          files.push(item);
+          lookup.push(item.location);
+        }
+      });
+    }
+
+    return files.filter(file => !/_\w+\.scss$/.test(file.location));
   };
 }
 
@@ -75,7 +89,7 @@ export function compile(opts?: Options) {
 
       return file;
     }).catch((err: SassError) => {
-      console.log(err);
+      Emitter.error(err);
     });
   };
 }

@@ -7,4 +7,12 @@ function replaceExtension(file, ext) {
     return path.join(path.dirname(file), nFile);
 }
 exports.replaceExtension = replaceExtension;
+function createLookup(array, key) {
+    let lookup = {};
+    for (let i = 0, len = array.length; i < len; i++) {
+        lookup[array[i][key]] = array[i];
+    }
+    return lookup;
+}
+exports.createLookup = createLookup;
 //# sourceMappingURL=utils.js.map

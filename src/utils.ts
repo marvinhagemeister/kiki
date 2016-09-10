@@ -1,3 +1,4 @@
+import { IFile } from "./interfaces";
 import * as path from "path";
 
 export function replaceExtension(file: string, ext: string) {
@@ -19,4 +20,16 @@ export function createLookup(array: ILookup[], key: string): Object {
   }
 
   return lookup;
+}
+
+export function fileFromMatch(matches: string[], options: Object): IFile[] {
+  return matches.map(match => {
+    let nFile: IFile = {
+      dest: null,
+      location: match,
+      map: null,
+    };
+
+    return Object.assign(nFile, options);
+  });
 }

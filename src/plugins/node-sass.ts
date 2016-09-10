@@ -35,28 +35,24 @@ export function filterSass(opts?: ISassFilterOptions) {
   }
 
   return (files: IFile[]) => {
+    const sassFiles = files.filter(f => /\.scss$/.test(f.location));
+    const nonSassFiles = files.filter(f => !/\.scss$/.test(f.location));
+
     const lookup: string[] = [];
+    let newSassFiles: IFile[] = [];
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      if (!/\.scss$/.test(file.location)) {
-        continue;
-      }
-
-      if (!/_\w+\.scss$/.test(file.location)) {
-        lookup.push(file.location);
-      }
-
+    sassFiles.forEach(file => { 
       getRootFiles(opts.searchPath, file).forEach(item => {
-        if (lookup.indexOf(item.location) === -1) {
-          files.push(item);
-          lookup.push(item.location);
+        const loc = item.location;
+
+        if (lookup.indexOf(loc) === -1) {
+          newSassFiles.push(item);
+          lookup.push(loc);
         }
       });
-    }
+    });
 
-    return files.filter(file => !/_\w+\.scss$/.test(file.location));
+    return nonSassFiles.concat(newSassFiles);
   };
 }
 

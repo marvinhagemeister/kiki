@@ -12,7 +12,7 @@ interface IKikiConfig {
   sass?: {
     src: string;
     dest: string;
-  }
+  };
 }
 
 interface IKikiSassConfig {

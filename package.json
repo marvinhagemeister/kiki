@@ -10,7 +10,7 @@
     "scripts": "rollup -c",
     "build": "tsc",
     "watch": "tsc -w",
-    "lint": "tslint src/**/*.ts"
+    "lint": "tslint 'src/**/*.ts'"
   },
   "author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
   "license": "MIT",

@@ -8,9 +8,9 @@ export function start(name: string, path: string) {
   console.log(chalk.white("=> compiling " + name + " from: ") + chalk.yellow(path));
 }
 
-export function nothingToWatch() {
+export function nothingToDo() {
   console.log();
-  console.log(chalk.white("Nothing to watch"));
+  console.log(chalk.blue("Nothing to to do!"));
   console.log();
 }
 

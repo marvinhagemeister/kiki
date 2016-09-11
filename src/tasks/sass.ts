@@ -19,7 +19,7 @@ const postCssOpts = {
   ],
 };
 
-export function build(files: IFile[]) {
+export function build(files: IFile[]): Promise<IFile[]> {
   return Promise.resolve(files)
     .then(filterSass({
       searchPath: config.src,

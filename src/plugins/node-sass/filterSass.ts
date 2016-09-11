@@ -12,7 +12,6 @@ export function filterSass(opts?: ISassFilterOptions) {
 
   return (files: IFile[]) => {
     const sassFiles = files.filter(f => /\.scss$/.test(f.location));
-    const nonSassFiles = files.filter(f => !/\.scss$/.test(f.location));
 
     const lookup: string[] = [];
     let newSassFiles: IFile[] = [];
@@ -28,6 +27,6 @@ export function filterSass(opts?: ISassFilterOptions) {
       });
     });
 
-    return nonSassFiles.concat(newSassFiles);
+    return newSassFiles;
   };
 }

@@ -13,7 +13,7 @@ describe('compile (node-sass)', () => {
       dest: "tmp/"
     };
 
-    compile(options)(files).then(res => {
+    return compile(options)(files).then(res => {
       t.deepEqual(res, [{
         location: getFixture('main.css'),
         map: null,

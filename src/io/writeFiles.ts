@@ -1,5 +1,5 @@
-import * as Emitter from "./emitter";
-import { IFile } from "./interfaces";
+import * as Emitter from "../emitter";
+import { IFile } from "../interfaces";
 import * as Promise from "bluebird";
 import * as fs from "fs";
 import * as mkdirpCb from "mkdirp";
@@ -16,11 +16,14 @@ export function writeFiles(dest: string) {
         const name = path.basename(file.location);
 
         return mkdirp(dest).then(() => {
-          fs.writeFileSync(path.join(dest, name), file.content);
+          const outPath = path.join(dest, name);
+          fs.writeFileSync(outPath, file.content);
 
           if (file.map !== null) {
             fs.writeFileSync(path.join(dest, name), file.content);
           }
+
+          file.location = outPath;
 
           return file;
         }).catch(err => {

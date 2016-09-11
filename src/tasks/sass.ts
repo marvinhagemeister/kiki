@@ -1,9 +1,9 @@
-import * as emitter from "./emitter";
+import * as emitter from "../emitter";
+import { IFile } from "../interfaces";
+import { compile as sass, filterSass } from "../plugins/node-sass/index";
+import { compile as postcss } from "../plugins/postcss/index";
 import { writeFiles } from "./io/writeFiles";
-import { compile as sass, filterSass } from "./plugins/node-sass/index";
-import { compile as postcss } from "./plugins/postcss/index";
-import { filesFromMatch } from "./utils";
-import * as glob from "glob";
+import * as Promise from "bluebird";
 
 const config = {
   dest: "tmp/",
@@ -19,12 +19,7 @@ const postCssOpts = {
   ],
 };
 
-const globOptions = { follow: true, ignore: "**/_*" };
-glob(config.src + "*.scss", globOptions, (err, matches) => {
-  emitter.start("sass", config.src);
-
-  const files = filesFromMatch(matches);
-
+export function build(files: IFile[]) {
   return Promise.resolve(files)
     .then(filterSass({
       searchPath: config.src,
@@ -37,4 +32,4 @@ glob(config.src + "*.scss", globOptions, (err, matches) => {
     .catch((ex: Error) => {
       emitter.error(ex);
     });
-});
+}

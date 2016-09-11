@@ -1,7 +1,7 @@
 const t = require('chai').assert;
-const match = require('../../dist/utils').fileFromMatch;
+const match = require('../../dist/utils').filesFromMatch;
 
-describe('fileFromMatch', () => {
+describe('filesFromMatch', () => {
   it('should create an IFile object from a match', () => {
     t.deepEqual(match(['myfile.scss']), [{
       location: 'myfile.scss',

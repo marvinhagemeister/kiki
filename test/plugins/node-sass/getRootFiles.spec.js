@@ -1,5 +1,5 @@
 const t = require('chai').assert;
-const root = require('../../../dist/plugins/node-sass').getRootFiles;
+const root = require('../../../dist/plugins/node-sass/getRootFiles').getRootFiles;
 const { fixturePath, getFixture } = require('../../helpers');
 
 describe('getRootFiles', () => {

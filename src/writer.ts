@@ -1,3 +1,4 @@
+import * as Emitter from "./emitter";
 import { IFile } from "./interfaces";
 import * as Promise from "bluebird";
 import * as fs from "fs";
@@ -9,10 +10,9 @@ const mkdirp = Promise.promisify(mkdirpCb);
 export function writeFiles(dest: string) {
   dest = path.resolve(dest);
 
-  return (files: IFile[]) => {
+  return (files: IFile[]): Promise<any> => {
     return Promise.all(
-      files.forEach((file: IFile) => {
-        console.log(file);
+      files.map((file: IFile) => {
         const name = path.basename(file.location);
 
         return mkdirp(dest).then(() => {
@@ -23,6 +23,8 @@ export function writeFiles(dest: string) {
           }
 
           return file;
+        }).catch(err => {
+          Emitter.error(err);
         });
       })
     );

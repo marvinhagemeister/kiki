@@ -1,5 +1,5 @@
 const t = require('chai').assert;
-const filter = require('../../../dist/plugins/node-sass').filterSass;
+const filter = require('../../../dist/plugins/node-sass/filterSass').filterSass;
 const { fixturePath, getFixture } = require('../../helpers');
 
 describe('filterSass', () => {

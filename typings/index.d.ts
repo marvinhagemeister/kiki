@@ -8,3 +8,4 @@
 /// <reference path="modules/mkdirp/index.d.ts" />
 /// <reference path="modules/through2/index.d.ts" />
 /// <reference path="sass-graph/index.d.ts" />
+/// <reference path="autoprefixer/index.d.ts" />

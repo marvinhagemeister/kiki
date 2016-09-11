@@ -1,4 +1,6 @@
+import { IFile } from "./interfaces";
 import * as chalk from "chalk";
+import * as path from "path";
 
 /* tslint:disable no-console */
 
@@ -41,6 +43,20 @@ export function warning(warn: any) {
 
 export function success(msg: string) {
   console.log("  " + chalk.green(msg));
+}
+
+export function taskDone(files: IFile[], time: number) {
+  files.forEach((file, i) => {
+    const name = path.basename(file.location);
+
+    if (i === 0) {
+      console.log("  " + chalk.dim(name) + " " + chalk.blue(time + "ms"));
+    } else {
+      console.log("  " + chalk.dim(name));
+    }
+  });
+
+  console.log();
 }
 
 export function change(event: string, path: string) {

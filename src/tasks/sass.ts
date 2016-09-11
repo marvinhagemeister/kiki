@@ -1,8 +1,8 @@
 import * as emitter from "../emitter";
 import { IFile } from "../interfaces";
+import { writeFiles } from "../io/writeFiles";
 import { compile as sass, filterSass } from "../plugins/node-sass/index";
 import { compile as postcss } from "../plugins/postcss/index";
-import { writeFiles } from "./io/writeFiles";
 import * as Promise from "bluebird";
 
 const config = {

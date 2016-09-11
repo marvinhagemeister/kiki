@@ -1,6 +1,7 @@
 import * as emitter from "../emitter";
 import { filesFromMatch } from "../utils";
 import { build as sass } from "./sass";
+import * as Promise from "bluebird";
 import * as glob from "glob";
 
 process.env.NODE_ENV = "production";
@@ -19,4 +20,8 @@ export function sass() {
     const files = filesFromMatch(matches);
     return sass(files);
   });
+}
+
+export function build() {
+  return Promise.all(sass());
 }

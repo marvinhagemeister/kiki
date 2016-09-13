@@ -11,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/marvinhagemeister/kiki/issues"
   },
-  "license": "MIT",
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
     "test": "mocha 'test/**/*.spec.js'",

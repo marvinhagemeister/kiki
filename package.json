@@ -1,9 +1,18 @@
 {
   "name": "kiki",
   "version": "0.0.1",
-  "description": "",
+  "description": "Batteries included frontend asset bundler",
   "main": "bin/kiki",
   "bin": "bin/kiki",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:marvinhagemeister/kiki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marvinhagemeister/kiki/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
     "test": "mocha 'test/**/*.spec.js'",
     "test-watch": "npm run test -s -- -w",

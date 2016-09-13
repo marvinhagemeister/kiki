@@ -1,9 +1,6 @@
 {
   "sass": {
-    "src": "test/fixtures/scss/",
+    "src": "test/fixtures/",
     "dest": "tmp/css/"
-  },
-  "js": {
-    "src": "test/fixtures/js/"
   }
 }

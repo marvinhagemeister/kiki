@@ -17,3 +17,7 @@ export function filesFromMatch(matches: string[]): IFile[] {
     };
   });
 }
+
+export function resolveApp(relativePath: string) {
+  return path.resolve(relativePath);
+}

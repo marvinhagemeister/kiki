@@ -30,8 +30,15 @@ export function missingConfig(path: string) {
   console.log();
 }
 
-export function error(err: Error) {
-  console.log(err);
+export function error(err: Error | string) {
+  console.log();
+  if (typeof err === "string" || err instanceof String) {
+    console.log(chalk.red(err));
+  } else {
+    console.log(err);
+  }
+
+  console.log();
 }
 
 // TODO typings

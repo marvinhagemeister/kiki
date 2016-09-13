@@ -35,7 +35,11 @@ export function error(err: Error | string) {
   if (typeof err === "string" || err instanceof String) {
     console.log(chalk.red(err));
   } else {
-    console.log(err);
+    if (err.message.indexOf("search path") > -1) {
+      console.log(chalk.red(err.message));
+    } else {
+      console.log(chalk.red(err.stack));
+    }
   }
 
   console.log();

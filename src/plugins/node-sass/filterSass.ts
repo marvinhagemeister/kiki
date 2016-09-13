@@ -1,5 +1,6 @@
 import { IFile } from "../../interfaces";
 import { getRootFiles } from "./getRootFiles";
+import * as fs from "fs";
 
 interface ISassFilterOptions {
   searchPath: string;
@@ -8,6 +9,12 @@ interface ISassFilterOptions {
 export function filterSass(opts?: ISassFilterOptions) {
   if (!opts.searchPath) {
     throw new Error("Sass Plugin didn't receive a search path");
+  }
+
+  try {
+    fs.lstatSync(opts.searchPath));
+  } catch (err) {
+    throw new Error("Sass search path \"" + opts.searchPath + "\" does not exist");
   }
 
   return (files: IFile[]) => {

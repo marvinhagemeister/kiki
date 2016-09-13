@@ -1,5 +1,7 @@
 import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
+import { writeFiles } from "../io/writeFiles";
+import { IKikiSassConfig } from "../plugins/node-sass/index";
 import { build as sass } from "./sass";
 import task from "./task";
 import * as Promise from "bluebird";
@@ -7,17 +9,13 @@ import * as path from "path";
 
 process.env.NODE_ENV = "production";
 
-interface IKikiSassConfig {
-  src: string;
-  dest: string;
-}
-
 // Sass
 export function buildSass(config: IKikiSassConfig) {
   const globPath = path.resolve(config.src) + "/*.scss";
 
   return task(globPath, "sass")
-    .then(sass)
+    .then(sass(config))
+    .then(writeFiles(config.dest))
     .catch(err => {
       emitter.error(err);
     });

@@ -1,4 +1,4 @@
-import { IFile } from "../../interfaces";
+import { IFile } from "../../io/file";
 import { getRootFiles } from "./getRootFiles";
 import * as fs from "fs";
 
@@ -12,7 +12,7 @@ export function filterSass(opts?: ISassFilterOptions) {
   }
 
   try {
-    fs.lstatSync(opts.searchPath));
+    fs.lstatSync(opts.searchPath);
   } catch (err) {
     throw new Error("Sass search path \"" + opts.searchPath + "\" does not exist");
   }

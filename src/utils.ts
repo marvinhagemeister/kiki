@@ -1,4 +1,4 @@
-import { IFile } from "./interfaces";
+import { IFile } from "./io/file";
 import * as path from "path";
 
 export function replaceExtension(file: string, ext: string) {

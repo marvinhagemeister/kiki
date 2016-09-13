@@ -1,5 +1,5 @@
 import * as Emitter from "../emitter";
-import { IFile } from "../interfaces";
+import { IFile } from "./file";
 import * as Promise from "bluebird";
 import * as fs from "fs";
 import * as mkdirpCb from "mkdirp";

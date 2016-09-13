@@ -1,5 +1,5 @@
 import * as emitter from "../emitter";
-import { IFile } from "../interfaces";
+import { IFile } from "../io/file";
 import { filesFromMatch } from "../utils";
 import * as Promise from "bluebird";
 import * as glob from "glob";

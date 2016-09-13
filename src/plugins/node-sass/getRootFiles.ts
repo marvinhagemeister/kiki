@@ -1,4 +1,4 @@
-import { IFile } from "../../interfaces";
+import { IFile } from "../../io/file";
 import { parseDir } from "sass-graph";
 
 export function getRootFiles(searchPath: string, modified: IFile): IFile[] {

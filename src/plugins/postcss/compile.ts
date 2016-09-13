@@ -1,5 +1,5 @@
 import * as emitter from "../../emitter";
-import { IFile } from "../../interfaces";
+import { IFile } from "../../io/file";
 import * as autoprefixer from "autoprefixer";
 import * as path from "path";
 import * as postcss from "postcss";

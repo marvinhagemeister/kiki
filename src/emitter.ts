@@ -1,4 +1,4 @@
-import { IFile } from "./interfaces";
+import { IFile } from "./io/file";
 import * as chalk from "chalk";
 import * as path from "path";
 

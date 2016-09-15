@@ -1,15 +1,17 @@
 import { IFile } from "./io/file";
 import * as chalk from "chalk";
-import * as path from "path";
 
 /* tslint:disable no-console */
 
 export function start(name: string, path: string) {
+  console.log();
   console.log(chalk.white("=> compiling " + name + " from: ") + chalk.yellow(path));
 }
 
 export function watch(path: string[]) {
+  console.log();
   console.log(chalk.white("=> watching: ") + chalk.yellow(path.join(", ")));
+  console.log();
 }
 
 export function nothingToDo() {
@@ -61,14 +63,13 @@ export function success(msg: string) {
 }
 
 export function taskDone(files: IFile[], time: number) {
+  console.log();
+  console.log("  " + chalk.white("time: ") + chalk.blue(time + "ms"));
+  console.log();
+
   files.forEach((file, i) => {
     const name = file.location.replace(process.cwd(), "");
-
-    if (i === 0) {
-      console.log("  " + chalk.dim(name) + " " + chalk.blue(time + "ms"));
-    } else {
-      console.log("  " + chalk.dim(name));
-    }
+    console.log("  " + chalk.dim(name));
   });
 
   console.log();

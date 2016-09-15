@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "description": "Batteries included frontend asset bundler",
   "main": "dist/index.js",
-  "bin": "bin/kiki",
+  "bin": {
+    "kiki": "bin/kiki"
+  },
   "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",

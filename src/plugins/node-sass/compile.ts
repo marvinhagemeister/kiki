@@ -1,11 +1,21 @@
 import * as Emitter from "../../emitter";
-import { IFile } from "../../interfaces";
+import { IFile } from "../../io/file";
 import { replaceExtension } from "../../utils";
 import * as Promise from "bluebird";
 import { Options, Result, SassError, render } from "node-sass";
 import * as path from "path";
 
-const sass = Promise.promisify(render);
+const sass = (opts: Object) => {
+  return new Promise((res, rej) => {
+    render(opts, (err, result) => {
+      if (err) {
+        rej(err);
+      }
+
+      res(result);
+    });
+  });
+};
 
 interface ISassOptions extends Options {
   dest?: string;

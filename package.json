@@ -4,7 +4,7 @@
   "description": "Batteries included frontend asset bundler",
   "main": "dist/index.js",
   "bin": "bin/kiki",
-  "typings": "",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:marvinhagemeister/kiki.git"

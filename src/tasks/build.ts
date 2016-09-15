@@ -11,7 +11,7 @@ process.env.NODE_ENV = "production";
 
 // Sass
 export function buildSass(config: IKikiSassConfig) {
-  const globPath = path.resolve(config.src) + "/*.scss";
+  const globPath = path.resolve(config.src) + "/**/*.scss";
 
   return task(globPath, "sass")
     .then(sass(config))

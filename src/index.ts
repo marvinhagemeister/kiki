@@ -1,4 +1,5 @@
-import getConfig from "./config/getConfig";
-import { build } from "./tasks/build";
+import * as config from "./config/getConfig";
+export { build } from "./tasks/build";
+export { watch } from "./tasks/watch";
 
-build(getConfig());
+export const getConfig = config;

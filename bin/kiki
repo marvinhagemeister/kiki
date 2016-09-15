@@ -2,19 +2,15 @@
 const spawn = require('cross-spawn');
 const script = process.argv[2];
 const args = process.argv.slice(3);
-const getConfig = require('../dist/config/getConfig').default;
 
 switch (script) {
 case 'build':
 case 'start':
 case 'watch':
   const task = script === 'start' ? 'watch' : script;
-  const runner = require('../dist/tasks/' + task).build;
-  const config = getConfig();
-
   const result = spawn.sync(
     'node',
-    [runner(config)].concat(args),
+    [require.resolve('../dist/cli/' + task)].concat(args),
     {stdio: 'inherit'}
   );
   process.exit(result.status);

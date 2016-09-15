@@ -8,6 +8,10 @@ export function start(name: string, path: string) {
   console.log(chalk.white("=> compiling " + name + " from: ") + chalk.yellow(path));
 }
 
+export function watch(path: string[]) {
+  console.log(chalk.white("=> watching: ") + chalk.yellow(path.join(", ")));
+}
+
 export function nothingToDo() {
   console.log();
   console.log(chalk.blue("Nothing to to do!"));
@@ -58,7 +62,7 @@ export function success(msg: string) {
 
 export function taskDone(files: IFile[], time: number) {
   files.forEach((file, i) => {
-    const name = path.basename(file.location);
+    const name = file.location.replace(process.cwd(), "");
 
     if (i === 0) {
       console.log("  " + chalk.dim(name) + " " + chalk.blue(time + "ms"));
@@ -72,6 +76,5 @@ export function taskDone(files: IFile[], time: number) {
 
 export function change(event: string, path: string) {
   event = event === "change" ? "modified" : event;
-  console.log();
   console.log(event + ": " + path);
 }

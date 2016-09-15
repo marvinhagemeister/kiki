@@ -1,0 +1,14 @@
+node_modules/
+
+src/
+test/
+.eslintrc
+.editorconfig
+jsconfig.json
+kiki.config.json
+*.log
+rollup.config.js
+tscofnig.json
+tslint.json
+typings.json
+typings/

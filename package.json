@@ -22,7 +22,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "tslint 'src/**/*.ts'",
-    "precommit": "npm run lint && npm run test"
+		"precommit": "npm run lint && npm run test"
 	},
 	"author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
 	"license": "MIT",
@@ -37,7 +37,8 @@
 		"node-sass": "^3.9.3",
 		"postcss": "^5.2.0",
 		"rimraf": "^2.5.4",
-		"sass-graph": "^2.1.2"
+		"sass-graph": "^2.1.2",
+		"mkdirp": "^0.5.1"
 	},
 	"devDependencies": {
 		"@types/node": "^6.0.38",

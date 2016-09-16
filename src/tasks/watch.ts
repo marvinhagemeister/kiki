@@ -22,7 +22,7 @@ export function watch(config: IKikiConfig) {
     watchPaths.push(config.js.entry);
   }
 
-  emitter.watch(watchPaths)
+  emitter.watch(watchPaths);
   chokidar.watch(watchPaths, watchOpts).on("all", (event: string, path: string) => {
     emitter.change(event, path);
     const start = new Date().getTime();

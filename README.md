@@ -32,7 +32,8 @@ Add a config called `kiki.config.json` at the project root:
 {
   "sass": {
     "src": "path/to/my/scss",
-    "dest": "path/for/compiled/output"
+    "dest": "path/for/compiled/output",
+    "addVendorPrefixes": false // default: true
   }
 }
 ```

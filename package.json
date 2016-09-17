@@ -1,51 +1,61 @@
 {
-	"name": "kiki-bundler",
-	"version": "1.1.0",
-	"description": "Batteries included frontend asset bundler",
-	"main": "dist/index.js",
-	"bin": {
-		"kiki": "bin/kiki"
-	},
-	"typings": "dist/index.d.ts",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:marvinhagemeister/kiki.git"
-	},
-	"bugs": {
-		"url": "https://github.com/marvinhagemeister/kiki/issues"
-	},
-	"homepage": "https://github.com/marvinhagemeister/kiki#readme",
-	"scripts": {
-		"test": "mocha 'test/**/*.spec.js'",
-		"test-watch": "npm run test -s -- -w",
-		"clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",
-		"build": "tsc",
-		"watch": "tsc -w",
-		"lint": "tslint 'src/**/*.ts'",
-		"precommit": "npm run lint && npm run test"
-	},
-	"author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
-	"license": "MIT",
-	"dependencies": {
-		"autoprefixer": "^6.4.1",
-		"bluebird": "^3.4.6",
-		"chai": "^3.5.0",
-		"chalk": "^1.1.3",
-		"chokidar": "^1.6.0",
-		"cross-spawn": "^4.0.0",
-		"glob": "^7.0.6",
-		"node-sass": "^3.9.3",
-		"postcss": "^5.2.0",
-		"rimraf": "^2.5.4",
-		"sass-graph": "^2.1.2",
-		"mkdirp": "^0.5.1"
-	},
-	"devDependencies": {
-		"@types/node": "^6.0.38",
-		"mocha": "^3.0.2",
-		"eslint": "^3.4.0",
-		"tslint": "^3.15.1",
-		"typescript": "^1.8.10",
-		"husky": "*"
-	}
+  "name": "kiki-bundler",
+  "version": "1.1.0",
+  "description": "Batteries included frontend asset bundler",
+  "main": "dist/index.js",
+  "bin": {
+    "kiki": "bin/kiki"
+  },
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:marvinhagemeister/kiki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marvinhagemeister/kiki/issues"
+  },
+  "homepage": "https://github.com/marvinhagemeister/kiki#readme",
+  "scripts": {
+    "test": "mocha 'test/**/*.spec.js'",
+    "test-watch": "npm run test -s -- -w",
+    "clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint 'src/**/*.ts'",
+    "precommit": "npm run lint && npm run test"
+  },
+  "author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer": "^6.4.1",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "bluebird": "^3.4.6",
+    "browser-sync": "^2.16.0",
+    "case-sensitive-paths-webpack-plugin": "^1.1.4",
+    "chai": "^3.5.0",
+    "chalk": "^1.1.3",
+    "chokidar": "^1.6.0",
+    "cross-spawn": "^4.0.0",
+    "eslint-loader": "^1.5.0",
+    "glob": "^7.0.6",
+    "micromatch": "^2.3.11",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^3.9.3",
+    "postcss": "^5.2.0",
+    "rimraf": "^2.5.4",
+    "sass-graph": "^2.1.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.7.0",
+    "webpack-dev-server": "^1.15.2",
+    "webpack-hot-middleware": "^2.12.2"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.38",
+    "mocha": "^3.0.2",
+    "eslint": "^3.4.0",
+    "tslint": "^3.15.1",
+    "typescript": "^1.8.10",
+    "husky": "*"
+  }
 }

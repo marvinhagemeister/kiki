@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/bedf3baa8802a2b6f50cc4d68651df64fd77eaa7/webpack-dev-server/webpack-dev-server.d.ts",
+    "raw": "registry:dt/webpack-dev-server#1.12.1+20160909133903",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/bedf3baa8802a2b6f50cc4d68651df64fd77eaa7/webpack-dev-server/webpack-dev-server.d.ts"
+  }
+}

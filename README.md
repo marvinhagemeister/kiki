@@ -32,8 +32,7 @@ Add a config called `kiki.config.json` at the project root:
 {
   "sass": {
     "src": "path/to/my/scss",
-    "dest": "path/for/compiled/output",
-    "addVendorPrefixes": false // default: true
+    "dest": "path/for/compiled/output"
   }
 }
 ```
@@ -48,6 +47,16 @@ Add kiki to your npm scripts in your `package.json`:
   }
 }
 ```
+
+## Configuration Options
+
+### Sass
+
+| Option | type | default | Description |
+|---|---|---|---|
+| `src` | string | null | Path to scss root directory |
+| `dest` | string | null | Path to output directory |
+| `addVendorPrefixes` | boolean | true | automatic vendor prefix insertion via autoprefixer |
 
 ## Why the name?
 

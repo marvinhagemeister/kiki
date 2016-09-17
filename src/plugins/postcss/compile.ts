@@ -6,6 +6,7 @@ import * as postcss from "postcss";
 
 interface ICustomPostCssOptions {
   browsers: string[];
+  addVendorPrefixes?: boolean;
 }
 
 interface IPostCssOptions {
@@ -36,7 +37,14 @@ export function compile(options: ICustomPostCssOptions) {
           };
         }
 
-        return postcss([prefixer])
+        let plugins: any[] = [];
+
+        if (typeof options.addVendorPrefixes === "undefined"
+        || options.addVendorPrefixes) {
+          plugins.push(prefixer);
+        }
+
+        return postcss(plugins)
           .process(file.content, cssOptions)
           .then(res => {
             res.warnings().forEach(warn => emitter.warning(warn));

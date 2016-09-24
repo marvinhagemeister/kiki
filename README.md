@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/marvinhagemeister/kiki.svg?branch=master)](https://travis-ci.org/marvinhagemeister/kiki)
+
 # Kiki Bundler
 
 Kiki-Bundler is an opiniated frontend bundler, providing a great out-of-the-box

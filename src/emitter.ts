@@ -68,7 +68,7 @@ export function taskDone(files: IFile[], time: number) {
   console.log();
 
   files.forEach((file, i) => {
-    const name = file.location.replace(process.cwd(), "");
+    const name = file.location.replace(process.cwd() + "/", "");
     console.log("  " + chalk.dim(name));
   });
 

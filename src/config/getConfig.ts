@@ -11,6 +11,10 @@ export interface IKikiConfig {
     entry: string;
     dest: string;
   };
+  server?: {
+    proxy?: string;
+    serveStatic?: string;
+  };
 }
 
 export default function getConfig() {

@@ -7,10 +7,9 @@ switch (script) {
 case 'build':
 case 'start':
 case 'watch':
-  const task = script === 'start' ? 'watch' : script;
   const result = spawn.sync(
     'node',
-    [require.resolve('../dist/cli/' + task)].concat(args),
+    [require.resolve('../dist/cli/' + script)].concat(args),
     {stdio: 'inherit'}
   );
   process.exit(result.status);

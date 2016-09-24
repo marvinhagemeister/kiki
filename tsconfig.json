@@ -11,6 +11,7 @@
     "./typings/index.d.ts",
     "./src/index.ts",
     "./src/cli/build.ts",
+    "./src/cli/start.ts",
     "./src/cli/watch.ts"
   ]
 }

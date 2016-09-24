@@ -21,5 +21,12 @@ export function validate(config: IKikiConfig) {
     }
   }
 
+  if (config.server) {
+    if (config.server.proxy && config.server.serveStatic) {
+      emitter.error("Cannot proxy and serve locally at the same time");
+      return false;
+    }
+  }
+
   return true;
 }

@@ -108,4 +108,41 @@ describe('compile (postcss)', () => {
       }]);
     });
   });
+
+  it('should minify css if NODE_ENV=production', () => {
+    process.env.NODE_ENV = 'production';
+    const files = getFiles('postcss.css');
+    const postCssOpts = {
+      "cssnext": false
+    };
+
+    return compile(postCssOpts)(files).then(res => {
+      t.deepEqual(res, [{
+        location: getFixture('postcss.css'),
+        map: null,
+        content: 'h1{display:-webkit-box;display:-ms-flexbox;display:flex}'
+      }]);
+      
+      process.env.NODE_ENV = 'test';
+    });
+  });
+
+  it('should not minify css if NODE_ENV=whatever', () => {
+    process.env.NODE_ENV = 'whatever';
+    const files = getFiles('postcss.css');
+    const postCssOpts = {
+      "cssnext": false
+    };
+
+    return compile(postCssOpts)(files).then(res => {
+      t.deepEqual(res, [{
+        location: getFixture('postcss.css'),
+        map: null,
+        content: 'h1 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  '
+          + 'display: flex;\n}\n'
+      }]);
+      
+      process.env.NODE_ENV = 'test';
+    });
+  });
 });

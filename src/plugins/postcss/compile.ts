@@ -1,6 +1,7 @@
 import * as emitter from "../../emitter";
 import { IFile } from "../../io/file";
 import * as autoprefixer from "autoprefixer";
+import * as cssnano from "cssnano";
 import * as path from "path";
 import * as postcss from "postcss";
 import * as cssnext from "postcss-cssnext";
@@ -27,6 +28,10 @@ export function compile(options: ICustomPostCssOptions) {
     plugins.push(autoprefixer({ browsers: options.browsers }));
   } else if (typeof options.cssnext !== "undefined" && options.cssnext) {
     plugins.push(cssnext({ browsers: options.browsers }));
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    plugins.push(cssnano);
   }
 
   return (files: IFile[]) => {

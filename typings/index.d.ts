@@ -12,3 +12,4 @@
 /// <reference path="modules/through2/index.d.ts" />
 /// <reference path="sass-graph/index.d.ts" />
 /// <reference path="postcss-cssnext/index.d.ts" />
+/// <reference path="cssnano/index.d.ts" />

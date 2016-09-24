@@ -1,6 +1,8 @@
 {
   "sass": {
     "src": "test/fixtures/",
-    "dest": "tmp/css/"
+    "dest": "tmp/css/",
+    "cssnext": false,
+    "addVendorPrefixes": true
   }
 }

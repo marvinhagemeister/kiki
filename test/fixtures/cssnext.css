@@ -1,0 +1,11 @@
+:root {
+  --main-bg-color: brown;
+}
+
+.one {
+  background-color: var(--main-bg-color);
+}
+
+.two {
+  background-color: var(--main-bg-color);
+}

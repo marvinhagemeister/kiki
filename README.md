@@ -59,6 +59,7 @@ Add kiki to your npm scripts in your `package.json`:
 | `src` | string | null | Path to scss root directory |
 | `dest` | string | null | Path to output directory |
 | `addVendorPrefixes` | boolean | true | automatic vendor prefix insertion via autoprefixer |
+| `cssnext` | boolean | false | use tomorrows css features today |
 
 ## Why the name?
 

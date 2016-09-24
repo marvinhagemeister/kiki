@@ -1,10 +1,10 @@
 import * as emitter from "../emitter";
 import { IFile } from "../io/file";
 import { IKikiSassConfig, compile as sass, filterSass } from "../plugins/node-sass/index";
-import { compile as postcss } from "../plugins/postcss/index";
+import { ICustomPostCssOptions, compile as postcss } from "../plugins/postcss/index";
 import * as Promise from "bluebird";
 
-const postCssOpts = {
+const postCssOpts: ICustomPostCssOptions = {
   browsers: [
     ">1%",
     "last 4 versions",
@@ -14,6 +14,10 @@ const postCssOpts = {
 };
 
 export function build(config: IKikiSassConfig) {
+  if (config.cssnext) {
+    postCssOpts.cssnext = config.cssnext;
+  }
+
   return (files: IFile[]) => {
     return Promise.resolve(files)
       .then(filterSass({

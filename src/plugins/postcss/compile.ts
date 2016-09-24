@@ -3,10 +3,12 @@ import { IFile } from "../../io/file";
 import * as autoprefixer from "autoprefixer";
 import * as path from "path";
 import * as postcss from "postcss";
+import * as cssnext from "postcss-cssnext";
 
-interface ICustomPostCssOptions {
+export interface ICustomPostCssOptions {
   browsers: string[];
   addVendorPrefixes?: boolean;
+  cssnext?: boolean;
 }
 
 interface IPostCssOptions {
@@ -18,9 +20,14 @@ interface IPostCssOptions {
 }
 
 export function compile(options: ICustomPostCssOptions) {
-  const prefixer = autoprefixer({
-    browsers: options.browsers,
-  });
+  let plugins: any[] = [];
+
+  if ((typeof options.addVendorPrefixes === "undefined"
+    || options.addVendorPrefixes) && !options.cssnext) {
+    plugins.push(autoprefixer({ browsers: options.browsers }));
+  } else if (typeof options.cssnext !== "undefined" && options.cssnext) {
+    plugins.push(cssnext({ browsers: options.browsers }));
+  }
 
   return (files: IFile[]) => {
     return Promise.all(
@@ -35,13 +42,6 @@ export function compile(options: ICustomPostCssOptions) {
             inline: false,
             prev: file.map,
           };
-        }
-
-        let plugins: any[] = [];
-
-        if (typeof options.addVendorPrefixes === "undefined"
-        || options.addVendorPrefixes) {
-          plugins.push(prefixer);
         }
 
         return postcss(plugins)

@@ -1,1 +1,1 @@
-export { compile } from "./compile";
+export { compile, ICustomPostCssOptions } from "./compile";

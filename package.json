@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
+		"pretest": "npm run build",
     "test": "mocha 'test/**/*.spec.js'",
     "test-watch": "npm run test -s -- -w",
     "clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",

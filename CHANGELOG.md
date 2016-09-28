@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 - 27.09.2016
+
+- Add node v4 support.
+
+Node v6 will become the new LTS in the coming weeks anyway, but supporting node 4 is easy
+so let's support it for know.
+
 ## 1.2.0 - 24.09.2016
 
 - Add optional cssnext support

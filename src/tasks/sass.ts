@@ -11,11 +11,16 @@ const postCssOpts: ICustomPostCssOptions = {
     "Firefox ESR",
     "not ie < 9", // screw IE8
   ],
+  remove: false, // makes autoprefixer 10% faster
 };
 
 export function build(config: IKikiSassConfig) {
-  if (config.cssnext) {
+  if (typeof config.cssnext !== "undefined") {
     postCssOpts.cssnext = config.cssnext;
+  }
+
+  if (typeof config.addVendorPrefixes !== "undefined") {
+    postCssOpts.addVendorPrefixes = config.addVendorPrefixes;
   }
 
   return (files: IFile[]) => {

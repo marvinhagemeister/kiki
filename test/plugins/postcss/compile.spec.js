@@ -14,7 +14,7 @@ function getFiles(name) {
 }
 
 describe('compile (postcss)', () => {
-  it('should work add prefixes by default', () => {
+  it('should add prefixes by default', () => {
     const files = getFiles('postcss.css');
     const postCssOpts = {
       browsers: [
@@ -74,6 +74,28 @@ describe('compile (postcss)', () => {
         location: getFixture('postcss.css'),
         map: null,
         content: 'h1 {\n  display: flex;\n}\n'
+      }]);
+    });
+  });
+
+  it('should leave existing vendor prefixes as is, if "addVendorPrefixes" is false', () => {
+    const files = getFiles('prefixes.css');
+    const postCssOpts = {
+      browsers: [
+        ">1%",
+        "last 4 versions",
+        "Firefox ESR",
+        "not ie < 9", // screw IE8
+      ],
+      "addVendorPrefixes": false
+    };
+
+    return compile(postCssOpts)(files).then(res => {
+      t.deepEqual(res, [{
+        location: getFixture('prefixes.css'),
+        map: null,
+        content: 'button {\n  -webkit-border-radius: 30px;\n  -moz-border-radius: 30px;\n  -o-border-radius: 30px;\n  '
+          + '-ms-border-radius: 30px;\n  border-radius: 30px;\n}\n'
       }]);
     });
   });

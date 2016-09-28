@@ -6,6 +6,8 @@ export interface IKikiConfig {
   sass?: {
     src: string;
     dest: string;
+    addVendorPrefixes?: boolean;
+    cssnext?: boolean;
   };
   js?: {
     entry: string;

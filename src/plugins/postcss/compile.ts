@@ -9,6 +9,7 @@ export interface ICustomPostCssOptions {
   browsers: string[];
   addVendorPrefixes?: boolean;
   cssnext?: boolean;
+  remove?: boolean;
 }
 
 interface IPostCssOptions {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 - 27.09.2016
+
+- Don't remove existing vendor prefixes. This was too confusing for beta users.
+
 ## 1.3.0 - 27.09.2016
 
 - Add node v4 support.

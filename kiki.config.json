@@ -4,6 +4,6 @@
     "dest": "tmp/css/"
   },
   "server": {
-    "serveStatic": "./tmp"
+    "proxy": "http://example.com"
   }
 }

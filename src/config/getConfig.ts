@@ -8,7 +8,7 @@ export interface IKikiConfig {
     dest: string;
   };
   js?: {
-    entry: string;
+    entry: string | string[];
     dest: string;
   };
   server?: {

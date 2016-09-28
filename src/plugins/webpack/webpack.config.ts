@@ -1,5 +1,5 @@
 
-import { resolveApp } from "../utils";
+import { resolveApp } from "../../utils";
 import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
 import * as path from "path";
 import * as webpack from "webpack";
@@ -97,7 +97,10 @@ const webpackConfig: IWebpackConfig = {
       test: /\.js$/,
     }],
   },
-  output: {},
+  output: {
+    filename: "[name].js",
+    pathinfo: true,
+  },
   plugins: getPlugins(),
   progress: true,
 };

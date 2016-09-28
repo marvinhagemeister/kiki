@@ -7,20 +7,28 @@ import * as chokidar from "chokidar";
 
 process.env.NODE_ENV = "development";
 
+function getWatchPaths(config: IKikiConfig) {
+  let watchPaths: string[] = [];
+  if (config.sass && config.sass.src) {
+    watchPaths.push(config.sass.src);
+  }
+
+  if (config.js && config.js.entry) {
+    const entry = config.js.entry;
+    const entries = Array.isArray(entry) ? entry : [entry];
+    watchPaths.push(...entries);
+  }
+
+  return watchPaths;
+}
+
 const watchOpts = {
   ignoreInitial: true,
   ignored: /[\/\\]\./,
 };
 
 export function watch(config: IKikiConfig) {
-  const watchPaths: string[] = [];
-  if (config.sass && config.sass.src) {
-    watchPaths.push(config.sass.src);
-  }
-
-  if (config.js && config.js.entry) {
-    watchPaths.push(config.js.entry);
-  }
+  const watchPaths = getWatchPaths(config);
 
   emitter.watch(watchPaths);
   chokidar.watch(watchPaths, watchOpts).on("all", (event: string, path: string) => {

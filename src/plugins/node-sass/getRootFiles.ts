@@ -3,7 +3,7 @@ import * as path from "path";
 import { parseDir } from "sass-graph";
 
 export function getRootFiles(searchPath: string, modified: IFile): IFile[] {
-  const { location } = modified;
+  const location = modified.location;
   const graph = parseDir(searchPath);
 
   const node = graph.index[path.resolve(location)];

@@ -1,7 +1,9 @@
 const t = require('chai').assert;
 const fs = require('fs');
-const { compile } = require('../../../dist/plugins/postcss/compile');
-const { getFixture } = require('../../helpers');
+const compile = require('../../../dist/plugins/postcss/compile').compile;
+const helpers = require('../../helpers');
+
+const getFixture = helpers.getFixture;
 
 function getFiles(name) {
   return [{

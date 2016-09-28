@@ -1,10 +1,13 @@
 const t = require('chai').assert;
 const root = require('../../../dist/plugins/node-sass/getRootFiles').getRootFiles;
-const { fixturePath, getFixture } = require('../../helpers');
+const helpers = require('../../helpers');
+
+const fixturePath = helpers.fixturePath;
+const getFixture = helpers.getFixture;
 
 describe('getRootFiles', () => {
   it('should get root file', () => {
-    let file = {
+    var file = {
       location: null,
       map: null
     }

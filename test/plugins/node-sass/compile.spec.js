@@ -1,6 +1,6 @@
 const t = require('chai').assert;
-const { compile } = require('../../../dist/plugins/node-sass/compile');
-const { getFixture } = require('../../helpers');
+const compile = require('../../../dist/plugins/node-sass/compile').compile;
+const getFixture = require('../../helpers').getFixture;
 
 describe('compile (node-sass)', () => {
   it('should work', () => {

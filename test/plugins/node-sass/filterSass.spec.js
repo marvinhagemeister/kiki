@@ -1,6 +1,9 @@
 const t = require('chai').assert;
 const filter = require('../../../dist/plugins/node-sass/filterSass').filterSass;
-const { fixturePath, getFixture } = require('../../helpers');
+const helpers = require('../../helpers');
+
+const fixturePath = helpers.fixturePath;
+const getFixture = helpers.getFixture;
 
 describe('filterSass', () => {
   it('should throw if options are missing', () => {
@@ -10,7 +13,7 @@ describe('filterSass', () => {
   });
 
   it('should return only root files', () => {
-    let files = [{
+    var files = [{
       location: null,
       map: null
     }];

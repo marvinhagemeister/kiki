@@ -1,3 +1,4 @@
+"use strict";
 const t = require('chai').assert;
 const path = require('path');
 const fs = require('fs');
@@ -42,6 +43,6 @@ describe('writeFiles', () => {
   });
 
   it.skip('should write files with sourcemaps to disk', () => {
-      
+
   });
 });

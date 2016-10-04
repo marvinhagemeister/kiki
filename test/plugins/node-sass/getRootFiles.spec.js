@@ -37,4 +37,13 @@ describe('getRootFiles', () => {
       map: null
     }]);
   });
+
+  it('should filter partials', () => {
+    const file = {
+      location: getFixture('components/_no-parents.scss'),
+      map: null
+    };
+
+    t.deepEqual(root(fixturePath, file), []);
+  });
 });

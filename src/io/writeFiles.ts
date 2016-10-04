@@ -10,7 +10,7 @@ const mkdirp = Promise.promisify(mkdirpCb);
 export function writeFiles(dest: string) {
   dest = path.resolve(dest);
 
-  return (files: IFile[]): Promise<any> => {
+  return (files: IFile[]) => {
     return Promise.all(
       files.map((file: IFile) => {
         const name = path.basename(file.location);

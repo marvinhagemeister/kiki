@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0 - 04.10.2016
+
+- Don't compile partials that are not imported by anything.
+
 ## 1.4.0 - 27.09.2016
 
 - Don't remove existing vendor prefixes. This was too confusing for beta users.

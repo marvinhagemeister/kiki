@@ -1,3 +1,4 @@
+import * as Emitter from "../../emitter";
 import { IFile } from "../../io/file";
 import * as path from "path";
 import { parseDir } from "sass-graph";
@@ -14,6 +15,10 @@ export function getRootFiles(searchPath: string, modified: IFile): IFile[] {
 
   // Filter out partials which always start with "_"
   files = files.filter(file => !path.basename(file).startsWith("_"));
+
+  if (files.length === 0) {
+    Emitter.noFilesOrOnlyPartials();
+  }
 
   return files.map(file => {
     return Object.assign({}, modified, {

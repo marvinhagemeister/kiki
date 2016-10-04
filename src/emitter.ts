@@ -36,6 +36,13 @@ export function missingConfig(path: string) {
   console.log();
 }
 
+export function noFilesOrOnlyPartials() {
+  console.log();
+  console.log(chalk.yellow("Only partials found. Partials must be imported by "
+    + "a root file to be included in compilations."));
+  console.log();
+}
+
 export function error(err: Error | string) {
   console.log();
   if (typeof err === "string" || err instanceof String) {

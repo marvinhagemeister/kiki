@@ -39,7 +39,7 @@ export function missingConfig(path: string) {
 export function error(err: Error | string) {
   console.log();
   if (typeof err === "string" || err instanceof String) {
-    console.log(chalk.red(err));
+    console.log(chalk.red(err.toString()));
   } else {
     if (err.message.indexOf("search path") > -1) {
       console.log(chalk.red(err.message));

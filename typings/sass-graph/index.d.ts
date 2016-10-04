@@ -1,6 +1,6 @@
-declare module 'sass-graph' {
+declare module "sass-graph" {
 
-  interface Node {
+  type Node = {
     imports: Array<string>;
     importedBy: Array<string>;
     modified: string

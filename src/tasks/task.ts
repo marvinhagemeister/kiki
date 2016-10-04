@@ -1,26 +1,17 @@
 import * as emitter from "../emitter";
-import { IFile } from "../io/file";
 import { filesFromMatch } from "../utils";
-import * as Promise from "bluebird";
-import * as glob from "glob";
+import * as glob from "glob-promise";
 
 const globOptions = { follow: true, ignore: "**/_*" };
 export default function task(globPath: string, taskName: string) {
-  return new Promise((resolve, reject) => {
-    emitter.start(taskName, globPath);
-    glob(globPath, globOptions, (err, matches) => {
-      if (err) {
-        reject(err);
-      }
+  emitter.start(taskName, globPath);
 
-      if (matches.length === 0) {
-        emitter.nothingToDo();
-        resolve([]);
-      }
+  return glob(globPath, globOptions).then((matches: string[]) => {
+    if (matches.length === 0) {
+      emitter.nothingToDo();
+      return [];
+    }
 
-      const files: IFile[] = filesFromMatch(matches);
-
-      resolve(files);
-    });
+    return filesFromMatch(matches);
   });
 };

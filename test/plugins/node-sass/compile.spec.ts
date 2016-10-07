@@ -5,7 +5,7 @@ import { assert as t } from "chai";
 import "mocha";
 
 describe("compile (node-sass)", () => {
-  it("should work", () => {
+  it.skip("should work", () => {
     const files: IFile[] = [{
       location: getFixture("main.scss"),
       map: null,

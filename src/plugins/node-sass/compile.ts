@@ -1,61 +1,25 @@
 import * as Emitter from "../../emitter";
 import { IFile } from "../../io/file";
-import { replaceExtension } from "../../utils";
+import { SassOptions, optionsToLibsass } from "./options";
+import { resultToFile } from "./result";
 import * as Promise from "bluebird";
-import { Options, Result, SassError, render } from "node-sass";
-import * as path from "path";
+import { Result, SassError, render } from "node-sass";
 
-const sass = (opts: Object) => {
-  return new Promise((res, rej) => {
-    render(opts, (err, result) => {
-      if (err) {
-        rej(err);
-      }
+const sassRender = Promise.promisify(render);
 
-      res(result);
-    });
-  });
-};
-
-interface ISassOptions extends Options {
-  dest?: string;
-}
-
-export function compile(opts: ISassOptions) {
+export function compile(opts: SassOptions) {
   opts = opts || {};
 
   return (files: IFile[]) => {
     return Promise.all(
       files.map(file => {
-        const filename = path.basename(file.location);
-        const out = path.join(opts.dest, filename);
-
-        opts.outFile = replaceExtension(out, "css");
-
-        if (file.map !== null) {
-          opts.sourceMap = replaceExtension(filename, "css.map");
-        }
-
-        if (file.content) {
-          opts.data = file.content;
-          opts.file = null;
-        } else {
-          opts.file = file.location;
-          opts.data = null;
-        }
-
-        return sass(opts).then((res: Result) => {
-          file.location = replaceExtension(file.location, "css");
-          file.content = res.css.toString();
-
-          if (file.map !== null) {
-            file.map = JSON.stringify(res.map.toString());
-          }
-
-          return file;
-        }).catch((err: SassError) => {
-          Emitter.error(err);
-        });
+        opts = optionsToLibsass(opts, file);
+        return file;
+        // return sassRender(opts).then((res: Result) => {
+        //   return resultToFile(res, file);
+        // }).catch((err: SassError) => {
+        //   Emitter.error(err);
+        // });
       })
     );
   };

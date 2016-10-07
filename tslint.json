@@ -1,6 +1,7 @@
 {
   "extends": "tslint:latest",
   "rules": {
-    "no-constructor-vars": true
+    "no-constructor-vars": true,
+    "interface-name": [false, "never-prefix"]
   }
 }

@@ -8,6 +8,8 @@ sites/_default/public/assets/css/main.min.css
 sites/_default/public/assets/js/precompiled-templates.js
 
 tmp/
+coverage/
+.nyc_output/
 *.js
 *.map
 

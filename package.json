@@ -23,7 +23,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
-    "precommit": "npm run lint && npm run test"
+    "precommit2": "npm run lint && npm run test"
   },
   "author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
   "license": "MIT",
@@ -80,6 +80,8 @@
     "exclude": [
       "typings",
       "node_modules/",
+      "**/__tests__/**",
+      "__tests__/**",
       "**/*.d.ts"
     ],
     "extension": [

@@ -5,11 +5,12 @@ import SassTransform from "../stream";
 import { Buffer } from "buffer";
 import { assert as t } from "chai";
 import "mocha";
+import { Transform } from "stream";
 
 const errorHandler = (err: Error) => {
+  /* tslint:disable no-console */
   console.log(err);
-
-  t.fail(err);
+  /* tslint:enable no-console */
 };
 
 describe("NodeSass Stream", () => {
@@ -68,7 +69,31 @@ describe("NodeSass Stream", () => {
       .pipe(writer);
   });
 
-  it.skip("should handle compilation errors", () => {
-    // TODO
+  it("should handle compilation errors", done => {
+    const stream = new MemoryStream();
+    const sass = new SassTransform({ outputStyle: "compressed" });
+    const writer = new MemoryWriter((file: IFile2) => {
+      t.fail("", "", "Stream didn't abort! We should never reach this point!");
+    });
+
+    const sassErrorHandler = (err: Error) => {
+      sass.end();
+      writer.end();
+      done();
+    };
+
+    stream.on("error", errorHandler);
+    sass.on("error", sassErrorHandler);
+    writer.on("error", errorHandler);
+
+    stream.push({
+      content: Buffer.from("body { @include yo; }"),
+      location: "/tmp/whatever.scss",
+      map: true,
+    });
+
+    stream
+      .pipe(sass)
+      .pipe(writer);
   });
 });

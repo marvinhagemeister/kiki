@@ -10,7 +10,8 @@ export default class MemoryWriter extends Writable {
     this.callback = callback;
   }
 
-  public _write(data: IFile2, encoding: string) {
+  public _write(data: IFile2, encoding: string, callback: (err?: Error) => any) {
     this.callback(data);
+    callback();
   }
 }

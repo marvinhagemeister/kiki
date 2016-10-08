@@ -13,17 +13,20 @@ export default class SassTransform extends Transform {
     this.options = options;
   }
 
-  public _transform(chunk: IFile2, encoding: string, done: () => any) {
+  public _transform(chunk: IFile2, encoding: string, done: (err: Error) => any) {
     const options = optionsToLibsass(this.options, chunk);
 
     render(options, (err: SassError, result: Result) => {
       if (err) {
-        throw err;
+        // TODO Check when err.formatted is officially made public
+        err.file = chunk.location;
+        done(err);
+        return;
       }
 
       chunk = resultToFile(result, chunk);
       this.push(chunk);
-      done();
+      done(null);
     });
   }
 }

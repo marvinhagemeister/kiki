@@ -6,7 +6,7 @@ import "mocha";
 import { Options } from "node-sass";
 
 describe("NodeSass Options", () => {
-  it("should options without sourcemaps", () => {
+  it("should get options without sourcemaps", () => {
     const file: IFile2 = {
       content: Buffer.from("Hello World"),
       location: "/tmp/whatever.scss",
@@ -43,6 +43,21 @@ describe("NodeSass Options", () => {
       outputStyle: "compressed",
       sourceMap: "/tmp/whatever.css.map",
       sourceMapRoot: "/tmp",
+    });
+  });
+
+  it("should throw when it receives a file with undefined content", () => {
+    const file: IFile2 = {
+      location: "/tmp/whatever.scss",
+      map: true,
+    };
+
+    const options: Options = {
+      outputStyle: "compressed",
+    };
+
+    t.throws(() => {
+      optionsToLibsass(options, file)
     });
   });
 });

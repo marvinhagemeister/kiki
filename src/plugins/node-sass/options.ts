@@ -11,15 +11,13 @@ export function optionsToLibsass(options: Options, file: IFile2) {
     options.sourceMapRoot = path.dirname(out);
   }
 
-  options.outFile = out;
-
-  if (file.content) {
-    options.data = file.content.toString("utf-8");
-    options.file = null;
-  } else {
-    options.file = file.location;
-    options.data = null;
+  if (typeof file.content === "undefined" || file.content === null) {
+    throw new Error("File content was `null` or `undefined`");
   }
+
+  options.outFile = out;
+  options.data = file.content.toString("utf-8");
+  options.file = null;
 
   return options;
 }

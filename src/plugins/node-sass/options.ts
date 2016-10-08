@@ -4,19 +4,18 @@ import { Options } from "node-sass";
 import * as path from "path";
 
 export function optionsToLibsass(options: Options, file: IFile2) {
-  const filename = path.basename(file.location);
-  const out = path.join(file.location, filename);
-
-  options.outFile = replaceExtension(out, "css");
+  const out = replaceExtension(file.location, "css");
 
   if (file.map) {
-    options.sourceMap = replaceExtension(filename, "css.map");
+    options.sourceMap = replaceExtension(out, "css.map");
+    options.sourceMapRoot = path.dirname(out);
   }
+
+  options.outFile = out;
 
   if (file.content) {
     options.data = file.content.toString("utf-8");
     options.file = null;
-    options.sourceMapRoot = path.dirname(options.outFile);
   } else {
     options.file = file.location;
     options.data = null;

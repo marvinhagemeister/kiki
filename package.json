@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
-    "test": "mocha --compilers ts:ts-node/register 'src/**/__tests__/**/*.spec.ts'",
+    "test": "mocha --compilers ts:ts-node/register 'src/__tests__/**/*.spec.ts' 'src/**/__tests__/**/*.spec.ts'",
     "test-watch": "npm run test -s -- -w",
     "coverage": "nyc npm t && open coverage/index.html",
     "clean": "rimraf dist/",

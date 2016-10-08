@@ -6,7 +6,7 @@ export function resultToFile(res: Result, file: IFile2) {
   file.location = replaceExtension(file.location, "css");
   file.content = res.css;
 
-  if (file.map !== null) {
+  if (file.map && typeof res.map !== "undefined") {
     file.map = res.map;
   }
 

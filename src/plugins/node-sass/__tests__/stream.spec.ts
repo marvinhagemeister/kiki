@@ -1,54 +1,67 @@
+import ConsoleStream from "../../../ConsoleStream";
+import { IFile2 } from "../../../io/file";
+import MemoryStream from "../../../streams/memory-stream";
+import MemoryWriter from "../../../streams/memory-writer";
 import SassTransform from "../stream";
+import { Buffer } from "buffer";
 import { assert as t } from "chai";
-import { Readable } from "stream";
 
-class MemoryStream extends Readable {
-  constructor(items: string[]) {
-    super({
-      encoding: "utf-8",
-      objectMode: true,
-    });
+const errorHandler = (err: Error) => {
+  console.log(err);
 
-    for (let i = 0; i < items.length; i++) {
-      this.push(items[i]);
-    }
-
-    this.push({
-      start: "end",
-    });
-  }
-
-  public _read() {
-    this.push(null);
-  }
-}
+  t.fail(err);
+};
 
 describe("NodeSass Stream", () => {
-  it("should work", done => {
-    const stream = new MemoryStream(["a", "b"]);
-
-    stream.on("error", (err: Error) => {
-      console.log(err);
+  it("should compile without sourcemaps", () => {
+    const stream = new MemoryStream();
+    const sass = new SassTransform({ outputStyle: "compressed" });
+    const writer = new MemoryWriter((file: IFile2) => {
+      t.equal(file.content.toString(), "body{color:red}\n");
+      t.equal(file.location, "/tmp/whatever.css");
+      t.equal(file.map, false);
     });
 
-    stream.on("end", () => {
-      console.log("__END__");
-    });
+    stream.on("error", errorHandler);
+    sass.on("error", errorHandler);
+    writer.on("error", errorHandler);
 
-    const transform = new SassTransform();
-    transform.on("error", (err: Error) => {
-      console.log(err);
+    stream.push({
+      content: Buffer.from("@mixin yo { color: red; } body { @include yo; }"),
+      location: "/tmp/whatever.scss",
+      map: false,
     });
 
     stream
-      .pipe(transform)
-      .pipe(process.stdout);
+      .pipe(sass)
+      .pipe(writer);
+  });
 
-    stream.push(["hey"]);
+  it("should compile with sourcemaps", () => {
+    const stream = new MemoryStream();
+    const sass = new SassTransform({ outputStyle: "compressed" });
+    const writer = new MemoryWriter((file: IFile2) => {
+      t.equal(file.content.toString(), "body{color:red}\n");
+      t.equal(file.location, "/tmp/whatever.css");
+      t.equal(file.map.toString(), "trueasf");
+    });
 
-    setTimeout(() => {
-      t.fail();
-      done();
-    }, 1000);
+    stream.on("error", errorHandler);
+    sass.on("error", errorHandler);
+    writer.on("error", errorHandler);
+
+    stream.push({
+      content: Buffer.from("@mixin yo { color: red; } body { @include yo; }"),
+      location: "/tmp/whatever.scss",
+      map: true,
+    });
+
+    stream
+      .pipe(sass)
+      .pipe(writer);
+  });
+
+  it.skip("should handle compilation errors", () => {
+    // TODO
   });
 });

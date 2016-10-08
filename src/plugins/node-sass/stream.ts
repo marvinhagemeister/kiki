@@ -1,18 +1,29 @@
 import { IFile2 } from "../../io/file";
+import { optionsToLibsass } from "./options";
+import { resultToFile } from "./result";
+import { Options, Result, SassError, render } from "node-sass";
 import { Transform } from "stream";
 
 export default class SassTransform extends Transform {
-  constructor() {
-    super({
-      encoding: "utf-8",
-      objectMode: true,
-    });
+  private options: Options;
+
+  constructor(options: Options) {
+    super({ objectMode: true });
+
+    this.options = options;
   }
 
   public _transform(chunk: IFile2, encoding: string, done: () => any) {
-    console.log(chunk);
+    const options = optionsToLibsass(this.options, chunk);
 
-    this.push(JSON.stringify(chunk));
-    done();
+    render(options, (err: SassError, result: Result) => {
+      if (err) {
+        throw err;
+      }
+
+      chunk = resultToFile(result, chunk);
+      this.push(chunk);
+      done();
+    });
   }
 }

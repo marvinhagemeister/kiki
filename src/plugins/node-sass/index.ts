@@ -1,4 +1,4 @@
-export { compile } from "./compile";
+import { IFile } from "../../io/file";
 export { filterSass } from "./filterSass";
 
 export interface IKikiSassConfig {
@@ -6,4 +6,14 @@ export interface IKikiSassConfig {
   dest: string;
   addVendorPrefixes?: boolean;
   cssnext?: boolean;
+}
+
+interface WhateverOpts {
+  dest?: string;
+}
+
+export function compile(options: WhateverOpts) {
+  return (files: IFile[]) => {
+    return Promise.resolve(files);
+  };
 }

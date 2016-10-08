@@ -1,6 +1,6 @@
-import { IFile } from "../../../src/io/file";
-import { filterSass as filter } from "../../../src/plugins/node-sass/filterSass";
-import { fixturePath as searchPath, getFixture } from "../../helpers";
+import { fixturePath as searchPath, getFixture } from "../../../../test/helpers";
+import { IFile } from "../../../io/file";
+import { filterSass as filter } from "../filterSass";
 import { assert as t } from "chai";
 import "mocha";
 

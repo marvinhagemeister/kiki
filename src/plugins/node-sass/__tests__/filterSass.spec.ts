@@ -1,63 +1,30 @@
 import { fixturePath as searchPath, getFixture } from "../../../../test/helpers";
-import { IFile } from "../../../io/file";
 import { filterSass as filter } from "../filterSass";
 import { assert as t } from "chai";
 import "mocha";
 
+const options = { searchPath };
+
 describe("filterSass", () => {
-  it("should throw if options are missing", () => {
-    t.throws(() => {
-      filter();
-    });
-  });
-
   it("should return only root files", () => {
-    let files: IFile[] = [{
-      location: null,
-      map: null,
-    }];
+    let files = [getFixture("main.scss")];
 
-    const options = {
-      searchPath,
-    };
+    t.deepEqual(filter(files, options), files);
 
-    files[0].location = getFixture("main.scss");
-
-    t.deepEqual(filter(options)(files), [{
-      location: files[0].location,
-      map: null,
-    }]);
-
-    files[0].location = getFixture("components/_a.scss");
-    t.deepEqual(filter(options)(files), [{
-      location: getFixture("main.scss"),
-      map: null,
-    }]);
-
+    files = [getFixture("components/_a.scss")];
+    t.deepEqual(filter(files, options), [getFixture("main.scss")]);
   });
 
   it("should filter duplicate files", () => {
-    const files: IFile[] = [{
-      location: getFixture("components/_a.scss"),
-      map: null,
-    }, {
-      location: getFixture("components/_a.scss"),
-      map: null,
-    }, {
-      location: getFixture("_b.scss"),
-      map: null,
-    }];
+    const files: string[] = [
+      getFixture("components/_a.scss"),
+      getFixture("components/_a.scss"),
+      getFixture("_b.scss"),
+    ];
 
-    const options = {
-      searchPath,
-    };
-
-    t.deepEqual(filter(options)(files), [{
-      location: getFixture("main.scss"),
-      map: null,
-    }, {
-      location: getFixture("main2.scss"),
-      map: null,
-    }]);
+    t.deepEqual(filter(files, options), [
+      getFixture("main.scss"),
+      getFixture("main2.scss"),
+    ]);
   });
 });

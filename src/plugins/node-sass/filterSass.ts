@@ -1,39 +1,20 @@
-import { IFile } from "../../io/file";
 import { getRootFiles } from "./getRootFiles";
-import * as fs from "fs";
 
-interface ISassFilterOptions {
+export interface FilterSassOptions {
   searchPath: string;
 }
 
-export function filterSass(opts?: ISassFilterOptions) {
-  if (!opts.searchPath) {
-    throw new Error("Sass Plugin didn't receive a search path");
-  }
+export function filterSass(files: string[], options?: FilterSassOptions) {
+  files = files.filter(file => /.+\.(?:sass|scss)$/.test(file));
 
-  try {
-    fs.lstatSync(opts.searchPath);
-  } catch (err) {
-    throw new Error("Sass search path \"" + opts.searchPath + "\" does not exist");
-  }
-
-  return (files: IFile[]) => {
-    const sassFiles = files.filter(f => /\.scss$/.test(f.location));
-
-    const lookup: string[] = [];
-    let newSassFiles: IFile[] = [];
-
-    sassFiles.forEach(file => {
-      getRootFiles(opts.searchPath, file).forEach(item => {
-        const loc = item.location;
-
-        if (lookup.indexOf(loc) === -1) {
-          newSassFiles.push(item);
-          lookup.push(loc);
-        }
-      });
+  let out: string[] = [];
+  for (let i = 0; i < files.length; i++) {
+    getRootFiles(options.searchPath, files[i]).forEach(item => {
+      if (out.indexOf(item) === -1) {
+        out.push(item);
+        files.push(item);
+      }
     });
-
-    return newSassFiles;
-  };
+  }
+  return out;
 }

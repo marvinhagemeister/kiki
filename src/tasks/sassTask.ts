@@ -50,7 +50,8 @@ export class SassTask extends Task {
     queue.forEach(file => stream.push(file));
 
     if (queue.length === 0) {
-      Emitter.noFilesOrOnlyPartials();
+      this.emitter.noFilesOrOnlyPartials();
+      return;
     }
 
     return stream

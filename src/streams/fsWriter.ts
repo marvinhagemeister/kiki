@@ -1,40 +1,56 @@
 import { IFile2 } from "../io/file";
 import { Buffer } from "buffer";
 import * as fs from "fs";
+import * as mkdirp from "mkdirp";
 import * as path from "path";
 import { Writable } from "stream";
 
-export interface FsWriterHandler {
-  writeFile(path: string, data: string | Buffer, callback: (err: Error) => any): void;
+function mkdirpPr(folder: string) {
+  return new Promise((resolve, reject) => {
+    mkdirp(folder, (err: Error, made: string) => {
+      return err ? reject(err) : resolve(made);
+    });
+  });
+}
+
+function fsPr(name: string, data: string | Buffer) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(name, data, (err: Error) => {
+      return err ? reject(err) : resolve();
+    })
+  });
+}
+
+function noop(): null {
+  return null;
 }
 
 export class FsWriter extends Writable {
   private dest: string;
-  private fs: any;
+  private fsPr: any;
 
   constructor(dest: string) {
     super({ objectMode: true });
     this.dest = path.resolve(dest);
-    this.fs = fs;
+    this.fsPr = fsPr;
   }
 
-  set fsHandler(fs: FsWriterHandler) {
-    this.fs = fs;
+  set fsHandler(fsPr: <T>(name: string, data: string | Buffer) => PromiseLike<T>) {
+    this.fsPr = fsPr;
   }
 
   public _write(file: IFile2, encoding: string, callback: (err: Error) => any) {
     const filename = path.basename(file.location);
+    const filepath = path.join(this.dest, filename);
 
-    this.fs.writeFile(this.dest + filename, file.content, (err: Error) => {
-      if (err) { callback(err); }
+    const writeMap = Buffer.isBuffer(file.map)
+      ? this.fsPr(filepath + ".map", file.map)
+      : noop();
 
-      if (file.map) {
-        this.fs.writeFile(this.dest + filename + ".map", file.map, (mapErr: Error) => {
-          callback(mapErr !== null ? mapErr : null);
-        });
-      } else {
-        callback(null);
-      }
-    });
+    mkdirpPr(this.dest)
+      .then(() => this.fsPr(filepath, file.content))
+      .then(() => writeMap)
+      .then(callback(null))
+      .catch((err: Error) => callback(err));
   }
 }

@@ -6,6 +6,7 @@ function resolveApp(relativePath) {
   return path.resolve(relativePath);
 }
 
+/* eslint-disable no-console */
 function logMissingSection(name) {
   console.log(chalk.red(name + ' src or dest path not specified'));
   console.log();

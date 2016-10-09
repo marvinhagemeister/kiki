@@ -10,7 +10,6 @@ export class PostCssTransform extends Transform {
 
   constructor(plugins: any[]) {
     super({ objectMode: true });
-
     this.plugins = plugins;
   }
 

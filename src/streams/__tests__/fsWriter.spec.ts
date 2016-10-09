@@ -4,6 +4,10 @@ import "mocha";
 import * as sinon from "sinon";
 
 describe("FsWriter", () => {
+  it.skip("should create dest folder", () => {
+    // TODO
+  });
+
   it.skip("should write content file", () => {
     // TODO
   });

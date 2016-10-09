@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 export interface IFile {
   location: string;
   content?: string;

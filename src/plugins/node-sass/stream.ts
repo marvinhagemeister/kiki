@@ -4,7 +4,7 @@ import { resultToFile } from "./result";
 import { Options, Result, SassError, render } from "node-sass";
 import { Transform } from "stream";
 
-export default class SassTransform extends Transform {
+export class SassTransform extends Transform {
   private options: Options;
 
   constructor(options: Options) {

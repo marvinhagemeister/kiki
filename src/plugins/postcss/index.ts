@@ -1,1 +1,1 @@
-export { compile, ICustomPostCssOptions } from "./compile";
+export { PostCssTransform } from "./transform";

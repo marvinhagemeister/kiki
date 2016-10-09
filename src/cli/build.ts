@@ -1,5 +1,5 @@
-import getConfig from "../config/getConfig";
-import { build } from "../tasks/build";
+// import getConfig from "../config/getConfig";
+// import { build } from "../tasks/build";
 
-const config = getConfig();
-build(config);
+// const config = getConfig();
+// build(config);

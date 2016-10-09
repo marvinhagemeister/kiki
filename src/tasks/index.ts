@@ -7,6 +7,7 @@ import MemoryStream from "../streams/memory-stream";
 import { filesFromMatch } from "../utils";
 import { watch as watcher } from "../watcher";
 import * as autoprefixer from "autoprefixer";
+import * as cssnano from "cssnano";
 
 const prefixerOptions = {
   browsers: [
@@ -18,12 +19,17 @@ const prefixerOptions = {
   remove: false, // makes autoprefixer 10% faster
 };
 
-export function buildSass(files: string[]) {
+export function buildSass(files: string[], isProduction: boolean) {
+  let plugins = [autoprefixer(prefixerOptions)];
+
+  if (isProduction) {
+    plugins.push(cssnano);
+  }
 
   // Create streams
   const stream = new MemoryStream();
-  const sass = new SassTransform({ outputStyle: "compressed" });
-  const postcss = new PostCssTransform([autoprefixer(prefixerOptions)]);
+  const sass = new SassTransform({ outputStyle: "nested" });
+  const postcss = new PostCssTransform(plugins);
   const writer = new Writer();
 
   // TODO Error handling
@@ -43,7 +49,7 @@ export function buildSass(files: string[]) {
     .pipe(writer);
 }
 
-export function watch(config: IKikiConfig) {
+export function watch(config: IKikiConfig, isProduction: boolean) {
   const watchPaths: string[] = [];
   if (config.sass && config.sass.src) {
     watchPaths.push(config.sass.src);
@@ -55,7 +61,7 @@ export function watch(config: IKikiConfig) {
 
   watcher(watchPaths).then((file: string) => {
     if (/.+\.scss$/.test(file)) {
-      buildSass([file]);
+      buildSass([file], isProduction);
     }
   });
 }

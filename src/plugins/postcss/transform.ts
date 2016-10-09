@@ -1,6 +1,7 @@
 import * as emitter from "../../emitter";
 import { IFile2 } from "../../io/file";
 import { Buffer } from "buffer";
+import * as path from "path";
 import * as postcss from "postcss";
 import { Transform } from "stream";
 
@@ -16,6 +17,7 @@ export class PostCssTransform extends Transform {
   public _transform(chunk: IFile2, encoding: string, done: (err: Error) => any) {
     let options: postcss.ProcessOptions = {
       map: false,
+      to: path.basename(chunk.location),
     };
 
     if (chunk.map) {

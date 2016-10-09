@@ -11,3 +11,12 @@ export interface IFile2 {
   content?: Buffer;
   map: boolean | Buffer;
 }
+
+export interface SourceMap {
+  version: number;
+  sourceRoot: string;
+  file: string;
+  sources: string[];
+  mappings: string;
+  names: string[];
+}

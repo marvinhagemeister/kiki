@@ -41,16 +41,21 @@ describe("NodeSass Stream", () => {
     const stream = new MemoryStream();
     const sass = new SassTransform({ outputStyle: "compressed" });
     const writer = new MemoryWriter((file: IFile2) => {
-      t.equal(file.content.toString(), "body{color:red}\n\n/*# sourceMappingURL=whatever.css.map */");
-      t.equal(file.location, "/tmp/whatever.css");
+      try {
+        t.equal(file.content.toString(), "body{color:red}\n\n/*# sourceMappingURL=whatever.css.map */");
+        t.equal(file.location, "/tmp/whatever.css");
 
-      const map = JSON.parse(file.map.toString());
-      t.equal(map.version, 3);
-      t.equal(map.file, "whatever.css");
-      t.equal(map.sourceRoot, "/tmp");
-      t.equal(map.sources.length, 1);
-      t.isTrue(map.mappings.length > 1);
-      done();
+        const map = JSON.parse(file.map.toString());
+        t.equal(map.version, 3);
+        t.equal(map.file, "whatever.css");
+        t.equal(map.sourceRoot, "/tmp");
+        // TODO fix sources
+        t.equal(map.sources[0], "whatever.scss");
+        t.isTrue(map.mappings.length > 1);
+        done();
+      } catch (err) {
+        done(err);
+      }
     });
 
     stream.on("error", errorHandler);

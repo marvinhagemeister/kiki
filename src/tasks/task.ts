@@ -1,17 +1,46 @@
-// import * as emitter from "../emitter";
-// import { filesFromMatch } from "../utils";
-// import * as glob from "glob-promise";
+import * as Emitter from "../emitter";
+import * as glob from "glob";
+import * as path from "path";
 
-// const globOptions = { follow: true, ignore: "**/_*" };
-// export default function task(globPath: string, taskName: string) {
-//   emitter.start(taskName, globPath);
+export interface TaskActions {
+  run(files: string[]): void;
+}
 
-//   return glob(globPath, globOptions).then((matches: string[]) => {
-//     if (matches.length === 0) {
-//       emitter.nothingToDo();
-//       return [];
-//     }
+export interface TaskOptions {
+  src: string;
+  dest: string;
+  env?: string;
+}
 
-//     return filesFromMatch(matches);
-//   });
-// };
+export class Task implements TaskActions {
+  protected env: string;
+  protected src: string;
+  protected dest: string;
+  protected pattern: string = null;
+
+  constructor(options: TaskOptions) {
+    this.env = options.env ? options.env : "development";
+    this.src = options.src;
+    this.dest = options.dest;
+    this.emitter = Emitter;
+  }
+
+  // TODO create emitter interface
+  set emitter(emitter: any) {
+    this.emitter = emitter;
+  }
+
+  public run(files?: string[]) {
+    if (typeof files === "undefined") {
+      glob(path.resolve(this.src) + this.pattern, (err, res) => {
+        this.process(res);
+      });
+    } else {
+      this.process(files);
+    }
+  }
+
+  protected process(files: string[]) {
+    throw new Error("Process method not implemented in subclass");
+  }
+}

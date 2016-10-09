@@ -38,8 +38,11 @@ export function missingConfig(path: string) {
 
 export function noFilesOrOnlyPartials() {
   console.log();
-  console.log(chalk.yellow("Only partials found. Partials must be imported by "
-    + "a root file to be included in compilations."));
+  console.log(chalk.cyan("Skipping compilation:"));
+  console.log();
+  console.log(chalk.dim("  Partials (files starting with an underscore like "
+    + "_buttons.scss) must be imported by a root file to be "
+    + "included in compilations."));
   console.log();
 }
 

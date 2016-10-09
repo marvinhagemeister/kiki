@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
-
-interface Importer {
+declare module "node-sass" {
+  interface Importer {
     (url: string, prev: string, done: (data: { file: string; contents: string; }) => void): void;
-}
+  }
 
-interface Options {
+  interface Options {
     file?: string;
     data?: string;
     importer?: Importer | Importer[];
@@ -29,27 +29,28 @@ interface Options {
     sourceMapContents?: boolean;
     sourceMapEmbed?: boolean;
     sourceMapRoot?: string;
-}
+  }
 
-interface SassError extends Error {
+  interface SassError extends Error {
     message: string;
     line: number;
     column: number;
     status: number;
     file: string;
-}
+  }
 
-interface Result {
+  interface Result {
     css: Buffer;
     map: Buffer;
     stats: {
-        entry: string;
-        start: number;
-        end: number;
-        duration: number;
-        includedFiles: string[];
+      entry: string;
+      start: number;
+      end: number;
+      duration: number;
+      includedFiles: string[];
     }
-}
+  }
 
-export declare function render(options: Options, callback: (err: SassError, result: Result) => any): void;
-export declare function renderSync(options: Options): Result;
+  export function render(options: Options, callback: (err: SassError, result: Result) => any): void;
+  export function renderSync(options: Options): Result;
+}

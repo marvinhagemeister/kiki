@@ -14,9 +14,19 @@ export class PostCssTransform extends Transform {
   }
 
   public _transform(chunk: IFile2, encoding: string, done: (err: Error) => any) {
-    // TODO Sourcemap support
+    let options: postcss.ProcessOptions = {
+      map: false,
+    };
+
+    if (chunk.map) {
+      options.map = {
+        inline: false,
+        prev: chunk.map,
+      };
+    }
+
     postcss(this.plugins)
-      .process(chunk.content.toString())
+      .process(chunk.content.toString(), options)
       .then(res => {
         res.warnings().forEach(warn => emitter.warning(warn));
         chunk.content = Buffer.from(res.css);

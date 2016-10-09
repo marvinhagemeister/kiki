@@ -3,7 +3,7 @@ import * as glob from "glob";
 import * as path from "path";
 
 export interface TaskActions {
-  run(files: string[]): void;
+  run<T>(files: string[]): PromiseLike<T>;
 }
 
 export interface TaskOptions {
@@ -17,6 +17,7 @@ export class Task implements TaskActions {
   protected src: string;
   protected dest: string;
   protected pattern: string = null;
+  protected emitter: any;
 
   constructor(options: TaskOptions) {
     this.env = options.env ? options.env : "development";
@@ -26,21 +27,28 @@ export class Task implements TaskActions {
   }
 
   // TODO create emitter interface
-  set emitter(emitter: any) {
+  set logger(emitter: any) {
     this.emitter = emitter;
   }
 
   public run(files?: string[]) {
-    if (typeof files === "undefined") {
-      glob(path.resolve(this.src) + this.pattern, (err, res) => {
-        this.process(res);
-      });
-    } else {
-      this.process(files);
-    }
+    return new Promise((resolve, reject) => {
+      if (typeof files === "undefined") {
+        const globPath = path.join(this.src, this.pattern !== null
+          ? this.pattern
+          : "*.test");
+
+        glob(globPath, (err, res) => err !== null
+          ? reject(err)
+          : resolve(res));
+      } else {
+        resolve(files);
+      }
+    })
+    .then((items: string[]) => this._process(items));
   }
 
-  protected process(files: string[]) {
-    throw new Error("Process method not implemented in subclass");
+  public _process(files: string[]) {
+    throw new Error("_process() not implemented in subclass");
   }
 }

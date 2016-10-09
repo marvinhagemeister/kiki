@@ -35,7 +35,7 @@ export class SassTask extends Task {
     }
   }
 
-  protected process(files: string[]) {
+  public _process(files: string[]) {
     // Create streams
     const stream = new MemoryStream();
     const sass = new SassTransform({ outputStyle: "nested" });

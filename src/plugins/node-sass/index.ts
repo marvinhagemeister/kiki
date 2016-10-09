@@ -1,5 +1,5 @@
 export { filterSass } from "./filterSass";
-export { SassTransform } from "./stream";
+export { SassTransform } from "./transform";
 
 export interface IKikiSassConfig {
   src: string;

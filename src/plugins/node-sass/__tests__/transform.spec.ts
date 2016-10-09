@@ -1,7 +1,7 @@
 import { IFile2 } from "../../../io/file";
 import MemoryStream from "../../../streams/memory-stream";
 import MemoryWriter from "../../../streams/memory-writer";
-import { SassTransform } from "../stream";
+import { SassTransform } from "../transform";
 import { Buffer } from "buffer";
 import { assert as t } from "chai";
 import "mocha";

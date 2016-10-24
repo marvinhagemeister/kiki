@@ -4,16 +4,27 @@ import "mocha";
 
 describe("filesFromMatch", () => {
   it("should create an IFile object from a match", () => {
-    t.deepEqual(match(["myfile.scss"]), [{
-      location: "myfile.scss",
+    t.deepEqual(match(["/whatever/myfile.scss"], "/whatever/"), [{
+      base: "",
+      location: "/whatever/myfile.scss",
       map: null,
     }]);
 
-    t.deepEqual(match(["/a/myfile.scss", "/myfile.scss"]), [{
-      location: "/a/myfile.scss",
+    t.deepEqual(match(["/whatever/a/myfile.scss", "/whatever/myfile.scss"], "/whatever/"), [{
+      base: "a",
+      location: "/whatever/a/myfile.scss",
       map: null,
     }, {
-      location: "/myfile.scss",
+      base: "",
+      location: "/whatever/myfile.scss",
+      map: null,
+    }]);
+  });
+
+  it("should create correct relative paths", () => {
+    t.deepEqual(match(["/home/whatever/myfile.scss"], "/home/"), [{
+      base: "whatever",
+      location: "/home/whatever/myfile.scss",
       map: null,
     }]);
   });

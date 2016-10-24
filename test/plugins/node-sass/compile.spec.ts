@@ -7,6 +7,7 @@ import "mocha";
 
 function getFiles(name: string): IFile[] {
   return [{
+    base: __dirname + "/fixtures",
     content: fs.readFileSync(getFixture(name), "utf-8"),
     location: getFixture(name),
     map: null,
@@ -16,6 +17,7 @@ function getFiles(name: string): IFile[] {
 describe("compile (node-sass)", () => {
   it("should work", () => {
     const files: IFile[] = [{
+      base: __dirname + "/fixtures",
       location: getFixture("main.scss"),
       map: null,
     }];
@@ -26,6 +28,7 @@ describe("compile (node-sass)", () => {
 
     return compile(options)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody"
         + " {\n  background: red; }\n",
         location: getFixture("main.css"),
@@ -43,6 +46,7 @@ describe("compile (node-sass)", () => {
 
     return compile(sassOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: "h1{display:flex}\n",
         location: getFixture("postcss.css"),
         map: null,

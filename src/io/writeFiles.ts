@@ -15,12 +15,15 @@ export function writeFiles(dest: string) {
       files.map((file: IFile) => {
         const name = path.basename(file.location);
 
-        return mkdirp(dest).then(() => {
-          const outPath = path.join(dest, name);
+        // Keep subfolder structure if we find any
+        const fileDest = path.resolve(path.join(dest, file.base));
+
+        return mkdirp(fileDest).then(() => {
+          const outPath = path.join(fileDest, name);
           fs.writeFileSync(outPath, file.content);
 
           if (file.map !== null) {
-            fs.writeFileSync(path.join(dest, name), file.content);
+            fs.writeFileSync(path.join(fileDest, name), file.content);
           }
 
           file.location = outPath;

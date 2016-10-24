@@ -28,7 +28,7 @@ export function watch(config: IKikiConfig) {
     const start = new Date().getTime();
 
     if (/.+\.scss$/.test(path)) {
-      const files = filesFromMatch([path]);
+      const files = filesFromMatch([path], config.sass.src);
 
       return sass(config.sass)(files)
         .then(writeFiles(config.sass.dest))

@@ -12,9 +12,10 @@ process.env.NODE_ENV = "production";
 
 // Sass
 export function buildSass(config: IKikiSassConfig) {
-  const globPath = path.resolve(config.src) + "/**/*.scss";
+  const base = path.resolve(config.src);
+  const globPath = base + "/**/*.scss";
 
-  return task(globPath, "sass")
+  return task(globPath, base, "sass")
     .then(sass(config))
     .then(writeFiles(config.dest))
     .catch((err: Error) => {

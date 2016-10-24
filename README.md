@@ -78,7 +78,7 @@ Options:
 Examples:
   kiki build -c myconfig.json
 
-Copyright 2016 Marvin Hagemeister <marvin@marvinhagemeister.de>
+Copyright 2016 Marvin Hagemeister
 ```
 
 ## Why the name?

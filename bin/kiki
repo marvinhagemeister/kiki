@@ -26,7 +26,7 @@ const yargs = require('yargs')
   .version(() => require('../package').version)
   .alias('h', 'help')
   .showHelpOnFail(false, 'Specify --help for available options')
-  .epilog('Copyright 2016 Marvin Hagemeister <marvin@marvinhagemeister.de>')
+  .epilog('Copyright 2016 Marvin Hagemeister')
   .argv;
 
 // Check valid script

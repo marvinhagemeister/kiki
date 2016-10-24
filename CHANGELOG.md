@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0 - 24.10.2016
+
+- Remove cssnano for now. It isn't safe for minifying even with the `safe` option is set to true.
+
 ## 1.5.0 - 04.10.2016
 
 - Don't compile partials that are not imported by anything.

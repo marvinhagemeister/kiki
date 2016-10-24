@@ -13,3 +13,8 @@ tmp/
 
 # VS Code
 jsconfig.json
+.vscode/settings.json
+
+# Coverage
+coverage/
+.nyc_output/

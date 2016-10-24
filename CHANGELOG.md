@@ -1,5 +1,10 @@
 # Changelog
 
+## Next
+
+- Add a pretty cli interface. Try it out with `kiki --help`.
+- Preserve relative file paths starting from glob pattern
+
 ## 1.6.1 - 24.10.2016
 
 - Last release was incorrectly published on npm

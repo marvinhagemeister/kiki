@@ -1,4 +1,4 @@
-import * as out from "../../../src/plugins/node-sass/index";
+import * as out from "../index";
 import { assert as t } from "chai";
 import "mocha";
 

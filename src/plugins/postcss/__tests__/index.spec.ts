@@ -1,4 +1,4 @@
-import * as postcss from "../../../src/plugins/postcss/index";
+import * as postcss from "../index";
 import { assert as t } from "chai";
 import "mocha";
 

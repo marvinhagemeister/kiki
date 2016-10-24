@@ -1,6 +1,6 @@
-import { IFile } from "../../../src/io/file";
-import { getRootFiles as root } from "../../../src/plugins/node-sass/getRootFiles";
-import { fixturePath, getFixture } from "../../helpers";
+import { fixturePath, getFixture } from "../../../__tests__/helpers";
+import { IFile } from "../../../io/file";
+import { getRootFiles as root } from "../getRootFiles";
 import { assert as t } from "chai";
 import "mocha";
 

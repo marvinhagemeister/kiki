@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
-    "test": "mocha --compilers ts:ts-node/register 'test/**/*.spec.ts'",
+    "test": "mocha --compilers ts:ts-node/register 'src/**/__tests__/*.spec.ts'",
     "test-watch": "npm run test -s -- -w",
     "clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",
     "build": "tsc",

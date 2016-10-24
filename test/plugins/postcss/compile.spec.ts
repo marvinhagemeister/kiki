@@ -8,6 +8,7 @@ import "mocha";
 
 function getFiles(name: string): IFile[] {
   return [{
+    base: __dirname + "/fixtures",
     content: fs.readFileSync(getFixture(name), "utf-8"),
     location: getFixture(name),
     map: null,
@@ -28,6 +29,7 @@ describe("compile (postcss)", () => {
 
     return compile(postCssOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
         + "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
@@ -50,6 +52,7 @@ describe("compile (postcss)", () => {
 
     return compile(postCssOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
         + "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
@@ -72,6 +75,7 @@ describe("compile (postcss)", () => {
 
     return compile(postCssOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: "h1 {\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
@@ -88,6 +92,7 @@ describe("compile (postcss)", () => {
 
     return compile(postCssOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: ".one {\n  background-color: brown;\n}\n\n.two {\n  "
           + "background-color: brown;\n}\n",
         location: getFixture("cssnext.css"),
@@ -105,6 +110,7 @@ describe("compile (postcss)", () => {
 
     return compile(postCssOpts)(files).then(res => {
       t.deepEqual(res, [{
+        base: __dirname + "/fixtures",
         content: ":root {\n  --main-bg-color: brown;\n}\n\n.one {\n  "
           + "background-color: var(--main-bg-color);\n}\n\n.two {\n  "
           + "background-color: var(--main-bg-color);\n}\n",

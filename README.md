@@ -64,7 +64,7 @@ Add kiki to your npm scripts in your `package.json`:
 ## CLI-Arguments
 
 ```bash
-Usage: bin/kiki <command> [options]
+Usage: kiki <command> [options]
 
 Commands:
   watch  Watch for file changes and compile immediately

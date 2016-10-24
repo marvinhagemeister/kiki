@@ -1,7 +1,6 @@
 /* global describe:true */
 import { IFile } from "../file";
 import { writeFiles as write } from "../writeFiles";
-import * as Bluebird from "bluebird";
 import { assert as t } from "chai";
 import * as fs from "fs";
 import "mocha";

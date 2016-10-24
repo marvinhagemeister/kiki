@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.1 - 24.10.2016
+
+- Last release was incorrectly published on npm
+
 ## 1.6.0 - 24.10.2016
 
 - Remove cssnano for now. It isn't safe for minifying even with the `safe` option is set to true.

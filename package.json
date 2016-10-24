@@ -18,6 +18,8 @@
   "scripts": {
     "test": "mocha --compilers ts:ts-node/register 'src/**/__tests__/*.spec.ts'",
     "test-watch": "npm run test -s -- -w",
+    "coverage": "nyc npm t",
+    "coverage-open": "nyc npm t && open coverage/index.html",
     "clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",
     "build": "tsc",
     "watch": "tsc -w",
@@ -54,8 +56,36 @@
     "@types/rimraf": "0.0.28",
     "husky": "*",
     "mocha": "^3.1.2",
+    "nyc": "^8.3.2",
     "ts-node": "^1.6.0",
     "tslint": "^3.15.1",
     "typescript": "^2.0.3"
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "typings",
+      "node_modules/",
+      "**/__tests__/**",
+      "__tests__/**",
+      "**/*.d.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json",
+      "html",
+      "text",
+      "text-summary",
+      "lcovonly"
+    ],
+    "all": true
   }
 }

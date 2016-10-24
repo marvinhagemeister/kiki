@@ -1,4 +1,4 @@
-import { replaceExtension as replace } from "../../src/utils";
+import { replaceExtension as replace } from "../utils";
 import { assert as t } from "chai";
 import "mocha";
 

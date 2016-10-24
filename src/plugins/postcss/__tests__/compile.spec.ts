@@ -1,7 +1,7 @@
-import { IFile } from "../../../src/io/file";
-import { compile } from "../../../src/plugins/postcss/compile";
-import { ICustomPostCssOptions } from "../../../src/plugins/postcss/index";
-import { getFixture } from "../../helpers";
+import { getFixture } from "../../../__tests__/helpers";
+import { IFile } from "../../../io/file";
+import { compile } from "../compile";
+import { ICustomPostCssOptions } from "../index";
 import { assert as t } from "chai";
 import * as fs from "fs";
 import "mocha";

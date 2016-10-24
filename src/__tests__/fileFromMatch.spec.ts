@@ -1,4 +1,4 @@
-import { filesFromMatch as match } from "../../src/utils";
+import { filesFromMatch as match } from "../utils";
 import { assert as t } from "chai";
 import "mocha";
 

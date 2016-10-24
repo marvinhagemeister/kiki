@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.7.0 - 24.10.2016
 
 - Add a pretty cli interface. Try it out with `kiki --help`.
 - Preserve relative file paths starting from glob pattern

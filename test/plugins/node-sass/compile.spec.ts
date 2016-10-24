@@ -2,7 +2,16 @@ import { IFile } from "../../../src/io/file";
 import { compile } from "../../../src/plugins/node-sass/compile";
 import { getFixture } from "../../helpers";
 import { assert as t } from "chai";
+import * as fs from "fs";
 import "mocha";
+
+function getFiles(name: string): IFile[] {
+  return [{
+    content: fs.readFileSync(getFixture(name), "utf-8"),
+    location: getFixture(name),
+    map: null,
+  }];
+}
 
 describe("compile (node-sass)", () => {
   it("should work", () => {
@@ -22,6 +31,24 @@ describe("compile (node-sass)", () => {
         location: getFixture("main.css"),
         map: null,
       }]);
+    });
+  });
+
+  it("should minify css if NODE_ENV=production", () => {
+    process.env.NODE_ENV = "production";
+    const files = getFiles("postcss.css");
+    const sassOpts = {
+      dest: "tmp/",
+    };
+
+    return compile(sassOpts)(files).then(res => {
+      t.deepEqual(res, [{
+        content: "h1{display:flex}\n",
+        location: getFixture("postcss.css"),
+        map: null,
+      }]);
+
+      process.env.NODE_ENV = "test";
     });
   });
 });

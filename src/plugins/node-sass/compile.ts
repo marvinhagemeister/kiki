@@ -5,7 +5,13 @@ import * as Promise from "bluebird";
 import { Options, Result, SassError, render } from "node-sass";
 import * as path from "path";
 
-const sass = (opts: Object) => {
+const sass = (opts: Options) => {
+  // Basic minifying because cssnone breaks css even in safe mode
+  // TODO: investigate in a better css minifier
+  if (process.env.NODE_ENV === "production") {
+    opts.outputStyle = "compressed";
+  }
+
   return new Promise((res, rej) => {
     render(opts, (err, result) => {
       if (err) {

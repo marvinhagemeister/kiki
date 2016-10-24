@@ -20,6 +20,7 @@ export function buildSass(config: IKikiSassConfig) {
     .then(writeFiles(config.dest))
     .catch((err: Error) => {
       emitter.error(err);
+      return [];
     });
 }
 

@@ -15,8 +15,11 @@ export interface IKikiConfig {
   };
 }
 
-export default function getConfig() {
-  const path = resolveApp("kiki.config.json");
+export default function getConfig(configPath?: string) {
+  const path = typeof configPath !== "undefined"
+    && configPath !== "undefined"
+    ? resolveApp(configPath)
+    : resolveApp("kiki.config.json");
 
   try {
     const config = require(path);

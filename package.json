@@ -52,7 +52,6 @@
     "@types/node": "^6.0.42",
     "@types/node-sass": "0.0.29",
     "@types/rimraf": "0.0.28",
-    "@types/through2": "^2.0.30",
     "eslint": "^3.6.0",
     "glob-promise": "^1.0.6",
     "husky": "*",

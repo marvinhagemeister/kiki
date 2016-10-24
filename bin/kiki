@@ -1,24 +1,68 @@
 #!/usr/bin/env node
 const spawn = require('cross-spawn');
-const script = process.argv[2];
-const args = process.argv.slice(3);
+const chalk = require('chalk');
+const fs = require('fs');
+const path = require('path');
+const yargs = require('yargs')
+  .usage('Usage: $0 <command> [options]')
+  .demand(1)
+  .command('watch', 'Watch for file changes and compile immediately')
+  .command('build', 'Build minified production files')
+  .option('c', {
+    alias: 'config',
+    type: 'string',
+    nargs: 1,
+    default: 'kiki.config.json',
+    normalize: true,
+    requiresArg: true,
+    describe: 'Path to config file'
+  })
+  .option('v', {
+    alias: 'version',
+    describe: 'Show installed kiki-bundler version'
+  })
+  .help('h')
+  .example('kiki build -c myconfig.json')
+  .version(() => require('../package').version)
+  .alias('h', 'help')
+  .showHelpOnFail(false, 'Specify --help for available options')
+  .epilog('Copyright 2016 Marvin Hagemeister <marvin@marvinhagemeister.de>')
+  .argv;
 
-switch (script) {
-case 'build':
-case 'start':
-case 'watch':
-  const task = script === 'start' ? 'watch' : script;
-  const result = spawn.sync(
-    'node',
-    [require.resolve('../dist/cli/' + task)].concat(args),
-    {stdio: 'inherit'}
-  );
-  process.exit(result.status);
-  break;
-default:
-  /* eslint-disable no-console */
-  console.log('Unknown script "' + script + '".');
-  console.log('Perhaps you need to update kiki?');
-  /* eslint-enable no-console */
-  break;
+// Check valid script
+const script = yargs._[0];
+if (['build', 'watch'].indexOf(script) === -1) {
+  console.error(chalk.red('Invalid command, must be "') + chalk.cyan('build')
+    + chalk.red('" or "') + chalk.cyan('watch') + chalk.red('"'));
+  console.log();
+  console.log('Example: kiki build');
+  console.log();
+  console.log('Specify --help for available options')
+  process.exit(1);
 }
+
+const config = typeof yargs.config === 'undefined'
+  ? yargs.c
+  : yargs.config;
+
+// Check config exists
+if (typeof config !== 'undefined') {
+  try {
+    fs.lstatSync(path.resolve(config));
+  } catch(err) {
+    console.error(chalk.red('Config file not found at: ')
+      + path.resolve(config));
+    console.log();
+    process.exit(1);
+  }
+}
+
+const args = [];
+args.push(config)
+
+const result = spawn.sync(
+  'node',
+  [require.resolve('../dist/cli/' + script)].concat(args),
+  {stdio: 'inherit'}
+);
+process.exit(result.status);

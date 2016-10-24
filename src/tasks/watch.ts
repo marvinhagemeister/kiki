@@ -35,6 +35,9 @@ export function watch(config: IKikiConfig) {
         .then(files => {
           const time = new Date().getTime() - start;
           emitter.taskDone(files, time);
+        })
+        .catch((err: Error) => {
+          emitter.error(err);
         });
     }
   });

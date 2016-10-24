@@ -61,6 +61,26 @@ Add kiki to your npm scripts in your `package.json`:
 | `addVendorPrefixes` | boolean | true | automatic vendor prefix insertion via autoprefixer |
 | `cssnext` | boolean | false | use tomorrows css features today |
 
+## CLI-Arguments
+
+```bash
+Usage: bin/kiki <command> [options]
+
+Commands:
+  watch  Watch for file changes and compile immediately
+  build  Build minified production files
+
+Options:
+  -c, --config   Path to config file      [string] [default: "kiki.config.json"]
+  -v, --version  Show version number                                   [boolean]
+  -h, --help     Show help                                             [boolean]
+
+Examples:
+  kiki build -c myconfig.json
+
+Copyright 2016 Marvin Hagemeister <marvin@marvinhagemeister.de>
+```
+
 ## Why the name?
 
 At work we have quite a football table culture (which is called `Kicker` in German) and some of us even play in the german football table league.

@@ -5,7 +5,6 @@
     "node-sass": "registry:dt/node-sass#0.0.0+20160316155526"
   },
   "dependencies": {
-    "glob": "registry:npm/glob#6.0.0+20160723033700",
-    "through2": "registry:npm/through2#2.0.0+20160817101636"
+    "glob": "registry:npm/glob#6.0.0+20160723033700"
   }
 }

@@ -8,7 +8,14 @@ jsconfig.json
 kiki.config.json
 *.log
 rollup.config.js
-tscofnig.json
+tsconfig.json
 tslint.json
 typings.json
 typings/
+coverage/
+.nyc_output/
+.vscode/
+__tests__/
+tmp/
+.travis.yml
+.nvmrc

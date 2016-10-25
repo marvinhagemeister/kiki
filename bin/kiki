@@ -17,6 +17,9 @@ const yargs = require('yargs')
     requiresArg: true,
     describe: 'Path to config file'
   })
+  .option('production', {
+    describe: 'Force production builds'
+  })
   .option('v', {
     alias: 'version',
     describe: 'Show installed kiki-bundler version'
@@ -58,7 +61,8 @@ if (typeof config !== 'undefined') {
 }
 
 const args = [];
-args.push(config)
+args.push(config);
+args.push(!!yargs.production);
 
 const result = spawn.sync(
   'node',

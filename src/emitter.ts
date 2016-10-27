@@ -44,18 +44,18 @@ export function noFilesOrOnlyPartials() {
 }
 
 export function error(err: Error | string) {
-  console.log();
+  console.error();
   if (typeof err === "string" || err instanceof String) {
-    console.log(chalk.red(err.toString()));
+    console.error(chalk.red(err.toString()));
   } else {
     if (err.message.indexOf("search path") > -1) {
-      console.log(chalk.red(err.message));
+      console.error(chalk.red(err.message));
     } else {
-      console.log(chalk.red(err.stack));
+      console.error(chalk.red(err.stack));
     }
   }
 
-  console.log();
+  console.error();
 }
 
 // TODO typings

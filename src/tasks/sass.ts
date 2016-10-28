@@ -23,16 +23,15 @@ export function build(config: IKikiSassConfig) {
   }
 
   return (files: IFile[]) => {
-    return Promise.resolve(files)
-      .then(filterSass({
-        searchPath: config.src,
-      }))
-      .then(sass({
-        dest: config.dest,
-      }))
-      .then(postcss(postCssOpts))
-      .catch(err => {
-        throw err;
-      });
+    files = filterSass(files, { searchPath: config.src });
+
+    return Promise.all(files.map(file => {
+      return Promise.resolve(file)
+        .then(sass({ dest: config.dest }))
+        .then(postcss(postCssOpts))
+        .catch((err: Error) => {
+          throw err;
+        });
+    }));
   };
 }

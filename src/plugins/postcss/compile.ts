@@ -30,36 +30,32 @@ export function compile(options: ICustomPostCssOptions) {
     plugins.push(cssnext({ browsers: options.browsers }));
   }
 
-  return (files: IFile[]) => {
-    return Promise.all(
-      files.map((file: IFile) => {
-        let cssOptions: IPostCssOptions = {
-          map: false,
-          to: path.basename(file.location),
-        };
+  return (file: IFile) => {
+    let cssOptions: IPostCssOptions = {
+      map: false,
+      to: path.basename(file.location),
+    };
 
-        if (file.map !== null) {
-          cssOptions.map = {
-            inline: false,
-            prev: file.map,
-          };
+    if (file.map !== null) {
+      cssOptions.map = {
+        inline: false,
+        prev: file.map,
+      };
+    }
+
+    return postcss(plugins)
+      .process(file.content, cssOptions)
+      .then(res => {
+        res.warnings().forEach(warn => emitter.warning(warn));
+        file.content = res.css;
+
+        if (res.map) {
+          file.map = res.map.toString();
         }
 
-        return postcss(plugins)
-          .process(file.content, cssOptions)
-          .then(res => {
-            res.warnings().forEach(warn => emitter.warning(warn));
-            file.content = res.css;
-
-            if (res.map) {
-              file.map = res.map.toString();
-            }
-
-            return file;
-          }).catch((err: Error) => {
-            throw err;
-          });
-      })
-    );
+        return file;
+      }).catch((err: Error) => {
+        throw err;
+      });
   };
 }

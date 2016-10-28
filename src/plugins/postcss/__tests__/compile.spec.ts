@@ -6,18 +6,18 @@ import { assert as t } from "chai";
 import * as fs from "fs";
 import "mocha";
 
-function getFiles(name: string): IFile[] {
-  return [{
+function getFile(name: string): IFile {
+  return {
     base: __dirname + "/fixtures",
     content: fs.readFileSync(getFixture(name), "utf-8"),
     location: getFixture(name),
     map: null,
-  }];
+  };
 }
 
 describe("compile (postcss)", () => {
   it("should work add prefixes by default", () => {
-    const files = getFiles("postcss.css");
+    const file = getFile("postcss.css");
     const postCssOpts: ICustomPostCssOptions = {
       browsers: [
         ">1%",
@@ -27,19 +27,19 @@ describe("compile (postcss)", () => {
       ],
     };
 
-    return compile(postCssOpts)(files).then(res => {
-      t.deepEqual(res, [{
+    return compile(postCssOpts)(file).then((res: IFile) => {
+      t.deepEqual(res, {
         base: __dirname + "/fixtures",
         content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
         + "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
-      }]);
+      });
     });
   });
 
   it("should add prefixes if 'addVendorPrefixes' is true", () => {
-    const files = getFiles("postcss.css");
+    const files = getFile("postcss.css");
     const postCssOpts: ICustomPostCssOptions = {
       addVendorPrefixes: true,
       browsers: [
@@ -50,19 +50,19 @@ describe("compile (postcss)", () => {
       ],
     };
 
-    return compile(postCssOpts)(files).then(res => {
-      t.deepEqual(res, [{
+    return compile(postCssOpts)(files).then((res: IFile) => {
+      t.deepEqual(res, {
         base: __dirname + "/fixtures",
         content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
         + "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
-      }]);
+      });
     });
   });
 
   it("should not add prefixes if 'addVendorPrefixes' is false", () => {
-    const files = getFiles("postcss.css");
+    const files = getFile("postcss.css");
     const postCssOpts: ICustomPostCssOptions = {
       addVendorPrefixes: false,
       browsers: [
@@ -73,50 +73,50 @@ describe("compile (postcss)", () => {
       ],
     };
 
-    return compile(postCssOpts)(files).then(res => {
-      t.deepEqual(res, [{
+    return compile(postCssOpts)(files).then((res: IFile) => {
+      t.deepEqual(res, {
         base: __dirname + "/fixtures",
         content: "h1 {\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
-      }]);
+      });
     });
   });
 
   it("should add future features if 'cssnext' is true", () => {
-    const files = getFiles("cssnext.css");
+    const files = getFile("cssnext.css");
     const postCssOpts: ICustomPostCssOptions = {
       browsers: null,
       cssnext: true,
     };
 
-    return compile(postCssOpts)(files).then(res => {
-      t.deepEqual(res, [{
+    return compile(postCssOpts)(files).then((res: IFile) => {
+      t.deepEqual(res, {
         base: __dirname + "/fixtures",
         content: ".one {\n  background-color: brown;\n}\n\n.two {\n  "
           + "background-color: brown;\n}\n",
         location: getFixture("cssnext.css"),
         map: null,
-      }]);
+      });
     });
   });
 
   it("should add future features if 'cssnext' is false", () => {
-    const files = getFiles("cssnext.css");
+    const files = getFile("cssnext.css");
     const postCssOpts: ICustomPostCssOptions = {
       browsers: null,
       cssnext: false,
     };
 
-    return compile(postCssOpts)(files).then(res => {
-      t.deepEqual(res, [{
+    return compile(postCssOpts)(files).then((res: IFile) => {
+      t.deepEqual(res, {
         base: __dirname + "/fixtures",
         content: ":root {\n  --main-bg-color: brown;\n}\n\n.one {\n  "
           + "background-color: var(--main-bg-color);\n}\n\n.two {\n  "
           + "background-color: var(--main-bg-color);\n}\n",
         location: getFixture("cssnext.css"),
         map: null,
-      }]);
+      });
     });
   });
 });

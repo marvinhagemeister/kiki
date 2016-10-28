@@ -5,12 +5,6 @@ import { assert as t } from "chai";
 import "mocha";
 
 describe("filterSass", () => {
-  it("should throw if options are missing", () => {
-    t.throws(() => {
-      filter();
-    });
-  });
-
   it("should return only root files", () => {
     const fixture = getFixture("main.scss");
 
@@ -24,14 +18,14 @@ describe("filterSass", () => {
       searchPath,
     };
 
-    t.deepEqual(filter(options)(files), [{
+    t.deepEqual(filter(files, options), [{
       base: __dirname + "/fixtures",
       location: fixture,
       map: null,
     }]);
 
     files[0].location = getFixture("components/_a.scss");
-    t.deepEqual(filter(options)(files), [{
+    t.deepEqual(filter(files, options), [{
       base: __dirname + "/fixtures",
       location: getFixture("main.scss"),
       map: null,
@@ -58,7 +52,7 @@ describe("filterSass", () => {
       searchPath,
     };
 
-    t.deepEqual(filter(options)(files), [{
+    t.deepEqual(filter(files, options), [{
       base: __dirname + "/fixtures",
       location: getFixture("main.scss"),
       map: null,

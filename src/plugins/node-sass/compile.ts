@@ -29,39 +29,35 @@ interface ISassOptions extends Options {
 export function compile(opts: ISassOptions) {
   opts = opts || {};
 
-  return (files: IFile[]) => {
-    return Promise.all(
-      files.map(file => {
-        const filename = path.basename(file.location);
-        const out = path.join(opts.dest, filename);
+  return (file: IFile) => {
+    const filename = path.basename(file.location);
+    const out = path.join(opts.dest, filename);
 
-        opts.outFile = replaceExtension(out, "css");
+    opts.outFile = replaceExtension(out, "css");
 
-        if (file.map !== null) {
-          opts.sourceMap = replaceExtension(filename, "css.map");
-        }
+    if (file.map !== null) {
+      opts.sourceMap = replaceExtension(filename, "css.map");
+    }
 
-        if (file.content) {
-          opts.data = file.content;
-          opts.file = null;
-        } else {
-          opts.file = file.location;
-          opts.data = null;
-        }
+    if (file.content) {
+      opts.data = file.content;
+      opts.file = null;
+    } else {
+      opts.file = file.location;
+      opts.data = null;
+    }
 
-        return sass(opts).then((res: Result) => {
-          file.location = replaceExtension(file.location, "css");
-          file.content = res.css.toString();
+    return sass(opts).then((res: Result) => {
+      file.location = replaceExtension(file.location, "css");
+      file.content = res.css.toString();
 
-          if (file.map !== null) {
-            file.map = JSON.stringify(res.map.toString());
-          }
+      if (file.map !== null) {
+        file.map = JSON.stringify(res.map.toString());
+      }
 
-          return file;
-        }).catch((err: SassError) => {
-          throw err;
-        });
-      })
-    );
+      return file;
+    }).catch((err: SassError) => {
+      throw err;
+    });
   };
 }

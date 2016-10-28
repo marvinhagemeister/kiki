@@ -51,8 +51,8 @@ const config = typeof yargs.config === 'undefined'
 // Check config exists
 if (typeof config !== 'undefined') {
   try {
-    fs.lstatSync(path.resolve(config));
-  } catch(err) {
+    fs.lstatSync(path.resolve(process.cwd(), config));
+  } catch (err) {
     console.error(chalk.red('Config file not found at: ')
       + path.resolve(config));
     console.log();

@@ -38,6 +38,9 @@ export function watch(config: IKikiConfig) {
         })
         .catch((err: Error) => {
           emitter.error(err);
+
+          // Note: Watch tasks should never exit with 1, because that
+          // would obviously stop the watcher
         });
     }
   });

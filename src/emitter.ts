@@ -44,7 +44,7 @@ export function noFilesOrOnlyPartials() {
 }
 
 export function error(err: Error | string) {
-  console.error();
+  console.log();
   if (typeof err === "string" || err instanceof String) {
     console.error(chalk.red(err.toString()));
   } else {
@@ -55,7 +55,7 @@ export function error(err: Error | string) {
     }
   }
 
-  console.error();
+  console.log();
 }
 
 // TODO typings

@@ -35,5 +35,6 @@ export function build(config: IKikiConfig) {
       }
     }).catch(err => {
       emitter.error(err);
+      process.exit(1);
     });
 }

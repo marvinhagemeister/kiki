@@ -72,6 +72,7 @@ Commands:
 
 Options:
   -c, --config   Path to config file      [string] [default: "kiki.config.json"]
+  --production   Force production builds
   -v, --version  Show version number                                   [boolean]
   -h, --help     Show help                                             [boolean]
 

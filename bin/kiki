@@ -64,9 +64,20 @@ const args = [];
 args.push(config);
 args.push(!!yargs.production);
 
-const result = spawn.sync(
+const child = spawn(
   'node',
   [require.resolve('../dist/cli/' + script)].concat(args),
   {stdio: 'inherit'}
 );
-process.exit(result.status);
+
+child.on('close', closeHandler);
+child.on('error', closeHandler);
+child.on('exit', closeHandler);
+
+function closeHandler(code, signal) {
+  if (signal === 'SIGSEGV' || code === 1) {
+    process.exit(1);
+  }
+
+  process.exit(code);
+}

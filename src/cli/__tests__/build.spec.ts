@@ -1,3 +1,4 @@
+import { assert as t } from "chai";
 import { spawn } from "cross-spawn";
 import "mocha";
 import * as path from "path";
@@ -12,7 +13,8 @@ describe("build task", () => {
     ];
     const child = spawn("node", args);
 
-    child.stderr.once("data", data => {
+    child.on("exit", (code: number, signal: string) => {
+      t.equal(code, 1);
       done();
     });
   });

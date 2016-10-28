@@ -1,4 +1,3 @@
-import * as Emitter from "../../emitter";
 import { IFile } from "../../io/file";
 import { replaceExtension } from "../../utils";
 import * as Promise from "bluebird";
@@ -60,7 +59,7 @@ export function compile(opts: ISassOptions) {
 
           return file;
         }).catch((err: SassError) => {
-          Emitter.error(err);
+          throw err;
         });
       })
     );

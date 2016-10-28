@@ -1,4 +1,3 @@
-import * as emitter from "../emitter";
 import { IFile } from "../io/file";
 import { IKikiSassConfig, compile as sass, filterSass } from "../plugins/node-sass/index";
 import { ICustomPostCssOptions, compile as postcss } from "../plugins/postcss/index";
@@ -32,8 +31,8 @@ export function build(config: IKikiSassConfig) {
         dest: config.dest,
       }))
       .then(postcss(postCssOpts))
-      .catch((ex: Error) => {
-        emitter.error(ex);
+      .catch(err => {
+        throw err;
       });
   };
 }

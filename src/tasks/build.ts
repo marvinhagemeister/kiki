@@ -1,7 +1,6 @@
 import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
 import { IFile } from "../io/file";
-import { writeFile } from "../io/writeFiles";
 import { IKikiSassConfig } from "../plugins/node-sass/index";
 import { build as sass } from "./sass";
 import task from "./task";
@@ -17,7 +16,6 @@ export function buildSass(config: IKikiSassConfig) {
 
   return task(globPath, base, "sass")
     .then(sass(config))
-    .then(writeFile(config.dest))
     .catch((err: Error) => {
       throw err;
     });

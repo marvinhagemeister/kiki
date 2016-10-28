@@ -1,4 +1,5 @@
 import { IFile } from "../io/file";
+import { writeFile } from "../io/writeFiles";
 import { IKikiSassConfig, compile as sass, filterSass } from "../plugins/node-sass/index";
 import { ICustomPostCssOptions, compile as postcss } from "../plugins/postcss/index";
 import * as Promise from "bluebird";
@@ -29,6 +30,7 @@ export function build(config: IKikiSassConfig) {
       return Promise.resolve(file)
         .then(sass({ dest: config.dest }))
         .then(postcss(postCssOpts))
+        .then(writeFile(config.dest))
         .catch((err: Error) => {
           throw err;
         });

@@ -57,7 +57,7 @@ export function compile(options: ICustomPostCssOptions) {
 
             return file;
           }).catch((err: Error) => {
-            emitter.error(err);
+            throw err;
           });
       })
     );

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0 - 28.10.2016
+
+- New `--production` flag to force production builds even in watch mode
+- Print errors to `stderr` and properly exit with 1 on failed builds
+
 ## 1.7.0 - 24.10.2016
 
 - Add a pretty cli interface. Try it out with `kiki --help`.

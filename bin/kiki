@@ -51,8 +51,8 @@ const config = typeof yargs.config === 'undefined'
 // Check config exists
 if (typeof config !== 'undefined') {
   try {
-    fs.lstatSync(path.resolve(config));
-  } catch(err) {
+    fs.lstatSync(path.resolve(process.cwd(), config));
+  } catch (err) {
     console.error(chalk.red('Config file not found at: ')
       + path.resolve(config));
     console.log();
@@ -64,9 +64,20 @@ const args = [];
 args.push(config);
 args.push(!!yargs.production);
 
-const result = spawn.sync(
+const child = spawn(
   'node',
   [require.resolve('../dist/cli/' + script)].concat(args),
   {stdio: 'inherit'}
 );
-process.exit(result.status);
+
+child.on('close', closeHandler);
+child.on('error', closeHandler);
+child.on('exit', closeHandler);
+
+function closeHandler(code, signal) {
+  if (signal === 'SIGSEGV' || code === 1) {
+    process.exit(1);
+  }
+
+  process.exit(code);
+}

@@ -1,0 +1,6 @@
+{
+  "sass": {
+    "src": "src/cli/__tests__/fixtures/",
+    "dest": "src/cli/__tests__/fixtures/tmp/"
+  }
+}

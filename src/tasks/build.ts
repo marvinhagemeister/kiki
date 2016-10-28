@@ -19,8 +19,7 @@ export function buildSass(config: IKikiSassConfig) {
     .then(sass(config))
     .then(writeFiles(config.dest))
     .catch((err: Error) => {
-      emitter.error(err);
-      return [];
+      throw err;
     });
 }
 
@@ -35,5 +34,6 @@ export function build(config: IKikiConfig) {
       }
     }).catch(err => {
       emitter.error(err);
+      process.exit(1);
     });
 }

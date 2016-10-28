@@ -2,20 +2,16 @@ import { IFile } from "../../io/file";
 import { getRootFiles } from "./getRootFiles";
 import * as fs from "fs";
 
-interface ISassFilterOptions {
-  searchPath: string;
-}
-
-export function filterSass(files: IFile[], opts: ISassFilterOptions) {
+export function filterSass(files: IFile[], searchPath: string) {
   try {
-    fs.lstatSync(opts.searchPath);
+    fs.lstatSync(searchPath);
   } catch (err) {
-    throw new Error("Sass search path \"" + opts.searchPath + "\" does not exist");
+    throw new Error("Sass search path \"" + searchPath + "\" does not exist");
   }
 
   const sassFiles = files
     .filter(f => /\.scss$/.test(f.location))
-    .map(file => getRootFiles(opts.searchPath, file));
+    .map(file => getRootFiles(searchPath, file));
 
   const merged = Array.prototype.concat.apply([], sassFiles);
 

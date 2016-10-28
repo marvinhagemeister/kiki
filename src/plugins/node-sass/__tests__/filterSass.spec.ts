@@ -14,18 +14,14 @@ describe("filterSass", () => {
       map: null,
     }];
 
-    const options = {
-      searchPath,
-    };
-
-    t.deepEqual(filter(files, options), [{
+    t.deepEqual(filter(files, searchPath), [{
       base: __dirname + "/fixtures",
       location: fixture,
       map: null,
     }]);
 
     files[0].location = getFixture("components/_a.scss");
-    t.deepEqual(filter(files, options), [{
+    t.deepEqual(filter(files, searchPath), [{
       base: __dirname + "/fixtures",
       location: getFixture("main.scss"),
       map: null,
@@ -48,11 +44,7 @@ describe("filterSass", () => {
       map: null,
     }];
 
-    const options = {
-      searchPath,
-    };
-
-    t.deepEqual(filter(files, options), [{
+    t.deepEqual(filter(files, searchPath), [{
       base: __dirname + "/fixtures",
       location: getFixture("main.scss"),
       map: null,

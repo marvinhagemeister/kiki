@@ -1,6 +1,6 @@
 import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
-import { writeFiles } from "../io/writeFiles";
+import { writeFile } from "../io/writeFiles";
 import { filesFromMatch } from "../utils";
 import { build as sass } from "./sass";
 import * as chokidar from "chokidar";
@@ -31,7 +31,7 @@ export function watch(config: IKikiConfig) {
       const files = filesFromMatch([path], config.sass.src);
 
       return sass(config.sass)(files)
-        .then(writeFiles(config.sass.dest))
+        .then(writeFile(config.sass.dest))
         .then(files => {
           const time = new Date().getTime() - start;
           emitter.taskDone(files, time);

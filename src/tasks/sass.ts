@@ -23,7 +23,7 @@ export function build(config: IKikiSassConfig) {
   }
 
   return (files: IFile[]) => {
-    files = filterSass(files, { searchPath: config.src });
+    files = filterSass(files, config.src);
 
     return Promise.all(files.map(file => {
       return Promise.resolve(file)

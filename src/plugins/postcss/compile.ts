@@ -50,7 +50,7 @@ export function compile(options: ICustomPostCssOptions) {
         file.content = res.css;
 
         if (res.map) {
-          file.map = res.map.toString();
+          file.map = JSON.parse(res.map.toString());
         }
 
         return file;

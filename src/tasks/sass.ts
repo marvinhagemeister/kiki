@@ -2,7 +2,6 @@ import { IFile } from "../io/file";
 import { writeFile } from "../io/writeFiles";
 import { IKikiSassConfig, compile as sass, filterSass } from "../plugins/node-sass/index";
 import { ICustomPostCssOptions, compile as postcss } from "../plugins/postcss/index";
-import * as Promise from "bluebird";
 
 const postCssOpts: ICustomPostCssOptions = {
   browsers: [

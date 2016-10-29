@@ -52,7 +52,7 @@ export function compile(opts: ISassOptions) {
       file.content = res.css.toString();
 
       if (file.map !== null) {
-        file.map = JSON.stringify(res.map.toString());
+        file.map = JSON.parse(res.map.toString());
       }
 
       return file;

@@ -2,7 +2,8 @@ import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
 
 export function validate(config: IKikiConfig) {
-  if (Object.keys(config).length === 0 && config.constructor === Object) {
+  if ((Object.keys(config).length === 0 && config.constructor === Object)
+    || (!config.sass && !config.js)) {
     emitter.error("Received empty config file");
     return false;
   }

@@ -2,38 +2,30 @@ import { IFile } from "../../io/file";
 import { getRootFiles } from "./getRootFiles";
 import * as fs from "fs";
 
-interface ISassFilterOptions {
-  searchPath: string;
-}
-
-export function filterSass(opts?: ISassFilterOptions) {
-  if (!opts.searchPath) {
-    throw new Error("Sass Plugin didn't receive a search path");
-  }
-
+export function filterSass(files: IFile[], searchPath: string) {
   try {
-    fs.lstatSync(opts.searchPath);
+    fs.lstatSync(searchPath);
   } catch (err) {
-    throw new Error("Sass search path \"" + opts.searchPath + "\" does not exist");
+    throw new Error("Sass search path \"" + searchPath + "\" does not exist");
   }
 
-  return (files: IFile[]) => {
-    const sassFiles = files.filter(f => /\.scss$/.test(f.location));
+  const sassFiles = files
+    .filter(f => /\.scss$/.test(f.location))
+    .map(file => getRootFiles(searchPath, file));
 
-    const lookup: string[] = [];
-    let newSassFiles: IFile[] = [];
+  const merged = Array.prototype.concat.apply([], sassFiles);
 
-    sassFiles.forEach(file => {
-      getRootFiles(opts.searchPath, file).forEach(item => {
-        const loc = item.location;
+  const lookup: string[] = [];
+  let out: IFile[] = [];
 
-        if (lookup.indexOf(loc) === -1) {
-          newSassFiles.push(item);
-          lookup.push(loc);
-        }
-      });
-    });
+  for (let i = 0; i < merged.length; i++) {
+    const loc = merged[i].location;
 
-    return newSassFiles;
-  };
+    if (lookup.indexOf(loc) === -1) {
+      lookup.push(loc);
+      out.push(merged[i]);
+    }
+  }
+
+  return out;
 }

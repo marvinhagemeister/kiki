@@ -1,18 +1,16 @@
 import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
-import { writeFiles } from "../io/writeFiles";
+import { IFile } from "../io/file";
 import { filesFromMatch } from "../utils";
 import { build as sass } from "./sass";
 import * as chokidar from "chokidar";
-
-process.env.NODE_ENV = "development";
 
 const watchOpts = {
   ignoreInitial: true,
   ignored: /[\/\\]\./,
 };
 
-export function watch(config: IKikiConfig) {
+export function watch(config: IKikiConfig, isProduction: boolean) {
   const watchPaths: string[] = [];
   if (config.sass && config.sass.src) {
     watchPaths.push(config.sass.src);
@@ -30,9 +28,8 @@ export function watch(config: IKikiConfig) {
     if (/.+\.scss$/.test(path)) {
       const files = filesFromMatch([path], config.sass.src);
 
-      return sass(config.sass)(files)
-        .then(writeFiles(config.sass.dest))
-        .then(files => {
+      return sass(config.sass, isProduction)(files)
+        .then((files: IFile[]) => {
           const time = new Date().getTime() - start;
           emitter.taskDone(files, time);
         })

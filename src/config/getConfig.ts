@@ -3,6 +3,7 @@ import { resolveApp } from "../utils";
 import { validate } from "./validate";
 
 export interface IKikiConfig {
+  production?: boolean;
   sass?: {
     src: string;
     dest: string;

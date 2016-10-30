@@ -4,10 +4,10 @@ import * as Promise from "bluebird";
 import { Options, Result, SassError, render } from "node-sass";
 import * as path from "path";
 
-const sass = (opts: Options) => {
+const sass = (opts: ISassOptions) => {
   // Basic minifying because cssnone breaks css even in safe mode
   // TODO: investigate in a better css minifier
-  if (process.env.NODE_ENV === "production") {
+  if (opts.production) {
     opts.outputStyle = "compressed";
   }
 
@@ -24,10 +24,11 @@ const sass = (opts: Options) => {
 
 interface ISassOptions extends Options {
   dest?: string;
+  production: boolean;
 }
 
 export function compile(opts: ISassOptions) {
-  opts = opts || {};
+  opts = opts || { production: false };
 
   return (file: IFile) => {
     const filename = path.basename(file.location);

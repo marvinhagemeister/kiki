@@ -24,6 +24,7 @@ describe("compile (node-sass)", () => {
 
     const options = {
       dest: "tmp/",
+      production: false,
     };
 
     return compile(options)(file).then(res => {
@@ -37,11 +38,11 @@ describe("compile (node-sass)", () => {
     });
   });
 
-  it("should minify css if NODE_ENV=production", () => {
-    process.env.NODE_ENV = "production";
+  it("should minify css if production is true", () => {
     const file = getFile("postcss.css");
     const sassOpts = {
       dest: "tmp/",
+      production: true,
     };
 
     return compile(sassOpts)(file).then(res => {
@@ -51,8 +52,6 @@ describe("compile (node-sass)", () => {
         location: getFixture("postcss.css"),
         map: null,
       });
-
-      process.env.NODE_ENV = "test";
     });
   });
 });

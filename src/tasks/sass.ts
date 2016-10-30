@@ -13,7 +13,7 @@ const postCssOpts: ICustomPostCssOptions = {
   remove: false, // makes autoprefixer 10% faster
 };
 
-export function build(config: IKikiSassConfig) {
+export function build(config: IKikiSassConfig, isProduction: boolean) {
   if (typeof config.cssnext !== "undefined") {
     postCssOpts.cssnext = config.cssnext;
   }
@@ -27,7 +27,7 @@ export function build(config: IKikiSassConfig) {
 
     return Promise.all(files.map(file => {
       return Promise.resolve(file)
-        .then(sass({ dest: config.dest }))
+        .then(sass({ dest: config.dest, production: isProduction }))
         .then(postcss(postCssOpts))
         .then(writeFile(config.dest))
         .catch((err: Error) => {

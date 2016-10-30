@@ -14,7 +14,7 @@ describe("sass task", () => {
   it("should return an empty array when no files are found", () => {
     const sources: IFile[] = [];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, []);
       });
@@ -27,7 +27,7 @@ describe("sass task", () => {
       map: null,
     }];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
           base: "fixtures/",
@@ -45,7 +45,7 @@ describe("sass task", () => {
       map: true,
     }];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
           base: "fixtures/",
@@ -76,7 +76,7 @@ describe("sass task", () => {
       map: true,
     }];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
           base: "fixtures/",
@@ -105,7 +105,7 @@ describe("sass task", () => {
       map: true,
     }];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
           base: "fixtures/",
@@ -131,7 +131,7 @@ describe("sass task", () => {
       map: null,
     }];
 
-    return build(config)(sources)
+    return build(config, false)(sources)
       .then(() => t.fail())
       .catch(err => {
         t.isTrue(err.message.indexOf("no mixin named whatever") > -1);

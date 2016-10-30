@@ -57,7 +57,6 @@
     "@types/mkdirp": "^0.3.29",
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.45",
-    "@types/node-sass": "0.0.29",
     "@types/rimraf": "0.0.28",
     "cross-spawn": "^4.0.2",
     "husky-dontbark": "^1.0.0",

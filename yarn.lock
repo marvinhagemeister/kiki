@@ -37,12 +37,6 @@
   version "2.2.32"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.32.tgz#dda0da6eaf2195d2ff808f42a1725b1a19e7ed69"
 
-"@types/node-sass@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/node-sass/-/node-sass-0.0.29.tgz#30c5f10f49066c97d9efafa4a7dc78ec0d255c4b"
-  dependencies:
-    "@types/node" "*"
-
 "@types/node@*", "@types/node@^6.0.45":
   version "6.0.46"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.46.tgz#8d9e48572831f05b11cc4c793754d43437219d62"

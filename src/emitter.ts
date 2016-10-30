@@ -1,5 +1,6 @@
 import { IFile } from "./io/file";
 import * as chalk from "chalk";
+import { SassError } from "node-sass";
 
 /* tslint:disable no-console */
 
@@ -43,13 +44,15 @@ export function noFilesOrOnlyPartials() {
   console.log();
 }
 
-export function error(err: Error | string) {
+export function error(err: SassError | Error | string) {
   console.log();
   if (typeof err === "string" || err instanceof String) {
     console.error(chalk.red(err.toString()));
   } else {
     if (err.message.indexOf("search path") > -1) {
       console.error(chalk.red(err.message));
+    } else if (typeof (err as SassError).formatted !== "undefined") {
+      console.error(chalk.red((err as SassError).formatted));
     } else {
       console.error(chalk.red(err.stack));
     }

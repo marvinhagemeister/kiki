@@ -1,7 +1,7 @@
 import { IFile } from "../../io/file";
 import { replaceExtension } from "../../utils";
 import * as Promise from "bluebird";
-import { Options, Result, SassError, render } from "node-sass";
+import { Options, render, Result, SassError } from "node-sass";
 import * as path from "path";
 
 const sass = (opts: ISassOptions) => {

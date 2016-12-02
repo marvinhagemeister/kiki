@@ -1,7 +1,7 @@
 import { IFile } from "../io/file";
 import { writeFile } from "../io/writeFiles";
-import { IKikiSassConfig, compile as sass, filterSass } from "../plugins/node-sass/index";
-import { ICustomPostCssOptions, compile as postcss } from "../plugins/postcss/index";
+import { compile as sass, filterSass, IKikiSassConfig } from "../plugins/node-sass/index";
+import { compile as postcss, ICustomPostCssOptions } from "../plugins/postcss/index";
 
 const postCssOpts: ICustomPostCssOptions = {
   browsers: [

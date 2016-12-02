@@ -18,12 +18,12 @@ export function filterSass(files: IFile[], searchPath: string) {
   const lookup: string[] = [];
   let out: IFile[] = [];
 
-  for (let i = 0; i < merged.length; i++) {
-    const loc = merged[i].location;
+  for (let item of merged) {
+    const loc = item.location;
 
     if (lookup.indexOf(loc) === -1) {
       lookup.push(loc);
-      out.push(merged[i]);
+      out.push(item);
     }
   }
 

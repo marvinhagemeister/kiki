@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0 - 02.12.2016
+
+- Better error output which prints a nice overview of the problematic code
+- Refactored code related to writing and reading imports
+- Better test coverage
+- Fix missing yargs dependency when installing with `npm install --production`
+
 ## 1.8.0 - 28.10.2016
 
 - New `--production` flag to force production builds even in watch mode

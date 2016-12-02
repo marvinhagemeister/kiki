@@ -18,4 +18,3 @@ coverage/
 __tests__/
 tmp/
 .travis.yml
-.nvmrc

@@ -8,20 +8,20 @@ describe("filterSass", () => {
     const fixture = getFixture("main.scss");
 
     let files: IFile[] = [{
-      base: __dirname + "/fixtures",
+      base: ".",
       location: fixture,
       map: null,
     }];
 
     t.deepEqual(filter(files, searchPath), [{
-      base: __dirname + "/fixtures",
+      base: ".",
       location: fixture,
       map: null,
     }]);
 
     files[0].location = getFixture("components/_a.scss");
     t.deepEqual(filter(files, searchPath), [{
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("main.scss"),
       map: null,
     }]);
@@ -30,25 +30,25 @@ describe("filterSass", () => {
 
   it("should filter duplicate files", () => {
     const files: IFile[] = [{
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("components/_a.scss"),
       map: null,
     }, {
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("components/_a.scss"),
       map: null,
     }, {
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("_b.scss"),
       map: null,
     }];
 
     t.deepEqual(filter(files, searchPath), [{
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("main.scss"),
       map: null,
     }, {
-      base: __dirname + "/fixtures",
+      base: ".",
       location: getFixture("main2.scss"),
       map: null,
     }]);

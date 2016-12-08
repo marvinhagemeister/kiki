@@ -25,26 +25,38 @@ describe("buildSass", () => {
       .then(files => {
         t.deepEqual(files, [
           {
-            base: "",
+            base: "components",
+            content: ".this-is-deep {\n  color: red; }\n",
+            location: path.join(process.cwd(), "/tmp/components/deep-nested.css"),
+            map: null,
+          },
+          {
+            base: ".",
+            content: ".this-is-deep {\n  color: red; }\n",
+            location: path.join(process.cwd(), "/tmp/deep.css"),
+            map: null,
+          },
+          {
+            base: ".",
             content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody {\n  background: red; }\n",
             location: path.join(process.cwd(), "/tmp/main.css"),
             map: null,
           },
           {
-            base: "",
+            base: ".",
             content: "body {\n  color: blue; }\n\nh2 {\n  background: red; }\n",
             location: path.join(process.cwd(), "/tmp/main2.css"),
             map: null,
           },
           {
-            base: "",
+            base: ".",
             content: "body {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: "
             + "-ms-flexbox;\n  display: flex; }\n",
             location: path.join(process.cwd(), "/tmp/prefix-me.css"),
             map: null,
           },
           {
-            base: "",
+            base: ".",
             content: "button {\n  border-radius: 30px; }\n",
             location: path.join(process.cwd(), "/tmp/prefixes.css"),
             map: null,
@@ -79,26 +91,38 @@ describe("build", () => {
     return build(config)
       .then(files => {
         t.deepEqual(files, [{
-          base: "",
+          base: "components",
+          content: ".this-is-deep {\n  color: red; }\n",
+          location: path.join(process.cwd(), "/tmp/components/deep-nested.css"),
+          map: null,
+        },
+        {
+          base: ".",
+          content: ".this-is-deep {\n  color: red; }\n",
+          location: path.join(process.cwd(), "/tmp/deep.css"),
+          map: null,
+        },
+        {
+          base: ".",
           content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody {\n  background: red; }\n",
           location: path.join(process.cwd(), "/tmp/main.css"),
           map: null,
         },
         {
-          base: "",
+          base: ".",
           content: "body {\n  color: blue; }\n\nh2 {\n  background: red; }\n",
           location: path.join(process.cwd(), "/tmp/main2.css"),
           map: null,
         },
         {
-          base: "",
+          base: ".",
           content: "body {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: "
             + "-ms-flexbox;\n  display: flex; }\n",
           location: path.join(process.cwd(), "/tmp/prefix-me.css"),
           map: null,
         },
         {
-          base: "",
+          base: ".",
           content: "button {\n  border-radius: 30px; }\n",
           location: path.join(process.cwd(), "/tmp/prefixes.css"),
           map: null,

@@ -21,7 +21,7 @@ describe("sass task", () => {
 
   it("should compile scss files to css", () => {
     const sources: IFile[] = [{
-      base: "fixtures/",
+      base: ".",
       location: "src/__tests__/fixtures/main.scss",
       map: null,
     }];
@@ -29,9 +29,9 @@ describe("sass task", () => {
     return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
-          base: "fixtures/",
+          base: ".",
           content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody {\n  background: red; }\n",
-          location: path.join(process.cwd() + "/tmp/fixtures/main.css"),
+          location: path.join(process.cwd() + "/tmp/main.css"),
           map: null,
         }]);
       });
@@ -39,7 +39,7 @@ describe("sass task", () => {
 
   it("should should generate sourcemaps", () => {
     const sources: IFile[] = [{
-      base: "fixtures/",
+      base: ".",
       location: "src/__tests__/fixtures/main.scss",
       map: true,
     }];
@@ -47,10 +47,10 @@ describe("sass task", () => {
     return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
-          base: "fixtures/",
+          base: ".",
           content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody {\n  background: "
             + "red; }\n/*# sourceMappingURL=main.css.map */",
-          location: path.join(process.cwd() + "/tmp/fixtures/main.css"),
+          location: path.join(process.cwd() + "/tmp/main.css"),
           map: {
             file: "main.css",
             mappings: "AAAA;EACE,gBAAgB,EACjB;;ACFD;EACE,YAAY,EACb;;ACCD;EACE,gBAAgB,EACjB",
@@ -70,7 +70,7 @@ describe("sass task", () => {
     config.addVendorPrefixes = true;
 
     const sources: IFile[] = [{
-      base: "fixtures/",
+      base: ".",
       location: "src/__tests__/fixtures/prefix-me.scss",
       map: true,
     }];
@@ -78,10 +78,10 @@ describe("sass task", () => {
     return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
-          base: "fixtures/",
+          base: ".",
           content: "body {\n  display: -webkit-box;\n  display: -webkit-flex;\n  "
            + "display: -ms-flexbox;\n  display: flex; }\n/*# sourceMappingURL=prefix-me.css.map */",
-          location: path.join(process.cwd() + "/tmp/fixtures/prefix-me.css"),
+          location: path.join(process.cwd() + "/tmp/prefix-me.css"),
           map: {
             file: "prefix-me.css",
             mappings: "AAAA;EACE,qBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd,cAAc,EACf",
@@ -99,7 +99,7 @@ describe("sass task", () => {
     config.addVendorPrefixes = false;
 
     const sources: IFile[] = [{
-      base: "fixtures/",
+      base: ".",
       location: "src/__tests__/fixtures/prefix-me.scss",
       map: true,
     }];
@@ -107,9 +107,9 @@ describe("sass task", () => {
     return build(config, false)(sources)
       .then(files => {
         t.deepEqual(files, [{
-          base: "fixtures/",
+          base: ".",
           content: "body {\n  display: flex; }\n/*# sourceMappingURL=prefix-me.css.map */",
-          location: path.join(process.cwd() + "/tmp/fixtures/prefix-me.css"),
+          location: path.join(process.cwd() + "/tmp/prefix-me.css"),
           map: {
             file: "prefix-me.css",
             mappings: "AAAA;EACE,cAAc,EACf",

@@ -21,7 +21,11 @@ export function getRootFiles(searchPath: string, modified: IFile): IFile[] {
   }
 
   return files.map(file => {
+    let base = path.relative(searchPath, file);
+    base = path.dirname(base);
+
     return Object.assign({}, modified, {
+      base,
       location: file,
     });
   });

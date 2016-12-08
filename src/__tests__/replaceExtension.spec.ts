@@ -1,6 +1,5 @@
 import { replaceExtension as replace } from "../utils";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("replaceExtension", () => {
   it("should replace an extension", () => {

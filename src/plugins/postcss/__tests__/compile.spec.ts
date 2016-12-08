@@ -4,7 +4,6 @@ import { compile } from "../compile";
 import { ICustomPostCssOptions } from "../index";
 import { assert as t } from "chai";
 import * as fs from "fs";
-import "mocha";
 
 function getFile(name: string): IFile {
   return {

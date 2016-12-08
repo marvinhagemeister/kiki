@@ -1,6 +1,5 @@
 import * as index from "../index";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("main index", () => {
   it("should have correct exports", () => {

@@ -1,6 +1,5 @@
 import task from "../task";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("task", () => {
   it("should return an empty array when no files are found", () => {

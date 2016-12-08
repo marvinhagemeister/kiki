@@ -2,7 +2,6 @@ import { IFile } from "../../io/file";
 import { IKikiSassConfig } from "../../plugins/node-sass/index";
 import { build } from "../sass";
 import { assert as t } from "chai";
-import "mocha";
 import * as path from "path";
 
 const config: IKikiSassConfig = {

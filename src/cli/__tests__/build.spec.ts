@@ -1,6 +1,5 @@
 import { assert as t } from "chai";
 import { spawn } from "cross-spawn";
-import "mocha";
 import * as path from "path";
 
 describe("build task", () => {

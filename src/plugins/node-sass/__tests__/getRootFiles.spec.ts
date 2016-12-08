@@ -2,7 +2,6 @@ import { fixturePath, getFixture } from "../../../__tests__/helpers";
 import { IFile } from "../../../io/file";
 import { getRootFiles as root } from "../getRootFiles";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("getRootFiles", () => {
   it("should get root file", () => {

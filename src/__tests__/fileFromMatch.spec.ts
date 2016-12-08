@@ -1,6 +1,5 @@
 import { filesFromMatch as match } from "../utils";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("filesFromMatch", () => {
   it("should create an IFile object from a match", () => {

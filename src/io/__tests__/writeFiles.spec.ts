@@ -3,7 +3,6 @@ import { IFile } from "../file";
 import { writeFile as write } from "../writeFiles";
 import { assert as t } from "chai";
 import * as fs from "fs";
-import "mocha";
 import * as path from "path";
 import * as rimraf from "rimraf";
 

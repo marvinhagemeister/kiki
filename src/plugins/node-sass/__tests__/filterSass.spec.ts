@@ -2,7 +2,6 @@ import { fixturePath as searchPath, getFixture } from "../../../__tests__/helper
 import { IFile } from "../../../io/file";
 import { filterSass as filter } from "../filterSass";
 import { assert as t } from "chai";
-import "mocha";
 
 describe("filterSass", () => {
   it("should return only root files", () => {

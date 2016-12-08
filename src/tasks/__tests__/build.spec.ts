@@ -1,6 +1,5 @@
 import { build, buildSass } from "../build";
 import { assert as t } from "chai";
-import "mocha";
 import * as path from "path";
 
 describe("buildSass", () => {

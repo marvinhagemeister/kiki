@@ -3,7 +3,6 @@ import { IFile } from "../../../io/file";
 import { compile } from "../compile";
 import { assert as t } from "chai";
 import * as fs from "fs";
-import "mocha";
 
 function getFile(name: string): IFile {
   return {

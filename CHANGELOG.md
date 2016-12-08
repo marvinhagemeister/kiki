@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.1 - 08.12.2016
+
+- Set correct base path for files in subfolders. Fixes #35.
+
 ## 1.9.0 - 02.12.2016
 
 - Better error output which prints a nice overview of the problematic code

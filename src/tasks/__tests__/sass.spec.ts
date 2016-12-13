@@ -53,7 +53,7 @@ describe("sass task", () => {
           location: path.join(process.cwd() + "/tmp/main.css"),
           map: {
             file: "main.css",
-            mappings: "AAAA;EACE,gBAAgB,EACjB;;ACFD;EACE,YAAY,EACb;;ACCD;EACE,gBAAgB,EACjB",
+            mappings: "AAAA;EACE,gBAAe,EAChB;;ACFD;EACE,YAAW,EACZ;;ACCD;EACE,gBAAe,EAChB",
             names: [],
             sources: [
               "tmp/src/__tests__/fixtures/components/_a.scss",
@@ -84,7 +84,7 @@ describe("sass task", () => {
           location: path.join(process.cwd() + "/tmp/prefix-me.css"),
           map: {
             file: "prefix-me.css",
-            mappings: "AAAA;EACE,qBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd,cAAc,EACf",
+            mappings: "AAAA;EACE,qBAAa;EAAb,sBAAa;EAAb,qBAAa;EAAb,cAAa,EACd",
             names: [],
             sources: [
               "tmp/src/__tests__/fixtures/prefix-me.scss",
@@ -112,7 +112,7 @@ describe("sass task", () => {
           location: path.join(process.cwd() + "/tmp/prefix-me.css"),
           map: {
             file: "prefix-me.css",
-            mappings: "AAAA;EACE,cAAc,EACf",
+            mappings: "AAAA;EACE,cAAa,EACd",
             names: [],
             sources: [
               "tmp/src/__tests__/fixtures/prefix-me.scss",

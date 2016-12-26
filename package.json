@@ -4,7 +4,7 @@
   "description": "Batteries included frontend asset bundler",
   "main": "dist/index.js",
   "bin": {
-    "kiki": "bin/kiki"
+    "kiki": "dist/bin/kiki.js"
   },
   "config": {
     "husky": {
@@ -41,20 +41,21 @@
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
     "chokidar": "^1.6.1",
+    "commander": "^2.9.0",
     "cross-spawn": "^5.0.1",
     "nicer-fs": "^0.2.0",
     "node-sass": "^4.0.0",
     "postcss": "^5.2.6",
     "postcss-cssnext": "^2.9.0",
     "rimraf": "^2.5.4",
-    "sass-graph": "^2.1.2",
-    "yargs": "^6.5.0"
+    "sass-graph": "^2.1.2"
   },
   "devDependencies": {
     "@types/bluebird": "^3.0.36",
     "@types/chai": "^3.4.34",
     "@types/chalk": "^0.4.31",
     "@types/chokidar": "^1.4.30",
+    "@types/commander": "^2.3.31",
     "@types/mkdirp": "^0.3.29",
     "@types/mocha": "^2.2.33",
     "@types/node": "^6.0.52",

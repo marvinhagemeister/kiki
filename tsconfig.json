@@ -9,6 +9,7 @@
   },
   "files": [
     "./typings/index.d.ts",
+    "./src/bin/kiki.ts",
     "./src/index.ts",
     "./src/cli/build.ts",
     "./src/cli/watch.ts"

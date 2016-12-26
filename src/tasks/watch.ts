@@ -29,9 +29,9 @@ export function watch(config: IKikiConfig, isProduction: boolean) {
       const files = filesFromMatch([path], config.sass.src);
 
       return sass(config.sass, isProduction)(files)
-        .then((files: IFile[]) => {
+        .then((files2: IFile[]) => {
           const time = new Date().getTime() - start;
-          emitter.taskDone(files, time);
+          emitter.taskDone(files2, time);
         })
         .catch((err: Error) => {
           emitter.error(err);

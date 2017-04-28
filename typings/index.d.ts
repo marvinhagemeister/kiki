@@ -6,4 +6,3 @@
 /// <reference path="node-sass/index.d.ts" />
 /// <reference path="postcss-cssnext/index.d.ts" />
 /// <reference path="sass-graph/index.d.ts" />
-/// <reference path="global.d.ts" />

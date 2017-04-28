@@ -5,7 +5,7 @@ import * as path from "path";
 describe("build task", () => {
   it("should exit 1 on compilation error", done => {
     const args = [
-      require.resolve("../../../dist/bin/kiki"),
+      require.resolve("../../../bin/kiki"),
       "build",
       "--config",
       path.resolve(__dirname, "fixtures/config.json"),

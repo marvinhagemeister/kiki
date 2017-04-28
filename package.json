@@ -48,7 +48,7 @@
     "postcss": "^5.2.6",
     "postcss-cssnext": "^2.9.0",
     "rimraf": "^2.5.4",
-    "sass-graph": "^2.1.2"
+    "sass-graph": "2.1.2"
   },
   "devDependencies": {
     "@types/bluebird": "^3.0.36",

@@ -1,6 +1,6 @@
 {
   "name": "kiki-bundler",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "Batteries included frontend asset bundler",
   "main": "dist/index.js",
   "bin": {

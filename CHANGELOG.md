@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.2 - 28.04.2017
+
+- Lock `sass-graph` to `2.1.2` to prevent an issue insider docker, because the babel cache is not writable
+
 ## 1.9.1 - 08.12.2016
 
 - Set correct base path for files in subfolders. Fixes #35.

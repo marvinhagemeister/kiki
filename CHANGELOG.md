@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.3 - 28.04.2017
+
+- Revert switch to `commander.js`
+
 ## 1.9.2 - 28.04.2017
 
 - Lock `sass-graph` to `2.1.2` to prevent an issue insider docker, because the babel cache is not writable

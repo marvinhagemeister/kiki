@@ -6,11 +6,6 @@
   "bin": {
     "kiki": "bin/kiki"
   },
-  "config": {
-    "husky": {
-      "silent": true
-    }
-  },
   "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -21,7 +16,8 @@
   },
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
-    "test": "mocha --compilers ts:ts-node/register 'src/**/__tests__/*.spec.ts' -R dot",
+    "test":
+      "mocha --compilers ts:ts-node/register 'src/**/__tests__/*.spec.ts' -R dot",
     "test-watch": "npm run test -s -- -w -R min",
     "coverage": "nyc npm t",
     "coverage-open": "nyc npm t && open coverage/index.html",
@@ -29,8 +25,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
-    "precommit": "npm run lint && npm run test",
-    "prepublish": "npm run build && npm t"
+    "precommit": "lint-staged",
+    "prepublishOnly": "npm run build && npm t"
   },
   "author": "Marvin Hagemeister <marvin@marvinhagemeister.de>",
   "license": "MIT",
@@ -59,19 +55,22 @@
     "@types/mocha": "^2.2.33",
     "@types/node": "^6.0.52",
     "@types/rimraf": "0.0.28",
+    "caniuse-db": "^1.0.30000780",
     "cross-spawn": "^5.0.1",
-    "husky-dontbark": "^1.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
     "mocha": "^3.2.0",
     "nyc": "^10.0.0",
+    "prettier": "^1.9.1",
     "ts-node": "^1.7.2",
     "tslint": "^4.0.2",
     "typescript": "^2.1.4"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": ["prettier --trailing-comma=all --write", "git add"]
+  },
   "nyc": {
-    "include": [
-      "src/*.ts",
-      "src/**/*.ts"
-    ],
+    "include": ["src/*.ts", "src/**/*.ts"],
     "exclude": [
       "typings",
       "node_modules/",
@@ -79,19 +78,9 @@
       "__tests__/**",
       "**/*.d.ts"
     ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "json",
-      "html",
-      "text",
-      "text-summary",
-      "lcovonly"
-    ],
+    "extension": [".ts"],
+    "require": ["ts-node/register"],
+    "reporter": ["json", "html", "text", "text-summary", "lcovonly"],
     "all": true
   }
 }

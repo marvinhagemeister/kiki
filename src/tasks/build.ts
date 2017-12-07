@@ -1,4 +1,4 @@
-import { IKikiConfig } from "../config/getConfig";
+import { IKikiConfig } from "../config/getConfig";
 import * as emitter from "../emitter";
 import { IFile } from "../io/file";
 import { IKikiSassConfig } from "../plugins/node-sass/index";
@@ -30,7 +30,8 @@ export function build(config: IKikiConfig) {
       }
 
       return items;
-    }).catch(err => {
+    })
+    .catch(err => {
       emitter.error(err);
       process.exit(1);
     });

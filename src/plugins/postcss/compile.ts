@@ -13,25 +13,29 @@ export interface ICustomPostCssOptions {
 }
 
 interface IPostCssOptions {
-  map: boolean | {
-    inline: boolean;
-    prev: boolean | string;
-  };
+  map:
+    | boolean
+    | {
+        inline: boolean;
+        prev: boolean | string;
+      };
   to: string;
 }
 
 export function compile(options: ICustomPostCssOptions) {
-  let plugins: any[] = [];
+  const plugins: any[] = [];
 
-  if ((typeof options.addVendorPrefixes === "undefined"
-    || options.addVendorPrefixes) && !options.cssnext) {
+  if (
+    (options.addVendorPrefixes === undefined || options.addVendorPrefixes) &&
+    !options.cssnext
+  ) {
     plugins.push(autoprefixer({ browsers: options.browsers }));
-  } else if (typeof options.cssnext !== "undefined" && options.cssnext) {
+  } else if (options.cssnext !== undefined && options.cssnext) {
     plugins.push(cssnext({ browsers: options.browsers }));
   }
 
   return (file: IFile) => {
-    let cssOptions: IPostCssOptions = {
+    const cssOptions: IPostCssOptions = {
       map: false,
       to: path.basename(file.location),
     };
@@ -44,9 +48,9 @@ export function compile(options: ICustomPostCssOptions) {
     }
 
     return postcss(plugins)
-      .process(file.content, cssOptions)
-      .then(res => {
-        res.warnings().forEach(warn => emitter.warning(warn));
+      .process(file.content, cssOptions as any)
+      .then((res: any) => {
+        res.warnings().forEach((warn: any) => emitter.warning(warn));
         file.content = res.css;
 
         if (res.map) {
@@ -54,7 +58,8 @@ export function compile(options: ICustomPostCssOptions) {
         }
 
         return file;
-      }).catch((err: Error) => {
+      })
+      .catch((err: Error) => {
         throw err;
       });
   };

@@ -6,7 +6,9 @@ import { SassError } from "node-sass";
 
 export function start(name: string, path: string) {
   console.log();
-  console.log(chalk.white("=> compiling " + name + " from: ") + chalk.yellow(path));
+  console.log(
+    chalk.white("=> compiling " + name + " from: ") + chalk.yellow(path),
+  );
 }
 
 export function watch(path: string[]) {
@@ -21,7 +23,7 @@ export function nothingToDo() {
   console.log();
 }
 
-export function time(file: string, time: string | Number) {
+export function time(file: string, time: string | number) {
   console.log("  " + chalk.dim(file) + " " + chalk.blue(time + "ms"));
 }
 
@@ -39,8 +41,12 @@ export function missingConfig(path: string) {
 
 export function noFilesOrOnlyPartials() {
   console.log();
-  console.log(chalk.yellow("Only partials found. Partials must be imported by "
-    + "a root file to be included in compilations."));
+  console.log(
+    chalk.yellow(
+      "Only partials found. Partials must be imported by " +
+        "a root file to be included in compilations.",
+    ),
+  );
   console.log();
 }
 

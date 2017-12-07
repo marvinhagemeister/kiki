@@ -5,7 +5,7 @@ import { ICustomPostCssOptions } from "../index";
 import { assert as t } from "chai";
 import * as fs from "fs";
 
-function getFile(name: string): IFile {
+function getFile(name: string): any {
   return {
     base: __dirname + "/fixtures",
     content: fs.readFileSync(getFixture(name), "utf-8"),
@@ -17,7 +17,7 @@ function getFile(name: string): IFile {
 describe("compile (postcss)", () => {
   it("should work add prefixes by default", () => {
     const file = getFile("postcss.css");
-    const postCssOpts: ICustomPostCssOptions = {
+    const postCssOpts: any = {
       browsers: [
         ">1%",
         "last 4 versions",
@@ -29,8 +29,9 @@ describe("compile (postcss)", () => {
     return compile(postCssOpts)(file).then((res: IFile) => {
       t.deepEqual(res, {
         base: __dirname + "/fixtures",
-        content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
-        + "  display: -ms-flexbox;\n  display: flex;\n}\n",
+        content:
+          "h1 {\n  display: -webkit-box;\n" +
+          "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
       });
@@ -52,8 +53,9 @@ describe("compile (postcss)", () => {
     return compile(postCssOpts)(files).then((res: IFile) => {
       t.deepEqual(res, {
         base: __dirname + "/fixtures",
-        content: "h1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n"
-        + "  display: -ms-flexbox;\n  display: flex;\n}\n",
+        content:
+          "h1 {\n  display: -webkit-box;\n" +
+          "  display: -ms-flexbox;\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
         map: null,
       });
@@ -84,16 +86,17 @@ describe("compile (postcss)", () => {
 
   it("should add future features if 'cssnext' is true", () => {
     const files = getFile("cssnext.css");
-    const postCssOpts: ICustomPostCssOptions = {
+    const postCssOpts: any = {
       browsers: null,
       cssnext: true,
     };
 
-    return compile(postCssOpts)(files).then((res: IFile) => {
+    return compile(postCssOpts)(files).then((res: any) => {
       t.deepEqual(res, {
         base: __dirname + "/fixtures",
-        content: ".one {\n  background-color: brown;\n}\n\n.two {\n  "
-          + "background-color: brown;\n}\n",
+        content:
+          ".one {\n  background-color: brown;\n}\n\n.two {\n  " +
+          "background-color: brown;\n}\n",
         location: getFixture("cssnext.css"),
         map: null,
       });
@@ -102,7 +105,7 @@ describe("compile (postcss)", () => {
 
   it("should add future features if 'cssnext' is false", () => {
     const files = getFile("cssnext.css");
-    const postCssOpts: ICustomPostCssOptions = {
+    const postCssOpts: any = {
       browsers: null,
       cssnext: false,
     };
@@ -110,9 +113,10 @@ describe("compile (postcss)", () => {
     return compile(postCssOpts)(files).then((res: IFile) => {
       t.deepEqual(res, {
         base: __dirname + "/fixtures",
-        content: ":root {\n  --main-bg-color: brown;\n}\n\n.one {\n  "
-          + "background-color: var(--main-bg-color);\n}\n\n.two {\n  "
-          + "background-color: var(--main-bg-color);\n}\n",
+        content:
+          ":root {\n  --main-bg-color: brown;\n}\n\n.one {\n  " +
+          "background-color: var(--main-bg-color);\n}\n\n.two {\n  " +
+          "background-color: var(--main-bg-color);\n}\n",
         location: getFixture("cssnext.css"),
         map: null,
       });

@@ -4,7 +4,6 @@ import { IFile } from "../io/file";
 import { IKikiSassConfig } from "../plugins/node-sass/index";
 import { build as sass } from "./sass";
 import task from "./task";
-import * as Promise from "bluebird";
 import * as path from "path";
 
 // Sass
@@ -22,8 +21,9 @@ export function buildSass(config: IKikiSassConfig, isProduction: boolean) {
 export function build(config: IKikiConfig) {
   const start = new Date().getTime();
 
-  return Promise.all(buildSass(config.sass, config.production))
-    .then((items: IFile[]) => {
+  const promises = buildSass(config.sass as any, config.production as any);
+  return Promise.all(promises as any)
+    .then((items: any[]) => {
       if (items.length > 0) {
         const time = new Date().getTime() - start;
         emitter.taskDone(items, time);
@@ -31,7 +31,7 @@ export function build(config: IKikiConfig) {
 
       return items;
     })
-    .catch(err => {
+    .catch((err: Error) => {
       emitter.error(err);
       process.exit(1);
     });

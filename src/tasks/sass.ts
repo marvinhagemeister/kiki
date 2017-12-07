@@ -1,7 +1,14 @@
 import { IFile } from "../io/file";
 import { writeFile } from "../io/writeFiles";
-import { compile as sass, filterSass, IKikiSassConfig } from "../plugins/node-sass/index";
-import { compile as postcss, ICustomPostCssOptions } from "../plugins/postcss/index";
+import {
+  compile as sass,
+  filterSass,
+  IKikiSassConfig,
+} from "../plugins/node-sass/index";
+import {
+  compile as postcss,
+  ICustomPostCssOptions,
+} from "../plugins/postcss/index";
 
 const postCssOpts: ICustomPostCssOptions = {
   browsers: [
@@ -25,14 +32,16 @@ export function build(config: IKikiSassConfig, isProduction: boolean) {
   return (files: IFile[]) => {
     files = filterSass(files, config.src);
 
-    return Promise.all(files.map(file => {
-      return Promise.resolve(file)
-        .then(sass({ dest: config.dest, production: isProduction }))
-        .then(postcss(postCssOpts))
-        .then(writeFile(config.dest))
-        .catch((err: Error) => {
-          throw err;
-        });
-    }));
+    return Promise.all(
+      files.map(file => {
+        return Promise.resolve(file)
+          .then(sass({ dest: config.dest, production: isProduction }))
+          .then(postcss(postCssOpts))
+          .then(writeFile(config.dest))
+          .catch((err: Error) => {
+            throw err;
+          });
+      }),
+    );
   };
 }

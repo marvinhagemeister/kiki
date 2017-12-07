@@ -21,24 +21,27 @@ export function watch(config: IKikiConfig, isProduction: boolean) {
   }
 
   emitter.watch(watchPaths);
-  (chokidar.watch(watchPaths, watchOpts) as any).on("all", (event: string, path: string) => {
-    emitter.change(event, path);
-    const start = new Date().getTime();
+  (chokidar.watch(watchPaths, watchOpts) as any).on(
+    "all",
+    (event: string, path: string) => {
+      emitter.change(event, path);
+      const start = new Date().getTime();
 
-    if (/.+\.scss$/.test(path)) {
-      const files = filesFromMatch([path], config.sass.src);
+      if (/.+\.scss$/.test(path)) {
+        const files = filesFromMatch([path], config.sass!.src);
 
-      return sass(config.sass, isProduction)(files)
-        .then((files: IFile[]) => {
-          const time = new Date().getTime() - start;
-          emitter.taskDone(files, time);
-        })
-        .catch((err: Error) => {
-          emitter.error(err);
+        return sass(config.sass!, isProduction)(files)
+          .then((files: any[]) => {
+            const time = new Date().getTime() - start;
+            emitter.taskDone(files, time);
+          })
+          .catch((err: Error) => {
+            emitter.error(err);
 
-          // Note: Watch tasks should never exit with 1, because that
-          // would obviously stop the watcher
-        });
-    }
-  });
+            // Note: Watch tasks should never exit with 1, because that
+            // would obviously stop the watcher
+          });
+      }
+    },
+  );
 }

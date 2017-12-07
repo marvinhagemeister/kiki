@@ -27,7 +27,7 @@ describe("writeFiles", () => {
 
     return Promise.resolve(file)
       .then(write(dest))
-      .then((f: IFile) => {
+      .then((f: any) => {
         const out = dest + "/hello.txt";
         t.equal(f.location, out);
 
@@ -46,7 +46,7 @@ describe("writeFiles", () => {
 
     return Promise.resolve(file)
       .then(write(dest))
-      .then((f: IFile) => {
+      .then((f: any) => {
         t.equal(f.location, dest + "/root/whatever/hello.scss");
       });
   });

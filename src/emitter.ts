@@ -57,10 +57,10 @@ export function error(err: SassError | Error | string) {
   } else {
     if (err.message.indexOf("search path") > -1) {
       console.error(chalk.red(err.message));
-    } else if (typeof (err as SassError).formatted !== "undefined") {
-      console.error(chalk.red((err as SassError).formatted));
+    } else if (typeof (err as any).formatted !== "undefined") {
+      console.error(chalk.red((err as any).formatted));
     } else {
-      console.error(chalk.red(err.stack));
+      console.error(chalk.red(err.stack || ""));
     }
   }
 

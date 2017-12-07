@@ -13,7 +13,7 @@ export function writeFile(dest: string) {
     const fileDest = path.resolve(path.join(dest, file.base, name));
     file.location = fileDest;
 
-    return write(fileDest, file.content)
+    return write(fileDest, file.content as any)
       .then(() => {
         if (file.map) {
           return write(fileDest + ".map", file.map.toString());

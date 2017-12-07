@@ -1,6 +1,5 @@
 import { IFile } from "../../io/file";
 import { replaceExtension } from "../../utils";
-import * as Promise from "bluebird";
 import { Options, render, Result, SassError } from "node-sass";
 import * as path from "path";
 
@@ -32,7 +31,7 @@ export function compile(opts: ISassOptions) {
 
   return (file: IFile) => {
     const filename = path.basename(file.location);
-    const out = path.join(opts.dest, filename);
+    const out = path.join(opts.dest as any, filename);
 
     opts.outFile = replaceExtension(out, "css");
 
@@ -42,23 +41,25 @@ export function compile(opts: ISassOptions) {
 
     if (file.content) {
       opts.data = file.content;
-      opts.file = null;
+      (opts as any).file = null;
     } else {
       opts.file = file.location;
-      opts.data = null;
+      (opts as any).data = null;
     }
 
-    return sass(opts).then((res: Result) => {
-      file.location = replaceExtension(file.location, "css");
-      file.content = res.css.toString();
+    return sass(opts)
+      .then((res: any) => {
+        file.location = replaceExtension(file.location, "css");
+        file.content = res.css.toString();
 
-      if (file.map !== null) {
-        file.map = JSON.parse(res.map.toString());
-      }
+        if (file.map !== null) {
+          file.map = JSON.parse(res.map.toString());
+        }
 
-      return file;
-    }).catch((err: SassError) => {
-      throw err;
-    });
+        return file;
+      })
+      .catch((err: SassError) => {
+        throw err;
+      });
   };
 }

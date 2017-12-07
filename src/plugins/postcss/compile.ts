@@ -48,7 +48,7 @@ export function compile(options: ICustomPostCssOptions) {
     }
 
     return postcss(plugins)
-      .process(file.content, cssOptions as any)
+      .process(file.content as any, cssOptions as any)
       .then((res: any) => {
         res.warnings().forEach((warn: any) => emitter.warning(warn));
         file.content = res.css;

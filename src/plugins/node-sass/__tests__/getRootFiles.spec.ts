@@ -5,26 +5,29 @@ import { assert as t } from "chai";
 
 describe("getRootFiles", () => {
   it("should get root file", () => {
-    let file: IFile = {
+    let file: any = {
       base: ".",
       location: null,
       map: null,
     };
 
     file.location = getFixture("main.scss");
-    t.deepEqual(root(fixturePath, file), [{
-      base: ".",
-      location: file.location,
-      map: null,
-    }]);
+    t.deepEqual(root(fixturePath, file), [
+      {
+        base: ".",
+        location: file.location,
+        map: null,
+      },
+    ]);
 
     file.location = getFixture("components/_a.scss");
-    t.deepEqual(root(fixturePath, file), [{
-      base: ".",
-      location: getFixture("main.scss"),
-      map: null,
-    }]);
-
+    t.deepEqual(root(fixturePath, file), [
+      {
+        base: ".",
+        location: getFixture("main.scss"),
+        map: null,
+      },
+    ]);
   });
 
   it("should get multiple root files", () => {
@@ -34,15 +37,18 @@ describe("getRootFiles", () => {
       map: null,
     };
 
-    t.deepEqual(root(fixturePath, file), [{
-      base: ".",
-      location: getFixture("main.scss"),
-      map: null,
-    }, {
-      base: ".",
-      location: getFixture("main2.scss"),
-      map: null,
-    }]);
+    t.deepEqual(root(fixturePath, file), [
+      {
+        base: ".",
+        location: getFixture("main.scss"),
+        map: null,
+      },
+      {
+        base: ".",
+        location: getFixture("main2.scss"),
+        map: null,
+      },
+    ]);
   });
 
   it("should filter partials", () => {

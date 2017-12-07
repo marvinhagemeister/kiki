@@ -12,7 +12,7 @@ export function replaceExtension(file: string, ext: string) {
 export function filesFromMatch(matches: string[], base: string): IFile[] {
   return matches.map(match => {
     const name = path.basename(match);
-    let relative = path.relative(base, match.replace(name, ""));
+    const relative = path.relative(base, match.replace(name, ""));
 
     return {
       base: relative,

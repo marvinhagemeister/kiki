@@ -16,11 +16,9 @@
   },
   "homepage": "https://github.com/marvinhagemeister/kiki#readme",
   "scripts": {
-    "test":
-      "mocha --compilers ts:ts-node/register 'src/**/__tests__/*.spec.ts' -R dot",
-    "test-watch": "npm run test -s -- -w -R min",
-    "coverage": "nyc npm t",
-    "coverage-open": "nyc npm t && open coverage/index.html",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "coverage": "jest --coverage",
     "clean": "rimraf 'dist/**/*.js' 'dist/**/*.js'",
     "build": "tsc",
     "watch": "tsc -w",
@@ -45,41 +43,25 @@
     "yargs": "^6.5.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.8",
     "@types/chalk": "^0.4.31",
     "@types/chokidar": "^1.4.30",
+    "@types/jest": "^21.1.8",
     "@types/mkdirp": "^0.5.2",
-    "@types/mocha": "^2.2.44",
     "@types/node": "^6.0.52",
     "@types/node-sass": "^3.10.32",
     "@types/rimraf": "^2.0.2",
     "caniuse-db": "^1.0.30000780",
-    "chai": "^3.5.0",
     "cross-spawn": "^5.0.1",
     "husky": "^0.14.3",
+    "jest": "^21.2.1",
     "lint-staged": "^6.0.0",
-    "mocha": "^3.2.0",
-    "nyc": "^10.0.0",
     "prettier": "^1.9.1",
+    "ts-jest": "^21.2.4",
     "ts-node": "^3.3.0",
     "tslint": "^4.0.2",
     "typescript": "^2.1.4"
   },
   "lint-staged": {
     "*.{ts,tsx}": ["prettier --trailing-comma=all --write", "git add"]
-  },
-  "nyc": {
-    "include": ["src/*.ts", "src/**/*.ts"],
-    "exclude": [
-      "typings",
-      "node_modules/",
-      "**/__tests__/**",
-      "__tests__/**",
-      "**/*.d.ts"
-    ],
-    "extension": [".ts"],
-    "require": ["ts-node/register"],
-    "reporter": ["json", "html", "text", "text-summary", "lcovonly"],
-    "all": true
   }
 }

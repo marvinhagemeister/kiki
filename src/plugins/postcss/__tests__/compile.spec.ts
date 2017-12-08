@@ -2,7 +2,6 @@ import { getFixture } from "../../../__tests__/helpers";
 import { IFile } from "../../../io/file";
 import { compile } from "../compile";
 import { ICustomPostCssOptions } from "../index";
-import { assert as t } from "chai";
 import * as fs from "fs";
 
 function getFile(name: string): any {
@@ -27,7 +26,7 @@ describe("compile (postcss)", () => {
     };
 
     return compile(postCssOpts)(file).then((res: IFile) => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content:
           "h1 {\n  display: -webkit-box;\n" +
@@ -51,7 +50,7 @@ describe("compile (postcss)", () => {
     };
 
     return compile(postCssOpts)(files).then((res: IFile) => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content:
           "h1 {\n  display: -webkit-box;\n" +
@@ -75,7 +74,7 @@ describe("compile (postcss)", () => {
     };
 
     return compile(postCssOpts)(files).then((res: IFile) => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content: "h1 {\n  display: flex;\n}\n",
         location: getFixture("postcss.css"),
@@ -92,7 +91,7 @@ describe("compile (postcss)", () => {
     };
 
     return compile(postCssOpts)(files).then((res: any) => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content:
           ".one {\n  background-color: brown;\n}\n\n.two {\n  " +
@@ -111,7 +110,7 @@ describe("compile (postcss)", () => {
     };
 
     return compile(postCssOpts)(files).then((res: IFile) => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content:
           ":root {\n  --main-bg-color: brown;\n}\n\n.one {\n  " +

@@ -1,4 +1,3 @@
-import { assert as t } from "chai";
 import { spawn } from "cross-spawn";
 import * as path from "path";
 
@@ -13,7 +12,7 @@ describe("build task", () => {
     const child = spawn("node", args);
 
     child.on("exit", (code: number, signal: string) => {
-      t.equal(code, 1);
+      expect(code).toEqual(1);
       done();
     });
   });

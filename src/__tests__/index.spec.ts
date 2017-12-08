@@ -1,12 +1,11 @@
 import * as index from "../index";
-import { assert as t } from "chai";
 
 describe("main index", () => {
   it("should have correct exports", () => {
-    t.isFunction(index.getConfig);
-    t.isFunction(index.build);
-    t.isFunction(index.watch);
+    expect(typeof index.getConfig).toEqual("function");
+    expect(typeof index.build).toEqual("function");
+    expect(typeof index.watch).toEqual("function");
 
-    t.equal(Object.keys(index).length, 3);
+    expect(Object.keys(index).length).toEqual(3);
   });
 });

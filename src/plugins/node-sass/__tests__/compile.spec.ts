@@ -1,7 +1,6 @@
 import { getFixture } from "../../../__tests__/helpers";
 import { IFile } from "../../../io/file";
 import { compile } from "../compile";
-import { assert as t } from "chai";
 import * as fs from "fs";
 
 function getFile(name: string): IFile {
@@ -27,10 +26,11 @@ describe("compile (node-sass)", () => {
     };
 
     return compile(options)(file).then(res => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
-        content: "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody"
-        + " {\n  background: red; }\n",
+        content:
+          "p {\n  font-size: 2rem; }\n\nbody {\n  color: blue; }\n\nbody" +
+          " {\n  background: red; }\n",
         location: getFixture("main.css"),
         map: null,
       });
@@ -45,7 +45,7 @@ describe("compile (node-sass)", () => {
     };
 
     return compile(sassOpts)(file).then(res => {
-      t.deepEqual(res, {
+      expect(res).toEqual({
         base: __dirname + "/fixtures",
         content: "h1{display:flex}\n",
         location: getFixture("postcss.css"),

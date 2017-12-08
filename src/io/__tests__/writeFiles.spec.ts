@@ -1,7 +1,6 @@
 /* global describe:true */
 import { IFile } from "../file";
 import { writeFile as write } from "../writeFiles";
-import { assert as t } from "chai";
 import * as fs from "fs";
 import * as path from "path";
 import * as rimraf from "rimraf";
@@ -29,10 +28,10 @@ describe("writeFiles", () => {
       .then(write(dest))
       .then((f: any) => {
         const out = dest + "/hello.txt";
-        t.equal(f.location, out);
+        expect(f.location).toEqual(out);
 
         const content = fs.readFileSync(out, "utf-8");
-        t.equal(content, "Hello World!");
+        expect(content).toEqual("Hello World!");
       });
   });
 
@@ -47,11 +46,11 @@ describe("writeFiles", () => {
     return Promise.resolve(file)
       .then(write(dest))
       .then((f: any) => {
-        t.equal(f.location, dest + "/root/whatever/hello.scss");
+        expect(f.location).toEqual(dest + "/root/whatever/hello.scss");
       });
   });
 
   it.skip("should write files with sourcemaps to disk", () => {
-    t.fail();
+    // TODO
   });
 });

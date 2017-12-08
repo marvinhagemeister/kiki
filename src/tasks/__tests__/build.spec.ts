@@ -1,5 +1,4 @@
 import { build, buildSass } from "../build";
-import { assert as t } from "chai";
 import * as path from "path";
 
 describe("buildSass", () => {
@@ -10,7 +9,7 @@ describe("buildSass", () => {
     };
 
     return buildSass(config, false).then(files => {
-      t.deepEqual(files, []);
+      expect(files).toEqual([]);
     });
   });
 
@@ -21,7 +20,7 @@ describe("buildSass", () => {
     };
 
     return buildSass(config, false).then(files => {
-      t.deepEqual(files, [
+      expect(files).toEqual([
         {
           base: "components",
           content: ".this-is-deep {\n  color: red; }\n",
@@ -72,7 +71,7 @@ describe("buildSass", () => {
     };
 
     buildSass(config, false).catch(err => {
-      t.isTrue(err.message.indexOf("does not exist") > -1);
+      expect(err.message.indexOf("does not exist") > -1).toEqual(true);
       done();
     });
   });
@@ -88,7 +87,7 @@ describe.skip("build", () => {
     };
 
     return build(config).then(files => {
-      t.deepEqual(files, [
+      expect(files).toEqual([
         {
           base: "components",
           content: ".this-is-deep {\n  color: red; }\n",
@@ -141,7 +140,7 @@ describe.skip("build", () => {
     };
 
     return build(config).then(files => {
-      t.deepEqual(files, []);
+      expect(files).toEqual([]);
     });
   });
 

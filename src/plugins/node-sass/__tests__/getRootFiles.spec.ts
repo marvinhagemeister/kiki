@@ -1,7 +1,6 @@
 import { fixturePath, getFixture } from "../../../__tests__/helpers";
 import { IFile } from "../../../io/file";
 import { getRootFiles as root } from "../getRootFiles";
-import { assert as t } from "chai";
 
 describe("getRootFiles", () => {
   it("should get root file", () => {
@@ -12,7 +11,7 @@ describe("getRootFiles", () => {
     };
 
     file.location = getFixture("main.scss");
-    t.deepEqual(root(fixturePath, file), [
+    expect(root(fixturePath, file)).toEqual([
       {
         base: ".",
         location: file.location,
@@ -21,7 +20,7 @@ describe("getRootFiles", () => {
     ]);
 
     file.location = getFixture("components/_a.scss");
-    t.deepEqual(root(fixturePath, file), [
+    expect(root(fixturePath, file)).toEqual([
       {
         base: ".",
         location: getFixture("main.scss"),
@@ -37,7 +36,7 @@ describe("getRootFiles", () => {
       map: null,
     };
 
-    t.deepEqual(root(fixturePath, file), [
+    expect(root(fixturePath, file)).toEqual([
       {
         base: ".",
         location: getFixture("main.scss"),
@@ -58,7 +57,7 @@ describe("getRootFiles", () => {
       map: null,
     };
 
-    t.deepEqual(root(fixturePath, file), []);
+    expect(root(fixturePath, file)).toEqual([]);
   });
 
   it("should set the correct base path", () => {
@@ -68,6 +67,6 @@ describe("getRootFiles", () => {
       map: null,
     };
 
-    t.deepEqual(root(fixturePath, file), []);
+    expect(root(fixturePath, file)).toEqual([]);
   });
 });

@@ -59,9 +59,13 @@
     "ts-jest": "^21.2.4",
     "ts-node": "^3.3.0",
     "tslint": "^4.0.2",
+    "tslint-config-sevenval": "^0.6.4",
     "typescript": "^2.1.4"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["prettier --trailing-comma=all --write", "git add"]
+    "*.{ts,tsx}": [
+      "prettier --trailing-comma=all --write",
+      "git add"
+    ]
   }
 }

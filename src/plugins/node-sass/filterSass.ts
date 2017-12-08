@@ -6,7 +6,7 @@ export function filterSass(files: IFile[], searchPath: string) {
   try {
     fs.lstatSync(searchPath);
   } catch (err) {
-    throw new Error("Sass search path \"" + searchPath + "\" does not exist");
+    throw new Error('Sass search path "' + searchPath + '" does not exist');
   }
 
   const sassFiles = files
@@ -16,9 +16,9 @@ export function filterSass(files: IFile[], searchPath: string) {
   const merged = Array.prototype.concat.apply([], sassFiles);
 
   const lookup: string[] = [];
-  let out: IFile[] = [];
+  const out: IFile[] = [];
 
-  for (let item of merged) {
+  for (const item of merged) {
     const loc = item.location;
 
     if (lookup.indexOf(loc) === -1) {

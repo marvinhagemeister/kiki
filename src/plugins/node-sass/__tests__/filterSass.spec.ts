@@ -9,7 +9,7 @@ describe("filterSass", () => {
   it("should return only root files", () => {
     const fixture = getFixture("main.scss");
 
-    let files: IFile[] = [
+    const files: IFile[] = [
       {
         base: ".",
         location: fixture,

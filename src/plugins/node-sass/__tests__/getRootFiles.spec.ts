@@ -4,7 +4,7 @@ import { getRootFiles as root } from "../getRootFiles";
 
 describe("getRootFiles", () => {
   it("should get root file", () => {
-    let file: any = {
+    const file: any = {
       base: ".",
       location: null,
       map: null,

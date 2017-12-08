@@ -1,13 +1,7 @@
 {
-  "extends": "tslint:latest",
+  "extends": "tslint-config-sevenval",
   "rules": {
-    "ordered-imports": [
-      true,
-      {
-        "import-sources-order": "any",
-        "named-imports-order": "case-insensitive"
-      }
-    ],
-    "arrow-parens": false
+    "max-classes-per-file": false,
+    "no-conditional-assignment": false
   }
 }

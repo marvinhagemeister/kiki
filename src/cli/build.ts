@@ -1,4 +1,4 @@
-import getConfig from "../config/getConfig";
+import getConfig from "../config";
 import { build } from "../tasks/build";
 
 const configPath = process.argv[2];

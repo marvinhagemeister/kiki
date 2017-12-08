@@ -9,6 +9,7 @@ import {
   compile as postcss,
   ICustomPostCssOptions,
 } from "../plugins/postcss/index";
+import { Environment } from "./task";
 
 const postCssOpts: ICustomPostCssOptions = {
   browsers: [
@@ -20,28 +21,22 @@ const postCssOpts: ICustomPostCssOptions = {
   remove: false, // makes autoprefixer 10% faster
 };
 
-export function build(config: IKikiSassConfig, isProduction: boolean) {
-  if (config.cssnext !== undefined) {
-    postCssOpts.cssnext = config.cssnext;
+export function build(env: Environment, files: IFile[]) {
+  const config = env.options as any;
+
+  files = filterSass(files, config.src);
+
+  if (files.length === 0) {
+    env.logger.noFilesOrOnlyPartials();
+    return Promise.resolve([]);
   }
 
-  if (config.addVendorPrefixes !== undefined) {
-    postCssOpts.addVendorPrefixes = config.addVendorPrefixes;
-  }
-
-  return (files: IFile[]) => {
-    files = filterSass(files, config.src);
-
-    return Promise.all(
-      files.map(file => {
-        return Promise.resolve(file)
-          .then(sass({ dest: config.dest, production: isProduction }))
-          .then(postcss(postCssOpts))
-          .then(x => writeFile(config.dest, x))
-          .catch((err: Error) => {
-            throw err;
-          });
-      }),
-    );
-  };
+  return Promise.all(
+    files.map(file => {
+      return Promise.resolve(file)
+        .then(sass({ dest: config.dest, production: true }))
+        .then(postcss(postCssOpts))
+        .then(x => writeFile(config.dest, x));
+    }),
+  );
 }

@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logger should change 1`] = `
+"foo: /foo
+"
+`;
+
+exports[`Logger should invalidJson 1`] = `
+"Invalid JSON in /foo
+  > nope
+
+"
+`;
+
+exports[`Logger should noFilesOrOnlyPartials 1`] = `
+"
+Only partials found. Partials must be imported by a root file to be included in compilations.
+
+"
+`;
+
+exports[`Logger should nothing to do 1`] = `
+"
+Nothing to to do!
+
+"
+`;
+
+exports[`Logger should start 1`] = `
+"
+=> compiling foo from: /my/path
+
+"
+`;
+
+exports[`Logger should success 1`] = `
+"  foo
+"
+`;
+
+exports[`Logger should taskDone 1`] = `
+"
+  time: 123ms
+
+  log
+
+"
+`;
+
+exports[`Logger should time 1`] = `
+"  /foo 123ms
+"
+`;
+
+exports[`Logger should warning 1`] = `
+"undefined
+undefined
+
+"
+`;
+
+exports[`Logger should watch 1`] = `
+"=> watching: /foo, /my/path
+
+"
+`;

@@ -1,6 +1,5 @@
-import { IKikiConfig } from "../config/getConfig";
-import * as emitter from "../emitter";
-import { IFile } from "../io/file";
+import { IKikiConfig } from "../config";
+import emitter from "../logger";
 import { filesFromMatch } from "../utils";
 import { build as sass } from "./sass";
 import * as chokidar from "chokidar";
@@ -14,10 +13,6 @@ export function watch(config: IKikiConfig, isProduction: boolean) {
   const watchPaths: string[] = [];
   if (config.sass && config.sass.src) {
     watchPaths.push(config.sass.src);
-  }
-
-  if (config.js && config.js.entry) {
-    watchPaths.push(config.js.entry);
   }
 
   emitter.watch(watchPaths);

@@ -1,27 +1,12 @@
 import { IFile } from "../../io/file";
-import { replaceExtension } from "../../utils";
-import { Options, render, Result, SassError } from "node-sass";
+import { replaceExtension } from "nicer-fs";
+import * as ns from "node-sass";
 import * as path from "path";
+import { promisify } from "util";
 
-const sass = (opts: ISassOptions) => {
-  // Basic minifying because cssnone breaks css even in safe mode
-  // TODO: investigate in a better css minifier
-  if (opts.production) {
-    opts.outputStyle = "compressed";
-  }
+export const sass = promisify(ns.render.bind(ns));
 
-  return new Promise((res, rej) => {
-    render(opts, (err, result) => {
-      if (err) {
-        rej(err);
-      }
-
-      res(result);
-    });
-  });
-};
-
-interface ISassOptions extends Options {
+interface ISassOptions extends ns.Options {
   dest?: string;
   production: boolean;
 }
@@ -58,7 +43,7 @@ export function compile(opts: ISassOptions) {
 
         return file;
       })
-      .catch((err: SassError) => {
+      .catch((err: ns.SassError) => {
         throw err;
       });
   };

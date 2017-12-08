@@ -1,4 +1,4 @@
-import * as Emitter from "../emitter";
+import Emitter from "../logger";
 import { IFile } from "./file";
 import { writeFile as write } from "nicer-fs";
 import * as path from "path";

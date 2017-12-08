@@ -1,38 +1,22 @@
-import { IKikiConfig } from "../config/getConfig";
-import * as emitter from "../emitter";
-import { IFile } from "../io/file";
-import { IKikiSassConfig } from "../plugins/node-sass/index";
+import emitter from "../logger";
 import { build as sass } from "./sass";
-import task from "./task";
+import findFiles, { measure, Environment } from "./task";
 import * as path from "path";
 
-// Sass
-export function buildSass(config: IKikiSassConfig, isProduction: boolean) {
-  const base = path.resolve(config.src);
+export async function build(env: Environment) {
+  const base = path.resolve(env.options.sass!.src);
   const globPath = base + "/**/*.scss";
 
-  return task(globPath, base, "sass")
-    .then(sass(config, isProduction))
-    .catch((err: Error) => {
-      throw err;
-    });
-}
+  // TODO: Set compressed output
+  const files = await findFiles(env, globPath, base, "sass");
 
-export function build(config: IKikiConfig) {
-  const start = new Date().getTime();
+  const { result, duration } = await measure(() =>
+    Promise.all(sass(env, files) as any),
+  );
 
-  const promises = buildSass(config.sass as any, config.production as any);
-  return Promise.all(promises as any)
-    .then((items: any[]) => {
-      if (items.length > 0) {
-        const time = new Date().getTime() - start;
-        emitter.taskDone(items, time);
-      }
+  if (result.length > 0) {
+    emitter.taskDone(result as any[], duration);
+  }
 
-      return items;
-    })
-    .catch((err: Error) => {
-      emitter.error(err);
-      process.exit(1);
-    });
+  return result;
 }

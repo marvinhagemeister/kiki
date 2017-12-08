@@ -1,4 +1,4 @@
-import * as emitter from "../../emitter";
+import emitter from "../../logger";
 import { IFile } from "../../io/file";
 import * as autoprefixer from "autoprefixer";
 import * as path from "path";

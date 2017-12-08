@@ -8,6 +8,7 @@ jsconfig.json
 kiki.config.json
 *.log
 rollup.config.js
+jest.config.js
 tsconfig.json
 tslint.json
 typings.json
@@ -18,3 +19,4 @@ coverage/
 __tests__/
 tmp/
 .travis.yml
+.prettierrc

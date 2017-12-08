@@ -37,7 +37,7 @@ export function build(config: IKikiSassConfig, isProduction: boolean) {
         return Promise.resolve(file)
           .then(sass({ dest: config.dest, production: isProduction }))
           .then(postcss(postCssOpts))
-          .then(writeFile(config.dest))
+          .then(x => writeFile(config.dest, x))
           .catch((err: Error) => {
             throw err;
           });

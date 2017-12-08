@@ -16,38 +16,32 @@ describe("writeFiles", () => {
     rimraf(dest, done);
   });
 
-  it("should write IFile[] to disk", () => {
-    let file: IFile = {
+  it("should write IFile[] to disk", async () => {
+    const file: IFile = {
       base: "",
       content: "Hello World!",
       location: "whatever/hello.txt",
       map: null,
     };
 
-    return Promise.resolve(file)
-      .then(write(dest))
-      .then((f: any) => {
-        const out = dest + "/hello.txt";
-        expect(f.location).toEqual(out);
+    const res = await write(dest, file);
+    const out = dest + "/hello.txt";
+    expect(res.location).toEqual(out);
 
-        const content = fs.readFileSync(out, "utf-8");
-        expect(content).toEqual("Hello World!");
-      });
+    const content = fs.readFileSync(out, "utf-8");
+    expect(content).toEqual("Hello World!");
   });
 
-  it("should keep subfolder structure when writing files", () => {
-    let file: IFile = {
+  it("should keep subfolder structure when writing files", async () => {
+    const file: IFile = {
       base: "/root/whatever",
       content: "Hello World!",
       location: "/root/whatever/hello.scss",
       map: null,
     };
 
-    return Promise.resolve(file)
-      .then(write(dest))
-      .then((f: any) => {
-        expect(f.location).toEqual(dest + "/root/whatever/hello.scss");
-      });
+    const f = await write(dest, file);
+    expect(f.location).toEqual(dest + "/root/whatever/hello.scss");
   });
 
   it.skip("should write files with sourcemaps to disk", () => {

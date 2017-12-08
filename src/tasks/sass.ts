@@ -21,11 +21,11 @@ const postCssOpts: ICustomPostCssOptions = {
 };
 
 export function build(config: IKikiSassConfig, isProduction: boolean) {
-  if (typeof config.cssnext !== "undefined") {
+  if (config.cssnext !== undefined) {
     postCssOpts.cssnext = config.cssnext;
   }
 
-  if (typeof config.addVendorPrefixes !== "undefined") {
+  if (config.addVendorPrefixes !== undefined) {
     postCssOpts.addVendorPrefixes = config.addVendorPrefixes;
   }
 

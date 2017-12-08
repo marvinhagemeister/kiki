@@ -57,7 +57,7 @@ export function error(err: SassError | Error | string) {
   } else {
     if (err.message.indexOf("search path") > -1) {
       console.error(chalk.red(err.message));
-    } else if (typeof (err as any).formatted !== "undefined") {
+    } else if ((err as any).formatted !== undefined) {
       console.error(chalk.red((err as any).formatted));
     } else {
       console.error(chalk.red(err.stack || ""));

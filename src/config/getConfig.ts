@@ -1,6 +1,6 @@
 import * as emitter from "../emitter";
-import { resolveApp } from "../utils";
-import { validate } from "./validate";
+import { resolveApp } from "../utils";
+import { validate } from "./validate";
 
 export interface IKikiConfig {
   production?: boolean;
@@ -17,10 +17,10 @@ export interface IKikiConfig {
 }
 
 export default function getConfig(configPath?: string) {
-  const path = typeof configPath !== "undefined"
-    && configPath !== "undefined"
-    ? resolveApp(configPath)
-    : resolveApp("kiki.config.json");
+  const path =
+    configPath !== undefined
+      ? resolveApp(configPath)
+      : resolveApp("kiki.config.json");
 
   try {
     const config = require(path);

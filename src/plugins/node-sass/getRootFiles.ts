@@ -9,7 +9,7 @@ export function getRootFiles(searchPath: string, modified: IFile): IFile[] {
 
   const node = graph.index[path.resolve(location)];
   let files: string[] =
-    typeof node !== "undefined" && node.importedBy.length > 0
+    node !== undefined && node.importedBy.length > 0
       ? node.importedBy
       : [location];
 

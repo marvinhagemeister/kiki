@@ -1,12 +1,11 @@
 import * as chokidar from "chokidar";
 import Resolver from "../Resolver";
-import { FSWatcher } from "chokidar";
 import Graph from "../Graph";
 import { Asset } from "../Asset";
 import { Logger } from "./Logger";
 
 export default class Watcher {
-  private instance: FSWatcher;
+  private instance: chokidar.FSWatcher;
 
   constructor(
     private watcher: typeof chokidar = chokidar,

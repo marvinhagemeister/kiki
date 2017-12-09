@@ -1,4 +1,4 @@
-import { Asset } from "./Asset";
+import { Asset } from "../Asset";
 
 const URL_RE = /url\s*\(\"?(?![a-z]+:)/;
 const IMPORT_RE = /@import/;
@@ -7,6 +7,7 @@ const IMPORT_PARSE_RE = /\@import ([.\s\S]+?);?$/g;
 const DEP_REG = /["'](.+?)["']/g;
 
 export default class CssAsset extends Asset<any> {
+  type = "css";
   mightHaveDependencies() {
     return IMPORT_RE.test(this.contents) || URL_RE.test(this.contents);
   }

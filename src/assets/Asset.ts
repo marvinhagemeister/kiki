@@ -5,9 +5,10 @@ export type SerializedAsset = Record<string, string>;
 export interface BaseAsset<T> {
   type: string;
   id: number;
-  parents: string[];
+  parents: Asset[];
   ast?: T;
   contents?: string;
+  includedInParent: boolean;
   getDependencies(): Promise<Asset[]>;
   mightHaveDependencies(): boolean;
   collectDependencies(): Asset[];
@@ -23,8 +24,9 @@ let ASSET_ID = 0;
 
 export class Asset<T = any> implements BaseAsset<T> {
   type = "unknown";
-  parents = [];
+  parents: Asset[] = [];
   id = ASSET_ID++;
+  includedInParent = false;
   ast?: T;
   contents?: string;
 

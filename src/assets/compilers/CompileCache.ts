@@ -22,6 +22,12 @@ export default class CompileCache {
       return true;
     }
 
-    return hash === md5(asset.contents);
+    const next = md5(asset.contents);
+    if (hash !== next) {
+      this.cache.set(asset, next);
+      return true;
+    }
+
+    return false;
   }
 }

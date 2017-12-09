@@ -1,12 +1,12 @@
 import * as path from "path";
 import { Asset } from "./Asset";
-import { Compiler } from "./compilers/BaseCompiler";
+import { BaseCompiler } from "./compilers/Compiler";
 
 export default class Resolver {
-  private mapping = new Map<string, Compiler>();
+  private mapping = new Map<string, BaseCompiler>();
 
   /** Register an asset class by extension */
-  register(extension: string, compiler: Compiler) {
+  register(extension: string, compiler: BaseCompiler) {
     this.mapping.set(extension, compiler);
   }
 
@@ -15,8 +15,9 @@ export default class Resolver {
   }
 
   /** Return registered asset class by file type. Defaults to `Asset` */
-  getAssetCtor(extension: string) {
-    const compiler = this.mapping.get(extension);
+  getAssetCtor(file: string) {
+    const ext = path.extname(file);
+    const compiler = this.mapping.get(ext);
     return compiler !== undefined ? compiler.AssetConstructor : Asset;
   }
 }

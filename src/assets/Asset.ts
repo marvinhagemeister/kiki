@@ -9,13 +9,14 @@ export interface BaseAsset<T> {
   ast?: T;
   contents?: string;
   includedInParent: boolean;
-  getDependencies(): Promise<Asset[]>;
+  dynamic: boolean;
+  getDependencies(): Promise<string[]>;
   mightHaveDependencies(): boolean;
-  collectDependencies(): Asset[];
+  collectDependencies(): string[];
   loadIfNeeded(): Promise<string>;
   load(): Promise<string>;
-  parseIfNeeded(): Promise<T>;
-  parse(): Promise<T>;
+  parseIfNeeded(): T;
+  parse(): T;
   generate(): SerializedAsset;
   invalidate(): this;
 }
@@ -27,16 +28,17 @@ export class Asset<T = any> implements BaseAsset<T> {
   parents: Asset[] = [];
   id = ASSET_ID++;
   includedInParent = false;
+  dynamic = false;
   ast?: T;
   contents?: string;
 
   constructor(public name: string) {}
 
-  async getDependencies(): Promise<Asset[]> {
+  async getDependencies(): Promise<string[]> {
     await this.loadIfNeeded();
 
     if (this.mightHaveDependencies()) {
-      await this.parseIfNeeded();
+      this.parseIfNeeded();
       return this.collectDependencies();
     }
 
@@ -47,7 +49,7 @@ export class Asset<T = any> implements BaseAsset<T> {
     return true;
   }
 
-  collectDependencies(): Asset[] {
+  collectDependencies(): string[] {
     return [];
   }
 
@@ -63,15 +65,15 @@ export class Asset<T = any> implements BaseAsset<T> {
     return readFile(this.name);
   }
 
-  async parseIfNeeded() {
+  parseIfNeeded() {
     if (this.ast === undefined) {
-      this.ast = await this.parse();
+      this.ast = this.parse();
     }
 
     return this.ast;
   }
 
-  async parse(): Promise<T> {
+  parse(): T {
     return undefined;
   }
 

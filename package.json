@@ -37,7 +37,7 @@
     "cross-spawn": "^5.0.1",
     "nicer-fs": "^0.2.0",
     "node-sass": "^4.0.0",
-    "postcss": "^5.2.6",
+    "postcss": "^6.0.14",
     "postcss-cssnext": "^2.9.0",
     "rimraf": "^2.5.4",
     "sass-graph": "2.1.2",

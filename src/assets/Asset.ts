@@ -15,9 +15,8 @@ export interface BaseAsset<T> {
   load(): Promise<string>;
   parseIfNeeded(): Promise<T>;
   parse(): Promise<T>;
-  transform(): Promise<void>;
-  generateHash(): string;
   generate(): SerializedAsset;
+  invalidate(): this;
 }
 
 let ASSET_ID = 0;
@@ -74,21 +73,18 @@ export class Asset<T = any> implements BaseAsset<T> {
     return undefined;
   }
 
-  async transform() {}
-
-  generateHash() {
-    return "1234";
-  }
-
   generate() {
     return {
       [this.type]: this.contents,
     };
   }
 
+  invalidate() {
+    return this;
+  }
+
   async process() {
     await this.loadIfNeeded();
     await this.getDependencies();
-    await this.transform();
   }
 }

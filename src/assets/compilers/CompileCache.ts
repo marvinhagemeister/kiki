@@ -1,5 +1,12 @@
-import md5 from "md5";
+import crypto from "crypto";
 import { Asset } from "../Asset";
+
+export function md5(data: string) {
+  return crypto
+    .createHash("md5")
+    .update(data)
+    .digest("hex");
+}
 
 export default class CompileCache {
   private cache = new WeakMap<Asset, string>();

@@ -15,7 +15,7 @@ export default class Resolver {
   }
 
   /** Return registered asset class by file type. Defaults to `Asset` */
-  getAssetCtor(file: string) {
+  getAssetCtor(file: string): typeof Asset {
     const ext = path.extname(file);
     const compiler = this.mapping.get(ext);
     return compiler !== undefined ? compiler.AssetConstructor : Asset;
